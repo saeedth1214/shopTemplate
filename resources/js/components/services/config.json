@@ -1,0 +1,34 @@
+{
+    "TOKEN_API": {
+        "headers": {
+            "Authorization": "`Bearer ${getCookie('access_toke')`"
+            }
+        },
+        "BASE_URL": "http://solishop.test:8080/",
+        "BASE_IMG_PATH": "http://solishop.test:8080/storage/",
+        "BASE_DEFAULT_IMG_PATH": "http://solishop.test:8080/storage/noimage.png",
+        "ADD_DAY": 86400,
+        "ADD_WEEK": 604800,
+        "TYPE_OF_ATTRIBUTES": [
+            {
+                "integer": "عدد صحیح"
+            },
+            {
+                "float": "عدد اعشاری"
+            },
+            {
+                "tinytext": "متن کوچک"
+            },
+            {
+                "bigtext": "متن بزرگ"
+            }
+        ],
+        "TYPE_OF_IMAGE": [
+            {
+                "product_image": "تصویر عادی"
+            },
+            {
+                "slider_image": "اسلاید صفحه نخست"
+            }
+        ]
+    }
