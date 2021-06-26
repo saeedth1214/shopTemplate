@@ -15,6 +15,8 @@ const MainItem = () => {
         dispatch(getRandomProducts());
 
     }, []);
+
+
     return (
         <Fragment>
             <Filter />

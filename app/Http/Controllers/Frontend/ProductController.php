@@ -22,6 +22,7 @@ class ProductController extends Controller
     private $reviewRepo = null;
     private $replyRepo = null;
 
+    private const DEFULT_IMAGE_FOLDER="storage/images/";
     public function __construct()
     {
         $this->productRepo = resolve(ProductRepositories::class);
@@ -81,7 +82,7 @@ class ProductController extends Controller
         $urls = $product->slideImages();
         if (sizeof($urls)) {
             foreach ($urls as $value) {
-                if (!empty($value->url) && (file_exists(public_path("storage/" . $value->url)) && is_readable(public_path("storage/" . $value->url)))) {
+                if (!empty($value->url) && (file_exists(public_path(self::DEFULT_IMAGE_FOLDER . $value->url)) && is_readable(public_path( self::DEFULT_IMAGE_FOLDER . $value->url)))) {
                     $existsUrls[] =  $value->url;
                 }
             }
@@ -99,7 +100,7 @@ class ProductController extends Controller
         foreach ($products as $product) {
             $newData = ["id" => $product->id, "title" => $product->title,"price" => $product->price, "brand_id" => $product->brand_id];
             $url = $product->productImage();
-            if (!is_null($url) && (file_exists(public_path("storage/" . $url->url))&&is_readable(public_path("storage/" . $url->url)))) {
+            if (!is_null($url) && (file_exists(public_path( self::DEFULT_IMAGE_FOLDER. $url->url))&&is_readable(public_path( self::DEFULT_IMAGE_FOLDER. $url->url)))) {
                 $newData['url'] = $url->url;
             }
             $productData[]=$newData;

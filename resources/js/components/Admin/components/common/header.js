@@ -2,10 +2,12 @@ import React, { Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import { hasCookie } from '../../../services/cookieServise';
-import  LoadingBar  from 'react-redux-loading-bar';
-
-
+import LoadingBar from 'react-redux-loading-bar';
+import { useSelector } from "react-redux";
 const Header = () => {
+
+    const auth = useSelector(state => state.auth);
+
     return (
         <Fragment>
             <header id="header" className=" rtl">
@@ -17,7 +19,8 @@ const Header = () => {
                         <li className="nav-list_categories">
                             <ul className="nav-list_categories_items">
                                 {
-                                    hasCookie('accessToken') ?
+
+                                    auth ?
                                         <Fragment>
                                             <li className="item">
                                                 <Link to="/user/profile">پروفایل</Link>

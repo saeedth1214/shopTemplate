@@ -1687,12 +1687,17 @@ input[type=checkbox]{
 .be-comments-reply{
     height: auto;
     padding: 5px;
+    width: 95%;
+    margin: 8px auto;
 
 }
 .be-comments-reply p{
 
     font-size: 14px;
     padding: 5px;
+}
+.reply-date{
+    text-align: left
 }
 .show-reply{
     height: 100px;

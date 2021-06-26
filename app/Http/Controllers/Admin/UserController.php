@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\User;
 use App\Repositories\userRepositories;
+use App\Responses\ResponsesFacade;
 
 class UserController extends Controller
 {
@@ -18,30 +19,38 @@ class UserController extends Controller
 
     public function index()
     {
-        $users =$this->userRepo->total();
-        return response($users, 200);
+        try {
+            $users = $this->userRepo->total();
+            return ResponsesFacade::success($users);
+
+            // return response($users, 200);
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
+        }
     }
     public function create()
     {
-        // return response(request()->all());
-        $email= $this->userRepo->searchMail(request()->email);
-        if ($email) {
-            return response(['msg' => "این ایمیل قبلا استفاده شده است"], 202);
-        }
-        $user_data = [
-            'fullname' => request()->userName,
-            'email' =>request()->email,
-            'password' => request()->password,
-            'role' => request()->has("role")?request()->role:"user",
-            "avatar"=> request()->avatar ?? ""
-        ];
+        try {
+            $email = $this->userRepo->searchMail(request()->email);
+            if ($email) {
+                return ResponsesFacade::emailAlreadyCreated();
+            }
+            $user_data = [
+                'fullname' => request()->userName,
+                'email' => request()->email,
+                'password' => request()->password,
+                'role' => request()->has("role") ? request()->role : "user",
+                "avatar" => request()->avatar ?? ""
+            ];
+            $user = $this->userRepo->create($user_data);
 
-        $user=$this->userRepo->create($user_data);
-        // return response($user,201);
-        if ($user instanceof User) {
-            return response(["msg" => "یک کاربر با موفقیت ثبت کردید",'data'=>$user], 201);
+            if ($user instanceof User) {
+                return ResponsesFacade::success(["msg" => "یک کاربر با موفقیت ثبت کردید", 'data' => $user], 201);
+            }
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();           
         }
-        return response(["msg" => "مشکلی از سمت سرور به وجود امده است"], 500);
+
     }
 
 
@@ -57,31 +66,40 @@ class UserController extends Controller
         $user = $this->userRepo->find(request()->id);
         $user = $user->update($data);
         if ($user) {
-
-        return response(null,204);
+            return response(null, 204);
         }
         return response(["msg"=>"مشکلی سمت سرور به وجود آمده است"], 500);
-
     }
 
     public function remove(int $id)
     {
-        $user = $this->userRepo->find($id);
-        $res = $user->delete();
-        if ($res) {
-            return response(["msg"=>"یک مورد با موفقیت حذف شد"], 201);
+
+        try {
+            $user = $this->userRepo->find($id);
+            $res = $user->delete();
+            if ($res) {
+                return ResponsesFacade::success(["msg" => "یک کاربر با موفقیت حذف شد"], 202);
+            }
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();                        
         }
-        return response(["msg" => "مشکلی سمت سرور به وجود آمد"], 500);
+
+        
     }
 
     public function changeRole()
     {
-        // return response(request('role'));
-        $res=$this->userRepo->changeRole(request()->role, request()->id);
-        
-        if ($res) {
-            return response(null, 204);
+        try {
+            $res = $this->userRepo->changeRole(request()->role, request()->id);
+
+            if ($res) {
+                return ResponsesFacade::success(null, 204);
+            }
+
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();                        
         }
-        return response(["msg" => "مشکلی سمت سرور به وجود امده است"], 500);
+
+      
     }
 }

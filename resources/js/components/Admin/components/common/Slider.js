@@ -6,6 +6,7 @@ const Slider = () => {
     const { product } = useContext(SingleProContext);
 
     const images = ('urls' in product) ? product.urls : null;
+    var slides = [];
 
     useEffect(() => {
         const slider = document.querySelector(".imageSlider");
@@ -16,13 +17,13 @@ const Slider = () => {
         } else {
             images.map(item => {
                 const imgTag = document.createElement("img");
+                imgTag.classList.add('imgClass');
                 imgTag.src = config.BASE_IMG_PATH + item;
                 slider.append(imgTag);
             });
         }
-    }, []);
-    var slides = document.getElementsByTagName('img');
-
+         slides = document.querySelectorAll(".imgClass");
+    });
     var n = 0;
     const no_Style = () => {
 
@@ -50,6 +51,14 @@ const Slider = () => {
         n++;
         slides[n].style.display = "block";
     }
+
+    const createPrevNext =()=>(
+
+         <Fragment>
+              <div className="previuse"><span onClick={ previuseImage } className="carousel-control-prev-icon" aria-hidden="true"></span></div>
+                <div className="next"><span onClick={ nextImage } className="carousel-control-next-icon" aria-hidden="true"></span></div>
+         </Fragment>
+    )
     return (
         <Fragment>
             <div className="imageSlider">
@@ -58,9 +67,14 @@ const Slider = () => {
             </div>
             <div className="pre-next">
 
-                <div className="previuse"><span onClick={ previuseImage } className="carousel-control-prev-icon" aria-hidden="true"></span></div>
-                <div className="next"><span onClick={ nextImage } className="carousel-control-next-icon" aria-hidden="true"></span></div>
 
+{
+    !isNull(images)  
+    ?
+           createPrevNext()
+:null
+}
+    
             </div>
 
         </Fragment>

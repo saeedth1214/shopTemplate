@@ -22,7 +22,8 @@ class dashbordRepository extends BaseRepository
 
     public static function orderUpdate($count, $totalPrice)
     {
-        $res=dashbord::query()->updateOrCreate([
+    
+        $res=dashbord::query()->update([
             'orders_count' =>  DB::raw("orders_count +$count"),
             'total_sales' => DB::raw("total_sales +$totalPrice"),
         ]);
@@ -30,6 +31,6 @@ class dashbordRepository extends BaseRepository
 
     public function productCountUpdate()
     {
-        DB::table('dashbord')->increment('products_count');
+       dashbord::query()->increment('products_count');
     }
 }

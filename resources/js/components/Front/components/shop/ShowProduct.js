@@ -7,6 +7,7 @@ const ShowProduct = ({ products, filter }) => {
 
     const filterProducts = filter.length > 0 ? filter : products;
 
+
     return (
         <Fragment>
             <div className="col-md-10">
