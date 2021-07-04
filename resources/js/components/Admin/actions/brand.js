@@ -9,8 +9,6 @@ export const getBrands = catId => {
             const { data, status } = await getAllBrandServise(catId);
             if (status === 200) {
                 dispatch({ type: "GET_BRANDS", payload: data });
-
-                // console.log(data,"brands");
             }
         } catch (error) {
 
@@ -24,8 +22,22 @@ export const getBrands = catId => {
 export const getCategoryBrands = cid => {
     return async dispatch => {
 
-        const { data } = await getCategoryBrandServise(cid);
-        dispatch({ type: "GET_BRANDS", payload: data });
+        try {
+            if (cid !== 0) {
+                const { data, status } = await getCategoryBrandServise(cid);
+                if (status === 200) {
+                    dispatch({ type: "GET_BRANDS", payload: data });
+                }
+            } else {
+                dispatch({ type: "GET_BRANDS", payload: [] });
+            }
+
+        } catch (error) {
+
+            console.log(error.response);
+        }
+
+
     }
 }
 
@@ -39,7 +51,14 @@ export const createBrand = brand => {
                 return;
             }
 
-            const { data, status } = await createBrandServise(brand);
+            if (brand.brandSlug.length === 0 || brand.brandTitle.length === 0) {
+                warrningNoti("لطفا مقادیر معتبری را وارد کنید");
+                return;
+            }
+
+            const response = await createBrandServise(brand);
+
+            console.log(response);
 
             if (status === 201) {
                 const brands = [...getState().brands];

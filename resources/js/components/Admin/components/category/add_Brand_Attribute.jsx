@@ -3,13 +3,15 @@ import { useDispatch } from "react-redux";
 import { createAttribute } from '../../actions/attributes';
 import { createBrand } from '../../actions/brand';
 import config from "../../../services/config";
+
+
 const Add_Brand_Attribute = ({ categories }) => {
 
     const dispatch = useDispatch();
 
     // set attributes
-    const [slug, setSlug] = useState("");
-    const [title, setTitle] = useState("");
+    const [attributeSlug, setAttributeSlug] = useState("");
+    const [atributeTitle, setAttributeTitle] = useState("");
 
     // set brand
     const [brandSlug, setBrandSlug] = useState("");
@@ -20,20 +22,32 @@ const Add_Brand_Attribute = ({ categories }) => {
 
     const handleSubmitBrands = e => {
 
+
         e.preventDefault();
-        const brand = { catBrand, brandSlug, brandTitle };
+        let newTitle = removeSpace(brandTitle);
+        let newSlug = removeSpace(brandSlug);
+        const brand = { catBrand, brandSlug: newSlug, brandTitle: newTitle };
+
 
         dispatch(createBrand(brand));
+
+        setSlug("");
+        setTitle("");
     }
     const handleSubmitAttributes = e => {
 
         e.preventDefault();
-
-
-        const attribute = { slug, title, type };
+        let newTitle = removeSpace(atributeTitle);
+        let newSlug = removeSpace(attributeSlug);
+        const attribute = { slug: newSlug, title: newTitle, type };
 
         dispatch(createAttribute(attribute));
 
+    }
+
+
+    const removeSpace = element => {
+        return element.replace(/^\s+|\s+$/gm, '');
     }
     // console.log("from brand attribute", config.TYPE_OF_ATTRBUTES);
     return (
@@ -60,11 +74,11 @@ const Add_Brand_Attribute = ({ categories }) => {
                             <form onSubmit={ handleSubmitAttributes }>
                                 <label className="text-dark font-weight-medium">نامک</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="مثلا:color" required onChange={ e => { setSlug(e.target.value) } } />
+                                    <input type="text" className="form-control" placeholder="مثلا:color" required onChange={ e => { setAttributeSlug(e.target.value) } } />
                                 </div>
                                 <label className="text-dark font-weight-medium">عنوان</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="مثلا:رنگ" required onChange={ e => { setTitle(e.target.value) } } />
+                                    <input type="text" className="form-control" placeholder="مثلا:رنگ" required onChange={ e => { setAttributeTitle(e.target.value) } } />
                                 </div>
                                 <label className="text-dark font-weight-medium">نوع</label>
                                 <div className="input-group">
@@ -73,8 +87,8 @@ const Add_Brand_Attribute = ({ categories }) => {
                                         {
 
                                             config.TYPE_OF_ATTRIBUTES.map(item => {
-                                                for (const [key,value] of Object.entries(item)) { 
-                                                return < option key={ key } value={ key }>{ value}</option>
+                                                for (const [key, value] of Object.entries(item)) {
+                                                    return < option key={ key } value={ key }>{ value }</option>
 
                                                 }
                                             })

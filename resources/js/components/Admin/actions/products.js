@@ -102,12 +102,13 @@ export const getProductsByCategory = cid => {
     return async dispatch => {
 
         try {
-            dispatch(showLoading("categoryFilter"));
-            const { data, status } = await get_Products_By_category_Service(cid);
-            if (status === 200) {
-                dispatch({ type: "GET_PRODUCTS", payload: data });
-                dispatch(hideLoading("categoryFilter"));
-
+            if (cid !== 0) {
+                dispatch(showLoading("categoryFilter"));
+                const { data, status } = await get_Products_By_category_Service(cid);
+                if (status === 200) {
+                    dispatch({ type: "GET_PRODUCTS", payload: data });
+                    dispatch(hideLoading("categoryFilter"));
+                }
             }
         } catch (error) {
 

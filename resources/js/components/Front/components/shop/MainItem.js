@@ -19,7 +19,7 @@ const MainItem = () => {
 
     return (
         <Fragment>
-            <Filter />
+            {/* <Filter /> */}
             <ShowProduct products={ products } filter={ filterProducts } />
         </Fragment>
     );
