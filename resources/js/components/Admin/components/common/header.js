@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
-import { hasCookie } from '../../../services/cookieServise';
 import LoadingBar from 'react-redux-loading-bar';
 import { useSelector } from "react-redux";
 const Header = () => {
 
     const auth = useSelector(state => state.auth);
 
+    console.log(auth,"ssss");
     return (
         <Fragment>
             <header id="header" className=" rtl">

@@ -102,10 +102,7 @@ export const userLoginFront = (login) => {
 
         try {
             const { data, status } = await userLoginFrontend(login);
-
-
             if (status === 200) {
-
                 const date = new Date();
                 date.setTime(date.getTime() + (24 * 3600 * 1000));
                 const options = { path: "/", expires: date };

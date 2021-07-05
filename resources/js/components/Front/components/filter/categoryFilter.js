@@ -11,6 +11,8 @@ const Categoryfilter = () => {
         dispatch(getAllcategories());
     }, []);
 
+
+    console.log("category filter");
     const handleChangeCategory = e => {
 
         e.preventDefault();

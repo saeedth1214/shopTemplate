@@ -6,6 +6,12 @@ $adminNs="App\Http\Controllers\Admin";
 
 Route::group(["namespace" => $frontNs], function () {
 
+
+    // filter products
+    Route::get("front/filterProducts/newest", "ProductController@filterByNewest");
+    Route::get("front/filterProducts/popular", "ProductController@filterByPopular");
+    Route::get("front/filterProducts/bestSeller", "ProductController@filterBybestSeller");
+
 //    // home page
     // Route::get("/shopPage", "HomeController@index");
     Route::get("front/categories", "CategoryController@index");
@@ -26,7 +32,7 @@ Route::group(["namespace" => $frontNs], function () {
 //
     //review
     Route::get("front/comments/{pid}", "ReviewController@getProductComment");
-    Route::get( "front/userProfile/comments", "ReviewController@getUserProfileComment")->middleware("Authorize:api");
+    Route::get("front/userProfile/comments", "ReviewController@getUserProfileComment")->middleware("Authorize:api");
     Route::post("front/review/create", "ReviewController@create")->middleware("Authorize:api");
     Route::get("front/getReview/{reviewId}", "ReviewController@getReviews");
 

@@ -1,4 +1,4 @@
-import { getProducts, get_Random_Products, get_Products_By_category_Service, updateProductServises, getProduct } from "../../services/productService";
+import { getProducts, get_Random_Products, get_Products_By_category_Service, updateProductServises, getProduct, get_newest_Products, get_popular_Products, get_bestSeller_Products } from "../../services/productService";
 import { removeProductById, createProductByData } from "../../services/productService";
 import { errorNoti, successNoti, warrningNoti } from "../../utility/messageNotifcation";
 import { convertToNumberFormat } from "../../utility/getNumberFormat";
@@ -284,6 +284,69 @@ export const updateAttributeValue = attrVal => {
             console.log(error.response);
         }
 
+
+    }
+}
+
+
+
+export const filterNewestProduct = () => {
+
+    return async dispatch => {
+        try {
+            dispatch(showLoading());
+            const response = await get_newest_Products();
+            if (response.status === 200) {
+                // console.log(response);
+
+                dispatch({ type: 'GET_PRODUCTS', payload: response.data });
+            }
+            dispatch(hideLoading());
+        } catch (error) {
+
+            console.log(error.response);
+        }
+
+    }
+}
+
+export const filterPopularProduct = () => {
+
+    return async dispatch => {
+        try {
+            dispatch(showLoading());
+            const response = await get_popular_Products();
+            // console.log(response);
+            // return;
+            if (response.status === 200) {
+                dispatch({ type: 'GET_PRODUCTS', payload: response.data });
+            }
+            dispatch(hideLoading());
+        } catch (error) {
+
+            console.log(error.response);
+        }
+
+    }
+}
+export const filterBestSellerProduct = () => {
+
+    return async dispatch => {
+        try {
+            console.log("ssss");
+
+            dispatch(showLoading());
+            const response = await get_bestSeller_Products();
+            // console.log(response);
+            // return;
+            if (response.status === 200) {
+                dispatch({ type: 'GET_PRODUCTS', payload: response.data });
+            }
+            dispatch(hideLoading());
+        } catch (error) {
+
+            console.log(error.response);
+        }
 
     }
 }

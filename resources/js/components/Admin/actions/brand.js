@@ -36,8 +36,6 @@ export const getCategoryBrands = cid => {
 
             console.log(error.response);
         }
-
-
     }
 }
 
