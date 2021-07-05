@@ -23,6 +23,10 @@ export const createAttribute = attribute => {
     return async (dispatch, getState) => {
 
         try {
+            if (attribute.slug.length === 0 || attribute.title.length === 0) {
+                warrningNoti("لطفا مقادیر معتبری را وارد کنید");
+                return;
+            }
         const { data ,status} = await createAttributeData(attribute);
 
         // console.log(data,status);

@@ -11,6 +11,7 @@ Route::View("/user/profile", "Front.home.index")->name('profile');
 Route::View("/user/card", "Front.home.index")->name('card');
 
 Route::view("/admin/home", "Admin.home.index")->middleware(["Authorize:api",'isAdmin']);
+Route::view("/admin/users", "Admin.home.index")->middleware(["Authorize:api",'isAdmin']);
 Route::View("/admin/category", "Admin.home.index")->middleware(['Authorize:api', 'isAdmin']);
 Route::View("/admin/product", "Admin.home.index")->middleware(['Authorize:api', 'isAdmin']);
 Route::View("/admin/media", "Admin.home.index")->middleware(['Authorize:api', 'isAdmin']);

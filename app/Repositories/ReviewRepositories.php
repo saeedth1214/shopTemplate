@@ -36,7 +36,6 @@ class ReviewRepositories extends BaseRepository
                 'reviews.created_at as date',
             )->get();
         foreach ($comment as $key => $value) {
-
             $replys = reply::query()->where('message_id', $value['rid'])->select("reply-message.message_id", "reply-message.reply", "reply-message.created_at as date")->get()->toArray();
             $comment[$key]['reply'] = $replys;
         }
@@ -58,7 +57,8 @@ class ReviewRepositories extends BaseRepository
     public function changeState($id)
     {
         $comment = $this->model::findOrFail($id);
-        $comment->status =!$comment->status ;
+        // $bool=$comment->status;
+        $comment->status =true;
         $comment->save();
     }
 
@@ -70,7 +70,6 @@ class ReviewRepositories extends BaseRepository
         ->get()->toArray();
  
         foreach ($comment as $key => $value) {
-            
             $replys=reply::query()->where('message_id', $value['rid'])->select("reply-message.message_id", "reply-message.reply", "reply-message.created_at as date")->get()->toArray();
             $comment[$key]['reply']=$replys;
         }

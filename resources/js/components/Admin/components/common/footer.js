@@ -2,28 +2,14 @@ import React, { Fragment } from 'react';
 const Footer = (props) => {
     return (
         <Fragment>
-            <section id="footer">
-
-                <footer className="container">
-                    <div className="row">
-                        <div className="col-md-3">
-
-                            contact us
-                        </div>
-                        <div className="col-md-3">
-
-                            contact us
-                        </div><div className="col-md-3">
-
-                            contact us
-                        </div><div className="col-md-3">
-
-                            contact us
-                        </div>
-                    </div>
-                </footer>
-
-            </section>
+            <footer id="footer">
+                <div className="row">
+                    <ul>
+                        <li>Created By : Saeed Soltani</li>
+                        <li> In April 2020</li>
+                    </ul>
+                </div>
+            </footer>
         </Fragment>
     )
 }

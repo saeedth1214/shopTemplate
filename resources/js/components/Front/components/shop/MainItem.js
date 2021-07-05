@@ -15,9 +15,11 @@ const MainItem = () => {
         dispatch(getRandomProducts());
 
     }, []);
+
+
     return (
         <Fragment>
-            <Filter />
+            {/* <Filter /> */}
             <ShowProduct products={ products } filter={ filterProducts } />
         </Fragment>
     );

@@ -19,30 +19,38 @@ class ReviewController extends Controller
 
     public function index()
     {
-        $reviews= $this->revRepo->getAllComments();
-        return response($reviews);
+        try {
+            $reviews = $this->revRepo->getAllComments();
+    
+            return ResponsesFacade::success($reviews);
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
+        }
     }
+
     public function remove($id)
     {
-        if (ctype_digit($id)) {
-            $res = $this->revRepo->remove($id);
-            if ($res) {
-                return response(["msg"=>"یک نظر با موفقیت حذف شد"], 201);
+        try {
+            if (ctype_digit($id)) {
+                $res = $this->revRepo->remove($id);
+                if ($res) {
+                    return ResponsesFacade::success(["msg" => "یک نظر با موفقیت حذف شد"], 202);
+                }
             }
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
         }
     }
 
 
-
-    public function showAll()
-    {
-        $comments = $this->revRepo->getAllComments()->paginate();
-        return view("admin.commetns.comment-list", ['results' => $comments]);
-    }
     public function changeStatus($id)
     {
-        $this->revRepo->changeState($id);
-        return response(['msg'=>'تغییرات باموفقیت انجام شد'], 201);
+        try {
+            $this->revRepo->changeState($id);
+            return ResponsesFacade::success(["msg" => "تغییرات باموفقیت انجام شد"], 202);
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
+        }
     }
 
 
@@ -59,7 +67,7 @@ class ReviewController extends Controller
                 return ResponsesFacade::success(['msg'=>"ثبت پاسخ با موفقیت انجام شد"]);
             }
         } catch (\Throwable $th) {
-            return ResponsesFacade::faild();            
+            return ResponsesFacade::faild();
         }
     }
 }

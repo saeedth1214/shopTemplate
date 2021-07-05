@@ -7,14 +7,14 @@ const ShowProduct = ({ products, filter }) => {
 
     const filterProducts = filter.length > 0 ? filter : products;
 
+
     return (
         <Fragment>
-            <div className="col-md-10">
+    
                 <div className="row">
-
                     {
                         filterProducts.length > 0 ? filterProducts.map(product => (
-                            <div className="col-md-3 col-sm" key={ product.id }>
+                            <div className="col-lg-3 col-md-4 col-sm-6  col-xs-4 " key={ product.id }>
                                 <div className="product">
                                     <div className="card">
                                         <Link to={ `/product/${product.id}` } >
@@ -32,8 +32,7 @@ const ShowProduct = ({ products, filter }) => {
                             : null
                     }
                 </div>
-            </div>
-
+    
         </Fragment>
     );
 }

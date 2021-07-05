@@ -35,7 +35,7 @@ const BrandFilter = () => {
                                 {
                                     brands.length > 0 ? brands.map(brand => (
                                         <li key={ brand.id }>
-                                            <label className="brand-filter-item" data-en={ brand.slug } >{ brand.title }</label>
+                                            <label className="brand-filter-item">{ brand.title }</label>
                                             <label className="brand-filter-checkBox">
                                                 <input type="checkbox" name={ brand.title } className="input-checkbox" value={ brand.id } onClick={ e => changeBrands(e) } />
                                                 <span className="checkbox-checked "><i className="fa fa-check no_active" id={ `brand-param-${brand.id}` } name="brand[]"></i> </span>

@@ -75,7 +75,7 @@ const Reviews = () => {
                                             <div className="be-comments-reply">
                                                 <span>ادمین</span>
                                                 <p>{ reply.reply }</p>
-                                                <p>{ reply.date }</p>
+                                                <p className="reply-date">{ reply.date }</p>
                                             </div>
                                         ))
                                             : null

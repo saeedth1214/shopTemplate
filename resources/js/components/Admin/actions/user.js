@@ -2,7 +2,7 @@ import { removeUserById, createUserByData, RegisterUserServise, changeUserRoleSe
 import { errorNoti, successNoti, warrningNoti } from "../../utility/messageNotifcation";
 import { setCookie, removeCookie } from "../../services/cookieServise";
 
-import { browserHistory } from 'react-router';
+import { Redirect } from 'react-router-dom';
 export const createUser = user => {
 
     return async (dispatch, getState) => {
@@ -115,7 +115,7 @@ export const userLoginFront = (login) => {
                 dispatch({ type: "LOGIN", payload: true });
             }
         } catch (error) {
-            errorNoti(error.response.data.msg);
+            // errorNoti(error.response.data.msg);
 
             if (error.response.status === 401) {
                 errorNoti(error.response.data.msg);
@@ -136,6 +136,7 @@ export const userLogoutFront = () => {
                 removeCookie(['user', 'accessToken']);
                 successNoti(data.msg);
                 dispatch({ type: "LOGIN", payload: false });
+                
                
             }
         }

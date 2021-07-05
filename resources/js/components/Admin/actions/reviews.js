@@ -6,11 +6,15 @@ export const getAllReviews = () => {
 
     return async dispatch => {
 
-        const { data } = await getReviews();
-        console.log(data);
+        try {
+            const { data, status } = await getReviews();
+            if (status === 200) {
+                dispatch({ type: "GET_REVIEWS", payload: data });
+            }
+        } catch (error) {
 
-        return dispatch({ type: "GET_REVIEWS", payload: data });
-
+            console.log(error.response);
+        }
     }
 }
 
@@ -48,17 +52,36 @@ export const CreateReview = review => {
 export const RemoveReview = reviewId => {
 
     return async (dispatch, getState) => {
+        try {
+            const response = await RemoveReviewById(reviewId);
+            console.log(response);
+            if (status === 202) {
+                const reviews = [...getState().reviews];
+                const filterReview = reviews.filter(item => item.id !== reviewId);
+                dispatch({ type: "REMOVE_REVIEW", payload: filterReview });
+                successNoti(data.msg);
+            }
 
-        await RemoveReviewById(reviewId);
-        const reviews = [...getState().reviews];
-        const filterReview = reviews.filter(item => item.id !== reviewId);
-        await dispatch({ type: "REMOVE_REVIEW", payload: filterReview });
+        } catch (error) {
+
+            console.log(error.response);
+        }
+
     }
 }
 
 export const changeStatusReview = (reviewId) => {
     return async dispatch => {
-        await changeStatusReviewService(reviewId);
+        try {
+            const { status, data } = await changeStatusReviewService(reviewId);
+            if (status === 202) {
+                successNoti(data.msg);
+            }
+        } catch (error) {
+            console.log(error.response);
+
+        }
+
     }
 }
 
@@ -83,19 +106,15 @@ export const createReplyMessageAction = reply => {
                 warrningNoti("لطفا مقدار معتبری را وارد کنید");
                 return;
             }
-            const {status,data} = await createReplyMessageService(reply);
+            const { status, data } = await createReplyMessageService(reply);
 
             if (status === 200) {
-                
+
                 successNoti(data.msg);
             }
             console.log(response);
         } catch (error) {
             console.log(error);
         }
-
-
-
-
     }
 }
