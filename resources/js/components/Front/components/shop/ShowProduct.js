@@ -22,8 +22,19 @@ const ShowProduct = ({ products, filter }) => {
                                         </Link>
                                         <div className="card-body">
                                             <h5 className="card-title">{ product.title }</h5>
-
                                             <p className="card-text"><small className="text-muted">{ product.price } تومان</small></p>
+                                            { 
+                                                product['orderCount'] !== undefined 
+                                                ?
+                                                    <p className="card-text"><small>تعداد سفارش</small><small className="text-muted mr-2 text-black">{ product.orderCount }</small></p>
+                                                    :null
+                                            }
+                                            {
+                                                product['totalSells'] !== undefined
+                                                    ?
+                                                    <p className="card-text "><small>تعداد فروش</small><small className="text-muted mr-2 text-black">{ product.totalSells } </small></p>
+                                                    : null
+                                            }
                                         </div>
                                     </div>
                                 </div>

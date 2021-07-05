@@ -27,7 +27,17 @@ export const get_Random_Products = () => {
     return http.get(`${config.BASE_URL}api/front/randomProduct`);
 
 }
+export const get_newest_Products = () => {
+    return http.get(`${config.BASE_URL}api/front/filterProducts/newest`);
+}
+export const get_popular_Products = () => {
+    return http.get(`${config.BASE_URL}api/front/filterProducts/popular`);
 
+}
+export const get_bestSeller_Products = () => {
+    return http.get(`${config.BASE_URL}api/front/filterProducts/bestSeller`);
+
+}
 export const get_Products_By_category_Service = cid => {
     return http.get(`${config.BASE_URL}api/front/productsBycategory/${cid}`);
 

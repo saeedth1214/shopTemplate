@@ -68,7 +68,6 @@ class OrderRepository extends BaseRepository
         foreach ($orders as $key => $value) {
             $res=$this->model::query()->create($value);
         }
-
         return $res;
     }
 }

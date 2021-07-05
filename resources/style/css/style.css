@@ -257,6 +257,10 @@ a:hover{
 }
 
 
+.card-text{
+        margin-bottom: 1.2rem;
+    font-size: 1rem
+}
 .AddtoCard{
 
     position: absolute;
@@ -1097,7 +1101,10 @@ font-size: 1.5em;
     border: none
 }
 
-
+.activeLink{
+    border-bottom:2px solid red;
+    padding: 2px;
+}
 
 
 @media screen and (max-width:1200px){
