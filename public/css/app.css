@@ -850,6 +850,10 @@ label,input{
     font-size:0.8rem !important; 
 }
 
+span {
+    color:#000;
+
+}
 a{
    
     color: #060e35 !important;
@@ -1094,6 +1098,10 @@ a:hover{
 }
 
 
+.card-text{
+        margin-bottom: 1.2rem;
+    font-size: 1rem
+}
 .AddtoCard{
 
     position: absolute;
@@ -1379,13 +1387,19 @@ align-items: center;
 }
 
 #footer{
-
-    widows: 100%;
-    height: 200px;
-    background: #eee;
+    height: auto;
+    background: #434d69;
     padding: 15px;
 }
 
+#footer ul{
+    width: 50%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    margin: 0 auto;
+    color: white
+}
 .selectRole,.selectStatus,.selectType{
         font-size: 0.8em;
     padding: 5px;
@@ -1443,7 +1457,7 @@ align-items: center;
 
 
 
-.search-input{
+/* .search-input{
     font-size: .8rem;
     line-height: 2;
     color: #555;
@@ -1456,14 +1470,14 @@ align-items: center;
     border-radius: 8px;
     
 
-}
+} */
 
 .brand-search,.product-search{
     position: relative;
     display: flex;
     align-items: center
 }
-.brand-filter-item::before{
+/* .brand-filter-item::before{
 
     content: attr(data-en);
     color: #a6a6a6;
@@ -1475,23 +1489,23 @@ align-items: center;
     direction: ltr;
     padding-right: 25px;
 
-}
+} */
 .brand-items ul {
 
     padding: 5px;
+    flex-direction: column
 }
 
-.brand-items > ul li {
+.brand-items  ul li {
 
     display: flex;
     position: relative;
+    flex-basis: 30%;
 }
 
 .brand-filter-item{
     direction: rtl;
     width: 100%;
-    display: inline-flex;
-    flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
     padding: 5px 25px 5px 2px;
@@ -1687,12 +1701,17 @@ input[type=checkbox]{
 .be-comments-reply{
     height: auto;
     padding: 5px;
+    width: 95%;
+    margin: 8px auto;
 
 }
 .be-comments-reply p{
 
     font-size: 14px;
     padding: 5px;
+}
+.reply-date{
+    text-align: left
 }
 .show-reply{
     height: 100px;
@@ -1864,6 +1883,95 @@ input[type=checkbox]{
     padding: 8px;
     box-shadow: 1px 4px 6px 0px rgb(0, 0,0 ,0.8);
 }
+
+.filter-group{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    background: #fbfbfb;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px 3px rgb(0 0 0 / 60%);
+    margin:25px
+}
+.filter-group ul{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: baseline;
+}
+
+.filter-group > ul li{
+
+    flex-basis: 30%
+}
+
+.other-filter{
+        font-size: 1em;
+    color: black;
+    margin-left: 8px;
+    cursor: pointer
+}
+.search-input i{
+font-size: 1.5em;
+    color: #000;
+    cursor: pointer
+
+}
+
+.search-input i:hover{
+
+    transform: rotate(-170deg);
+    transition: all 0.5s ease-in-out
+
+}
+
+.search-input input{
+    /* display: none; */
+    margin-right: 5px;
+    width: 75%;
+    padding: 5px;
+    vertical-align: bottom;
+    border: none;
+    border-radius: 5px
+}
+.search-input input::-moz-placeholder{
+    font-size: 12px;
+}
+.search-input input:-ms-input-placeholder{
+    font-size: 12px;
+}
+.search-input input::placeholder{
+    font-size: 12px;
+}
+
+#select{
+    width: 60%;
+    margin: 5px;
+    border: none
+}
+
+.activeLink{
+    border-bottom:2px solid red;
+    padding: 2px;
+}
+
+
+@media screen and (max-width:1200px){
+
+    .filter-group > ul {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* 
+@media screen and (max-width:800px){
+
+    .filter-group > ul {
+        flex-direction: column;
+        align-items: stretch;
+    }
+} */
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors

@@ -12,6 +12,7 @@ use App\Repositories\AttributeRepositories;
 use App\Models\product;
 use App\Models\category;
 use App\Responses\ResponsesFacade;
+use App\Repositories\OrderRepository;
 
 class ProductController extends Controller
 {
@@ -21,6 +22,8 @@ class ProductController extends Controller
     private $mediaRepo = null;
     private $reviewRepo = null;
     private $replyRepo = null;
+    private const DEFULT_IMAGE_FOLDER="storage/images/";
+
 
     public function __construct()
     {
@@ -32,6 +35,7 @@ class ProductController extends Controller
         $this->replyRepo = resolve(replyRepositories::class);
     }
 
+    // show product in shop page(first page)
     public function randomProduct()
     {
         try {
@@ -44,6 +48,7 @@ class ProductController extends Controller
     }
 
 
+    // get product from filter by category
     public function getProductByCategory()
     {
         try {
@@ -60,6 +65,7 @@ class ProductController extends Controller
         }
     }
 
+    // when i show informations product
     public function getSingleProduct()
     {
         try {
@@ -74,6 +80,8 @@ class ProductController extends Controller
         }
     }
 
+
+    // get slider type image to product
     private function getSliderImage($product)
     {
         $newData =[];
@@ -81,7 +89,7 @@ class ProductController extends Controller
         $urls = $product->slideImages();
         if (sizeof($urls)) {
             foreach ($urls as $value) {
-                if (!empty($value->url) && (file_exists(public_path("storage/" . $value->url)) && is_readable(public_path("storage/" . $value->url)))) {
+                if (!empty($value->url) && (file_exists(public_path(self::DEFULT_IMAGE_FOLDER . $value->url)) && is_readable(public_path(self::DEFULT_IMAGE_FOLDER . $value->url)))) {
                     $existsUrls[] =  $value->url;
                 }
             }
@@ -92,21 +100,58 @@ class ProductController extends Controller
         return $newData;
     }
 
+    // get normal type image to product in landing page
     private function getProductImage($products)
     {
         $productData = [];
         $newData = [];
         foreach ($products as $product) {
-            $newData = ["id" => $product->id, "title" => $product->title,"price" => $product->price, "brand_id" => $product->brand_id];
+            $newData = ["id" => $product->id, "title" => $product->title,"price" => $product->price, "brand_id" => $product->brand_id ];
+            !isset($product['orderCount']) ?:$newData['orderCount']= $product->orderCount;
+            !isset($product['totalSells']) ?:$newData['totalSells']= $product->totalSells;
             $url = $product->productImage();
-            if (!is_null($url) && (file_exists(public_path("storage/" . $url->url))&&is_readable(public_path("storage/" . $url->url)))) {
+            if (!is_null($url) && (file_exists(public_path(self::DEFULT_IMAGE_FOLDER. $url->url))&&is_readable(public_path(self::DEFULT_IMAGE_FOLDER. $url->url)))) {
                 $newData['url'] = $url->url;
             }
             $productData[]=$newData;
         }
-        // dd($productData);
         return $productData;
     }
+
+
+    public function filterByNewest()
+    {
+        try {
+            $products = $this->productRepo->getNewestProduct();
+            $newData = $this->getProductImage($products);
+            return ResponsesFacade::success($newData);
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
+        }
+    }
+    public function filterByPopular()
+    {
+        try {
+            $popularPro=$this->productRepo->getPopularProduct();
+            $newData = $this->getProductImage($popularPro);
+            return ResponsesFacade::success($newData);
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
+        }
+    }
+    public function filterBybestSeller()
+    {
+        try {
+            $products = $this->productRepo->getBestSellerProduct();
+            $newData = $this->getProductImage($products);
+            return ResponsesFacade::success($newData);
+        } catch (\Throwable $th) {
+            return $th;
+            return ResponsesFacade::faild();
+        }
+    }
+    
+
     public function searchPro(string $cpname)
     {
 //        dd($cpId);

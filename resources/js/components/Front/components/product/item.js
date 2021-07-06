@@ -6,7 +6,7 @@ import { addItem } from '../../actions/card';
 import { ToastContainer } from "react-toastify";
 import _ from "lodash";
 import SingleProContext from '../../context/singlePro';
-import  LoadingBar  from 'react-redux-loading-bar';
+
 
 const Item = () => {
 
@@ -18,6 +18,8 @@ const Item = () => {
     const handleAddItemToCard = () => {
         let image = ('urls' in product) ? product.urls : null
         const item = { product, image, quantity };
+
+        console.log(item);
         dispatch(addItem(item));
     }
 

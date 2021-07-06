@@ -80,12 +80,12 @@ const Login = () => {
                                                                 <span className="checkbox-checked "><i className="fa fa-check no_active" id="login-checkbox"></i> </span>
                                                             </label>
                                                         </div>
-                                                        <div className="d-inline-block mr-3">
+                                                        {/* <div className="d-inline-block mr-3">
                                                             <label className="control control-checkbox">
                                                                 <Link to="">رمزعبور را فراموش کرده ام</Link>
                                                             </label>
 
-                                                        </div>
+                                                        </div> */}
 
                                                     </div>
                                                     <button type="submit" className="btn btn-lg btn-primary btn-block mb-4">ورود</button>

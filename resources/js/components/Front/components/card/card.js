@@ -10,9 +10,10 @@ const Card = () => {
 
     const card = useSelector(state => state.card);
     const dispacth = useDispatch();
+
     useEffect(() => {
         dispacth(getItems())
-    }, []);
+    },[]);
 
 
     const increaseCount = index => {
@@ -68,7 +69,7 @@ const Card = () => {
 
                                     <li className="card_Item">
                                         <div className="itemDescription">
-                                            <img className="cardItemImage" src={item.image !== null ? `${config.BASE_IMG_PATH}${item.image}` : `${config.BASE_DEFAULT_IMG_PATH}` } style={ { width: "100px", height: "100px" } } />
+                                            <img className="cardItemImage" src={item.image !== null ? `${config.BASE_IMG_PATH}${item.image[0]}` : `${config.BASE_DEFAULT_IMG_PATH}` } style={ { width: "100px", height: "100px" } } />
                                             <div className="itemDetails">
                                                 <p className="cardItemTitle">{ item.product.title }</p>
                                                 <p className="cardItemTotalPrice"> { getSingleProductPrice(item) } تومان  </p>

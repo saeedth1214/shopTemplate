@@ -17,8 +17,12 @@ class BrandController extends Controller
 
     public function getBrand()
     {
-        $brands=$this->brandRepo->getcategoryBrands(request('catId'));
-        return response($brands);
+        try {
+            $brands = $this->brandRepo->getcategoryBrands(request('catId'));
+            return ResponsesFacade::succss($brands);
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
+        }
     }
 
     public function create()
@@ -35,6 +39,8 @@ class BrandController extends Controller
                 return ResponsesFacade::success(['data' => $brand, 'msg' => "یک برند با موفقیت ثبت شد"], 201);
             }
         } catch (\Throwable $th) {
+            // return response()->json(['msg' => $th->getMessage()]);
+            // return response()->json($th->getMessage());
             return ResponsesFacade::faild();
         }
     }

@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Models\attribute_value;
 use App\Models\product;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepositories extends BaseRepository
 {
@@ -91,5 +92,28 @@ class ProductRepositories extends BaseRepository
     public function total_price($id, $count)
     {
         return ($this->getprice($id) * $count);
+    }
+
+    public function getNewestProduct()
+    {
+        return $this->model::query()->orderBy('created_at',"desc")->limit(30)->get();
+    }
+    public function getPopularProduct()
+    {
+        return $this->model::query()
+            ->join('orders', 'products.id', 'orders.product_id')
+            ->select(DB::raw( 'count(orders.product_id) as orderCount,products.id,products.title,products.brand_id,products.price'))
+            ->groupBy("product_id")
+            ->orderBy('orderCount', 'desc')
+            ->limit(10)->get();
+    }
+    public function getBestSellerProduct()
+    { 
+        return $this->model::query()
+            ->join('orders', 'products.id', 'orders.product_id')
+            ->select(DB::raw( 'SUM(orders.total_items) as totalSells,products.id,products.title,products.brand_id,products.price'))
+            ->groupBy("product_id")
+            ->orderBy('totalSells', 'desc')
+            ->limit(10)->get();
     }
 }

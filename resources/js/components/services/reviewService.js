@@ -12,12 +12,12 @@ export const createReviewData = review => {
 }
 
 export const RemoveReviewById = reviewId => {
-    return http.delete(`${config.BASE_URL}api/admin/review/delete/${reviewId}`, config.TokenApi);
+    return http.delete(`${config.BASE_URL}api/admin/review/delete/${reviewId}`);
 }
 
 
 export const changeStatusReviewService = reviewId => {
-    return http.put(`${config.BASE_URL}api/admin/review/changeStatus/${reviewId}`, config.TokenApi);
+    return http.put(`${config.BASE_URL}api/admin/review/changeStatus/${reviewId}`);
 }
 
 

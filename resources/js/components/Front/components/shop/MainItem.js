@@ -9,15 +9,13 @@ const MainItem = () => {
     let products = useSelector(state => state.products);
     const dispatch = useDispatch();
     const filterProducts = useSelector(state => state.filterProducts);
-
-
     useEffect(() => {
         dispatch(getRandomProducts());
 
     }, []);
     return (
         <Fragment>
-            <Filter />
+            {/* <Filter /> */ }
             <ShowProduct products={ products } filter={ filterProducts } />
         </Fragment>
     );
