@@ -17,23 +17,32 @@ class DashboardController extends Controller
         try {
             $this->dashboardRepo = Resolve(dashbordRepository::class);
             $dashInfo = $this->dashboardRepo->dashboardInfo();
+            return ResponsesFacade::success($dashInfo);
         } catch (\Throwable $th) {
             return ResponsesFacade::faild();
-        }   
-        return ResponsesFacade::success($dashInfo);
+        }
     }
 
     public function newOrders()
     {
-        $this->orderRepo = Resolve(OrderRepository::class);
-        $newOrders = $this->orderRepo->newOrdersData();
-        return ResponsesFacade::success($newOrders);
+        try {
+            $this->orderRepo = Resolve(OrderRepository::class);
+            $newOrders = $this->orderRepo->newOrdersData();
+            return ResponsesFacade::success($newOrders);
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
+        }
     }
 
-    public function bestSeller()
+    public function monthlySales()
     {
-        $this->orderRepo = Resolve(OrderRepository::class);
-        $bestSeller = $this->orderRepo->bestSeller();
-        return ResponsesFacade::success($bestSeller);
+        try {
+            $this->orderRepo = Resolve(OrderRepository::class);
+            $monthlySales = $this->orderRepo->monthlySales();
+            return ResponsesFacade::success($monthlySales);
+        } catch (\Throwable $th) {
+            return response()->json($th->getFile());
+            return ResponsesFacade::faild();
+        }
     }
 }
