@@ -1,19 +1,37 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from "react-router-dom";
 import config from "../../../services/config";
 import _ from "lodash";
-
+import { paginate } from '../../../utility/paginate';
+import Paginate from "../../../services/pagination";
+import { useDispatch} from "react-redux";
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
 const ShowProduct = ({ products, filter }) => {
 
     const filterProducts = filter.length > 0 ? filter : products;
 
+    const [perPage] = useState(2);
+    const [currentPage, setCurrentPage] = useState(1);
 
+    const archiveProducts = paginate(filterProducts, currentPage, perPage);
+
+    const handlePageChange = (page,pageCount) => {
+        
+        // dispatch(showLoading())
+
+        (page >= 1 && page <= pageCount)
+            ?
+            setCurrentPage(page) :
+            null;
+        // dispatch(hideLoading())
+        
+    }
     return (
         <Fragment>
     
                 <div className="row">
                     {
-                        filterProducts.length > 0 ? filterProducts.map(product => (
+                        archiveProducts.length > 0 ? archiveProducts.map(product => (
                             <div className="col-lg-3 col-md-4 col-sm-6  col-xs-4 " key={ product.id }>
                                 <div className="product">
                                     <div className="card">
@@ -43,7 +61,8 @@ const ShowProduct = ({ products, filter }) => {
                             : null
                     }
                 </div>
-    
+            <Paginate totalItem={ filterProducts.length } perPage={ perPage } currentPage={ currentPage } onPageChange={ handlePageChange } />
+     
         </Fragment>
     );
 }

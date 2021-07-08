@@ -14,10 +14,8 @@ const Shop = () => {
                 <div className="container">
                     <Filter />
                     <MainItem />
-                    <Paginate />
                 </div>
                 <Footer />
-
             </section>
         </Fragment >
     )

@@ -13,10 +13,13 @@ const MainItem = () => {
         dispatch(getRandomProducts());
 
     }, []);
+    
     return (
         <Fragment>
             {/* <Filter /> */ }
             <ShowProduct products={ products } filter={ filterProducts } />
+        
+
         </Fragment>
     );
 }

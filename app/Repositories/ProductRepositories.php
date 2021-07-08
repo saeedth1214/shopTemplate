@@ -61,12 +61,12 @@ class ProductRepositories extends BaseRepository
 
     public function random()
     {
-        $min=$this->model::orderBy("id", "asc")->value("id");
-        $max=$this->model::orderBy("id", "desc")->value("id");
+        // $min=$this->model::orderBy("id", "asc")->value("id");
+        // $max=$this->model::orderBy("id", "desc")->value("id");
         // return [$min,$max];
 
-        $number=random_int($min, $max);
-        $products=$this->model::inRandomOrder()->take($number)->get(["id","title","price","brand_id"]);
+        // $number=random_int($min, $max);
+        $products=$this->model::inRandomOrder()->take(30)->get(["id","title","price","brand_id"]);
         return $products;
     }
 
