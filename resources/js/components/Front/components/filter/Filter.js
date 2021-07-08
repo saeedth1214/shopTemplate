@@ -1,13 +1,24 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useDispatch } from "react-redux";
-import Categoryfilter from './categoryFilter';
-import { filterNewestProduct, filterPopularProduct, filterBestSellerProduct } from '../../../Admin/actions/products';
-import { Parser } from 'webpack';
+import { filterByProName,filterNewestProduct, filterPopularProduct, filterBestSellerProduct } from '../../../Admin/actions/products';
+
 
 const Filter = () => {
 
+    const [searchInput, setSearchInput] = useState("");
     const dispatch = useDispatch();
 
+
+    const handleChangeInput = value => {
+        setSearchInput(value);
+
+    }
+
+    const handleSubmitSearchInput = () => {
+
+        dispatch(filterByProName(searchInput));
+
+    }
     const filterByNewest = element => {
         changeStyle(element);
 
@@ -56,8 +67,8 @@ const Filter = () => {
                             </ul>
                         </li>
                         <li className="search-input">
-                            <i className="fa fa-search"></i>
-                            <input type="text" placeholder="لطفا نام یک محصول را وارد کنید" />
+                            <i className="fa fa-search" onClick={ () => handleSubmitSearchInput() }></i>
+                            <input type="text" value={ searchInput } placeholder="لطفا نام یک محصول را وارد کنید" onChange={ e => handleChangeInput(e.target.value) } />
                         </li>
                     </ul>
 

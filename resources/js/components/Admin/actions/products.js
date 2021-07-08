@@ -6,6 +6,7 @@ import { get_Attribute_value_servise, update_Attribute_value_servise, get_Attrib
 import _ from "lodash";
 import { getComments } from "../../services/commentService";
 import { showLoading, hideLoading } from "react-redux-loading-bar";
+
 export const getSingleProduct = (pid) => {
     return async dispatch => {
 
@@ -348,5 +349,15 @@ export const filterBestSellerProduct = () => {
             console.log(error.response);
         }
 
+    }
+}
+
+export const filterByProName = value => {
+    return async (dispatch, getState) => {
+        const products = [...getState().products];
+        const filterProducts = products.filter(item => {
+            return item.title.toLowerCase().includes(value.toLowerCase()) && item;
+        });
+        dispatch({ type: "FILTER_PRODUCTS", payload: filterProducts });
     }
 }

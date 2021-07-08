@@ -4,13 +4,12 @@ import config from "../../../services/config";
 import _ from "lodash";
 import { paginate } from '../../../utility/paginate';
 import Paginate from "../../../services/pagination";
-import { useDispatch} from "react-redux";
-import { showLoading, hideLoading } from 'react-redux-loading-bar';
+
 const ShowProduct = ({ products, filter }) => {
 
     const filterProducts = filter.length > 0 ? filter : products;
 
-    const [perPage] = useState(2);
+    const [perPage] = useState(6);
     const [currentPage, setCurrentPage] = useState(1);
 
     const archiveProducts = paginate(filterProducts, currentPage, perPage);
