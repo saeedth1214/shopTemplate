@@ -2,7 +2,7 @@ import { removeUserById, createUserByData, RegisterUserServise, changeUserRoleSe
 import { errorNoti, successNoti, warrningNoti } from "../../utility/messageNotifcation";
 import { setCookie, removeCookie } from "../../services/cookieServise";
 
-import { Redirect } from 'react-router-dom';
+
 export const createUser = user => {
 
     return async (dispatch, getState) => {

@@ -22,9 +22,12 @@ const Reviews = () => {
 
     const archiveReviews = paginate(reviews, currentPage, perPage);
 
-    const handlePageChange = page => {
+    const handlePageChange = (page,pageCount) => {
 
-        setCurrentPage(page);
+        (page >= 1 && page <= pageCount)
+            ?
+            setCurrentPage(page) :
+            null;
     }
 
     useEffect(() => {

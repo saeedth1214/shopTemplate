@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { filterByProName,filterNewestProduct, filterPopularProduct, filterBestSellerProduct } from '../../../Admin/actions/products';
+import Categoryfilter from './categoryFilter';
 
 
 const Filter = () => {
@@ -57,7 +58,7 @@ const Filter = () => {
                             <span>
                                 دسته بندی :
                     </span>
-                            {/* <Categoryfilter /> */ }
+                            <Categoryfilter/>
                         </li>
                         <li>
                             <ul className="other-filter">

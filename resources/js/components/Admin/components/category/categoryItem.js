@@ -19,9 +19,12 @@ const CategoryItem = () => {
     const categoryData = paginate(categories, currentPage, perPage);
 
 
-    const handlePageChange = page => {
+    const handlePageChange = (page,pageCount) => {
 
-        setCurrentPage(page);
+        (page >= 1 && page <= pageCount)
+            ?
+            setCurrentPage(page) :
+            null;
     }
 
 

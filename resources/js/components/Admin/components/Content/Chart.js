@@ -37,7 +37,8 @@ const Chart = () => {
 
     }, []);
     const setChartData = () => {
-
+        data.labels = [];
+        data.datasets[0].data = [];
         sales.map(item => {
             data.labels.push(item.created_at);
             data.datasets[0].data.push(item.totalAmounts);

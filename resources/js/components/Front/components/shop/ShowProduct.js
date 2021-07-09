@@ -15,15 +15,11 @@ const ShowProduct = ({ products, filter }) => {
     const archiveProducts = paginate(filterProducts, currentPage, perPage);
 
     const handlePageChange = (page,pageCount) => {
-        
-        // dispatch(showLoading())
-
+    
         (page >= 1 && page <= pageCount)
             ?
             setCurrentPage(page) :
             null;
-        // dispatch(hideLoading())
-        
     }
     return (
         <Fragment>
