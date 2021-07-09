@@ -86,9 +86,7 @@ export const getRandomProducts = () => {
             if (status === 200) {
                 dispatch({ type: "GET_RANDOM_PRODUCTS", payload: data });
                 dispatch(hideLoading());
-
             }
-
         } catch (error) {
 
             console.log(error.response);

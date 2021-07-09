@@ -66,8 +66,8 @@ class ProductRepositories extends BaseRepository
         // return [$min,$max];
 
         // $number=random_int($min, $max);
-        $products=$this->model::inRandomOrder()->take(30)->get(["id","title","price","brand_id"]);
-        return $products;
+        return $this->model::inRandomOrder()->take(30)->get(["id","title","price","brand_id",'quantity']);
+        // return $products;
     }
 
     public function infoWithImg($cid)
@@ -115,5 +115,12 @@ class ProductRepositories extends BaseRepository
             ->groupBy("product_id")
             ->orderBy('totalSells', 'desc')
             ->limit(10)->get();
+    }
+
+    public static function decreaseProductQuantity($proQuntity)
+    {
+       foreach ($proQuntity as $key => $value) {
+           product::query()->where('id',$key)->decrement('quantity',$value);
+       }
     }
 }
