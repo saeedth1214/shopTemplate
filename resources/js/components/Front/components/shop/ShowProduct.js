@@ -71,7 +71,6 @@ const ShowProduct = ({ products, filter }) => {
                 }
             </div>
             <Paginate totalItem={ filterProducts.length } perPage={ perPage } currentPage={ currentPage } onPageChange={ handlePageChange } />
-
         </Fragment>
     );
 }

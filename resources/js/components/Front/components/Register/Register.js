@@ -4,6 +4,7 @@ import simpleReactValidator from "simple-react-validator";
 import { useDispatch } from "react-redux";
 import { RegisterUser } from '../../../Admin/actions/user';
 import { ToastContainer } from 'react-toastify';
+import { LoadingBar } from 'react-redux-loading-bar';
 
 
 const Register = () => {
@@ -37,18 +38,18 @@ const Register = () => {
             validator.current.showMessages();
             forcedState('');
         }
-
     }
     return (
         <div className="container d-flex flex-column justify-content-between vh-100">
             <ToastContainer />
+            <LoadingBar style={ { background: "lime", height: "5px" } } scope="register" />
             <div className="row justify-content-center mt-5">
                 <div className="col-xl-5 col-lg-6 col-md-10">
                     <div className="card">
-                        <div className="card-header bg-primary">
-                            <div className="app-brand">
-                                <span className="brand-name">solisa shop</span>
-                            </div>
+                        <div className="card-header bg-primary text-white">
+                          
+                                <p className="markTitle text-center">solisa Shop</p>
+                          
                         </div>
                         <div className="card-body p-5">
                             <h4 className="text-dark mb-5">عضویت</h4>
@@ -76,9 +77,13 @@ const Register = () => {
                                     </div>
                                     <div className="col-md-12">
                                         <button type="submit" className="btn btn-lg btn-primary btn-block mb-4">ثبت نهایی</button>
-                                        <p>قبلا ثبت نام کردید
-                                    <Link to="/user/login" >ورود</Link>
-                                        </p>
+                                        <div className="small">
+                                            <p className="d-flex justify-content-around">
+                                                <span className="text">قبلا ثبت نام کرده اید؟</span>
+                                                <strong >
+                                                    <Link to='/user/login'> ورود</Link>
+                                                </strong></p>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

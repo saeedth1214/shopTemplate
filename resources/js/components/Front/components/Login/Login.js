@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { userLoginFront } from '../../../Admin/actions/user';
 import { ToastContainer } from 'react-toastify';
+import { LoadingBar } from 'react-redux-loading-bar';
 // import { hasCookie } from '../../../services/cookieServise';
 
 const Login = () => {
@@ -52,16 +53,13 @@ const Login = () => {
                     <div className="container d-flex flex-column justify-content-between ">
                         <div className="row justify-content-center mt-5">
                             <ToastContainer />
+                            <LoadingBar style={ { background: "lime", height: "5px" } } scope="login"/>
                             <div className="col-xl-5 col-lg-6 col-md-10">
                                 <div className="card">
-                                    <div className="card-header bg-primary">
-                                        <div className="app-brand">
-                                            <span className="brand-name">solisa Shop</span>
-
-                                        </div>
+                                    <div className="card-header bg-primary text-white">
+                                            <p className="markTitle text-center">solisa Shop</p>
                                     </div>
                                     <div className="card-body p-5">
-
                                         <h4 className="text-dark mb-5">ورود</h4>
                                         <form onSubmit={ handleSubmitLogin }>
                                             <div className="row">
@@ -90,6 +88,13 @@ const Login = () => {
                                                     </div>
                                                     <button type="submit" className="btn btn-lg btn-primary btn-block mb-4">ورود</button>
 
+                                                    <div className="small">
+                                                        <p className="d-flex justify-content-around">
+                                                            <span className="text">قبلا ثبت نام نکرده اید؟</span>
+                                                            <strong>
+                                                            <Link to='/user/register'> ثبت نام</Link>
+                                                        </strong></p>
+                                                </div>
                                                 </div>
                                             </div>
                                         </form>

@@ -7,9 +7,7 @@ const Aside = () => {
         <aside className="left-sidebar bg-sidebar">
             <div id="sidebar" className="sidebar sidebar-with-footer">
                 <div className="app-brand">
-                    <Link to={ `${config.BASE_URL}admin/dasboard` }>
                         <span className="brand-name">Solisa Shop</span>
-                    </Link>
                 </div>
                 <div className="sidebar-scrollbar">
                     <ul className="nav sidebar-inner" id="sidebar-menu">
@@ -34,10 +32,10 @@ const Aside = () => {
                             </Link>
                         </li>
                         <li className="has-sub" >
-                            <Link to="/admin/orders" className="sidenav-item-link nav-link">
+                            {/* <Link to="/admin/orders" className="sidenav-item-link nav-link">
                                 <i className="mdi mdi-chart-pie"></i>
                                 <span className="nav-text">مدیریت سفارشات</span>
-                            </Link>
+                            </Link> */}
                         </li>
                         <li className="has-sub" >
                             <Link to="/admin/reviews" className="sidenav-item-link nav-link"
