@@ -1,0 +1,21 @@
+
+@font-face {
+    font-family: is;
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/isans.woff') format('woff');
+}
+
+@font-face {
+    font-family: is;
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/isans-m.woff') format('woff');
+}
+
+@font-face {
+    font-family: is;
+    font-style: normal;
+    font-weight: bold;
+    src: url('../fonts/isans-b.woff') format('woff');
+}
