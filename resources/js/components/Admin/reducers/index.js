@@ -18,10 +18,10 @@ import { profileReducers } from "../../front/reducers/profileReducers";
 import { detailReducer } from "./details";
 import { orderReducer } from "./orders";
 import { commentsReducer } from "../../front/reducers/commentsReducer";
-import { bestReducer } from "./bestSeller";
 import { attributeValueReducers } from "./attributeValue";
 import { profileReducer } from "./profile";
 import { loadingBarReducer } from "react-redux-loading-bar";
+import { monthlySalesReducer } from "./monthlySales";
 
 export const reducers = combineReducers({
     product: productReducer,
@@ -43,7 +43,7 @@ export const reducers = combineReducers({
     detail: detailReducer,
     order: orderReducer,
     comments: commentsReducer,
-    best: bestReducer,
+    monthlySales: monthlySalesReducer,
     attributeValue: attributeValueReducers,
     profileData: profileReducer,
     loadingBar:loadingBarReducer

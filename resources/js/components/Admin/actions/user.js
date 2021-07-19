@@ -2,7 +2,7 @@ import { removeUserById, createUserByData, RegisterUserServise, changeUserRoleSe
 import { errorNoti, successNoti, warrningNoti } from "../../utility/messageNotifcation";
 import { setCookie, removeCookie } from "../../services/cookieServise";
 
-import { Redirect } from 'react-router-dom';
+
 export const createUser = user => {
 
     return async (dispatch, getState) => {
@@ -77,20 +77,15 @@ export const RegisterUser = user => {
 export const changeUserPassword = changePass => {
 
     return async () => {
-
-        // console.log(changePass);
-
         try {
             const { status, data } = await changeUserFronPassword(changePass);
             if (status === 200) {
                 successNoti(data.msg);
             }
-
         } catch (error) {
 
             console.log(error.response);
         }
-
     }
 }
 
@@ -112,8 +107,6 @@ export const userLoginFront = (login) => {
                 dispatch({ type: "LOGIN", payload: true });
             }
         } catch (error) {
-            // errorNoti(error.response.data.msg);
-
             if (error.response.status === 401) {
                 errorNoti(error.response.data.msg);
                 return;
@@ -133,8 +126,6 @@ export const userLogoutFront = () => {
                 removeCookie(['user', 'accessToken']);
                 successNoti(data.msg);
                 dispatch({ type: "LOGIN", payload: false });
-                
-               
             }
         }
         catch (error) {

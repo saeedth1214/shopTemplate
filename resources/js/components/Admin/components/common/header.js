@@ -1,13 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Fragment ,useState} from 'react';
 import { Link } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import LoadingBar from 'react-redux-loading-bar';
-import { useSelector } from "react-redux";
+import { hasCookie } from '../../../services/cookieServise';
+import { useSelector } from 'react-redux';
 const Header = () => {
 
-    const auth = useSelector(state => state.auth);
-
-    console.log(auth,"ssss");
+    const auth = useSelector(state=>state.auth);
     return (
         <Fragment>
             <header id="header" className=" rtl">
@@ -19,8 +18,7 @@ const Header = () => {
                         <li className="nav-list_categories">
                             <ul className="nav-list_categories_items">
                                 {
-
-                                    auth ?
+                                   hasCookie('user') &&
                                         <Fragment>
                                             <li className="item">
                                                 <Link to="/user/profile">پروفایل</Link>
@@ -29,16 +27,18 @@ const Header = () => {
                                                 <Link to="/user/logout">خروج</Link>
                                             </li>
                                         </Fragment>
-                                        :
-                                        <Fragment>
-                                            <li className="item">
-                                                <Link to="/user/login">ورود</Link>
+                                }
+                                { 
 
-                                            </li>
-                                            <li className="item">
-                                                <Link to="/user/register">عضویت</Link>
-                                            </li>
-                                        </Fragment>
+                                    !auth && <Fragment>
+                                        <li className="item">
+                                            <Link to="/user/login" >ورود</Link>
+
+                                        </li>
+                                        <li className="item">
+                                            <Link to="/user/register">عضویت</Link>
+                                        </li>
+                                    </Fragment>
                                 }
                             </ul>
                         </li>

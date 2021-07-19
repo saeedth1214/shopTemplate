@@ -1,5 +1,5 @@
 
-export const monthlySalesReducer = (state = {}, action) => {
+export const monthlySalesReducer = (state = [], action) => {
 
     switch (action.type) {
         case "GET_MONTHLY_SALES":

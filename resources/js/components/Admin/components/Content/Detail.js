@@ -12,7 +12,7 @@ const Detail = () => {
         dispatch(getDasboardDetails());
     }, []);
 
-    console.log(detail);
+    // console.log(detail);
     return (
         <div className="row">
             <div className="col-xl-3 col-sm-6 col-md-6 ">

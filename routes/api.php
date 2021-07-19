@@ -65,8 +65,6 @@ Route::group(["namespace"=>$adminNs,"middleware"=>["Authorize:api", 'isAdmin']],
     Route::post("admin/createReplyMessage", "ReviewController@createReplyMessage");
 
     // products
-
-
     Route::get("admin/products", "ProductController@index");
     Route::post("admin/product/create", "ProductController@create");
     Route::delete("admin/product/delete/{id}", "ProductController@remove");
@@ -131,7 +129,7 @@ Route::group(["namespace"=>$adminNs,"middleware"=>["Authorize:api", 'isAdmin']],
 
     Route::get("admin/getDashboardDetail", "DashboardController@getDashboardInfo");
     Route::get("admin/newOrders", "DashboardController@newOrders");
-    Route::get("admin/bestSeller", "DashboardController@bestSeller");
+    Route::get("admin/monthlySales", "DashboardController@monthlySales");
     // orders
     Route::get("admin/allOrders", "OrderController@getAllOrders");
     // attribute value

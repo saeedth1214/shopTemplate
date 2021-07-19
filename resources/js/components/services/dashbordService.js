@@ -34,4 +34,12 @@ export const getBestSelletService = () => {
 
 }
 
+export const get_monthly_sales_servise = () => {
+
+    return http.get(`${config.BASE_URL}api/admin/monthlySales`);
+
+}
+
+
+
 

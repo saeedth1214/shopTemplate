@@ -28,6 +28,25 @@ class Order extends Model
         return ShamsiRepositories::miladi_to_shamsi($this->attributes['date']);
     }
 
+
+    public function getCreatedAtAttribute()
+    {
+        $map=[
+            4=>"فروردین",
+            5=>"اردیبهشت",
+            6=>"خرداد",
+            7=>"تیر",
+            8=>"مرداد",
+            9=>"شهریور",
+            10=>"مهر",
+            11=>"آبان",
+            12=>"آذر",
+            1=>"دی",
+            2=>"بهمن",
+            3=>"اسفند",
+        ];
+        return $map[$this->attributes['created_at']];
+    }
     
 
     // public function getStatusAttribute()

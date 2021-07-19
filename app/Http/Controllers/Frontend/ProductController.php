@@ -106,7 +106,7 @@ class ProductController extends Controller
         $productData = [];
         $newData = [];
         foreach ($products as $product) {
-            $newData = ["id" => $product->id, "title" => $product->title,"price" => $product->price, "brand_id" => $product->brand_id ];
+            $newData = ["id" => $product->id, "title" => $product->title,"price" => $product->price, "brand_id" => $product->brand_id , "quantity" => $product->quantity ];
             !isset($product['orderCount']) ?:$newData['orderCount']= $product->orderCount;
             !isset($product['totalSells']) ?:$newData['totalSells']= $product->totalSells;
             $url = $product->productImage();
