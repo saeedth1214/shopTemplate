@@ -850,9 +850,9 @@ label,input{
     font-size:0.8rem !important; 
 }
 
-/* span {
+.text {
     color:#000;
-} */
+}
 a{
    
     color: #060e35 !important;
@@ -1957,6 +1957,13 @@ font-size: 1.5em;
     padding: 2px;
 }
 
+.srv-validation-message{
+
+    color: #f94242;
+    margin-top: 5px;
+
+}
+
 
 @media screen and (max-width:1200px){
 
@@ -1966,14 +1973,6 @@ font-size: 1.5em;
     }
 }
 
-/* 
-@media screen and (max-width:800px){
-
-    .filter-group > ul {
-        flex-direction: column;
-        align-items: stretch;
-    }
-} */
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
