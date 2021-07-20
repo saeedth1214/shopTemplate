@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\AuthController;
 
-Route::View("/", "Front.home.index");
+Route::View("https://solisashop.herokuapp.com", "Front.home.index");
 Route::View("/product/{pid}", "Front.home.index");
 Route::View("/user/login", "Front.home.index")->name('login');
 Route::View("/user/register", "Front.home.index")->name('register');
