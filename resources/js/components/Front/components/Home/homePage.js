@@ -18,7 +18,7 @@ const HomePage = () => {
 
         <BrowserRouter>
             <Switch>
-                <Route exact path="https://solisashop.herokuapp.com" component={Shop}/>
+                <Route exact path="/" component={Shop}/>
                 <Route path="/user/login" render={() => <Login_middleware login="true"><Login/></Login_middleware>}/>
                 <Route path="/user/logout" component={Logout}/>
                 <Route path="/user/register" component={Register}/>
