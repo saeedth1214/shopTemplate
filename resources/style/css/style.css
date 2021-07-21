@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
 
+
 body{
     font-family: is;
     font-size: 16px;
@@ -15,9 +16,8 @@ label,input{
     font-size:0.8rem !important; 
 }
 
-span {
+.text {
     color:#000;
-
 }
 a{
    
@@ -423,6 +423,9 @@ text-decoration: none;
     /* height: 200px; */
 }
 
+.no-link{
+    display: none;
+}
 .ordering {
     margin: 18px 0 0;
     float: right;
@@ -1106,6 +1109,13 @@ font-size: 1.5em;
     padding: 2px;
 }
 
+.srv-validation-message{
+
+    color: #f94242;
+    margin-top: 5px;
+
+}
+
 
 @media screen and (max-width:1200px){
 
@@ -1114,12 +1124,3 @@ font-size: 1.5em;
         align-items: stretch;
     }
 }
-
-/* 
-@media screen and (max-width:800px){
-
-    .filter-group > ul {
-        flex-direction: column;
-        align-items: stretch;
-    }
-} */

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useMemo } from 'react';
+import React, { Fragment, useState, useEffect, useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from "react-redux"
 import { removeProduct } from '../../actions/products';
 import { paginate } from '../../../utility/paginate';
@@ -24,22 +24,6 @@ const ProductItems = () => {
     const [showAttribute, setShowAttribute] = useState(false);
     const [proAttributeId, setProAttribteId] = useState(0);
     const [proAttributeCId, setProAttribteCId] = useState(0);
-
-    // useMemo(proAttributeId, showAttribute);
-
-
-    //  attribute value dialog
-    // const [showAttributeDialog, setAttributeDialog] = useState(false);
-    // const openAttributeValueDialog = pid => {
-    //     setAttributeDialog(true);
-    //     setProAttribteId(pid);
-    // }
-    // const closeAttributeValueDialog = () => {
-    //     setAttributeDialog(false);
-    //     setProAttribteId(0);
-    // };
-
-
     // update product dialog
     const openDialog = (pid, cid) => {
         handleSingleProduct(pid);
@@ -51,9 +35,8 @@ const ProductItems = () => {
 
         setProAttribteId(pid);
         setProAttribteCId(cid);
-        // if (!showAttribute) {
+
         setShowAttribute(!showAttribute);
-        // }
 
     }
     const closeDialog = () => setUpdateDialog(false);
@@ -72,10 +55,6 @@ const ProductItems = () => {
     const handleCategoryAttribute = (cid) => {
         dispatch(getAttributeByCatID(cid));
     }
-
-    // const getCategories = useCallback(() => {
-    //     dispatch(getAllProducts());
-    // });
     useEffect(() => {
         dispatch(getAllProducts());
     }, []);
@@ -85,9 +64,18 @@ const ProductItems = () => {
 
     const archiveProducts = paginate(products, currentPage, perPage);
 
-    const handlePageChange = page => {
 
-        setCurrentPage(page);
+    // const generatePaginate = useCallback(() => {
+    //     return <Paginate totalItem={ products.length } perPage={ perPage } currentPage={ currentPage } onPageChange={ handlePageChange } />
+    // }, [currentPage]);
+
+    const handlePageChange = (page, pageCount) => {
+
+        console.log(page, (page >= 1 && page <= pageCount), pageCount);
+        (page >= 1 && page <= pageCount)
+            ?
+            setCurrentPage(page) :
+            null;
     }
     return (
         <Fragment>
@@ -161,10 +149,7 @@ const ProductItems = () => {
                         </div>
                     </div>
                 </div>
-
                 <Paginate totalItem={ products.length } perPage={ perPage } currentPage={ currentPage } onPageChange={ handlePageChange } />
-                {/* <ProAttribute pid={ proAttributeId } setShow={ setShowAttribute } /> */ }
-
                 {
                     showAttribute ? <ProAttribute pid={ proAttributeId } setShow={ setShowAttribute } cid={ proAttributeCId } key="proAttribute" /> : null
                 }

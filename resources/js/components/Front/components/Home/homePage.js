@@ -6,7 +6,6 @@ import Shop from "../shop/Shop";
 import {store} from '../../../store/store';
 import Login from "../Login/Login";
 import Register from "../Register/Register";
-import Product from "../product/product";
 import Logout from "../Login/Logout";
 import Card from "../card/card";
 import Login_middleware from "../Login/Login_middleware";

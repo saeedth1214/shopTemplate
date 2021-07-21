@@ -1,4 +1,4 @@
-import { getDashbordDetailsService, getDashbordNewOrdersService, getAllOrdersService, getBestSelletService } from "../../services/dashbordService";
+import { getDashbordDetailsService, getDashbordNewOrdersService, getAllOrdersService, getBestSelletService, get_monthly_sales_servise } from "../../services/dashbordService";
 import { errorNoti } from "../../utility/messageNotifcation";
 
 
@@ -37,8 +37,8 @@ export const getNewOrders = () => {
     return async dispatch => {
 
         try {
-            const { data,status} = await getDashbordNewOrdersService();
-            
+            const { data, status } = await getDashbordNewOrdersService();
+
             if (status === 200) {
                 dispatch({ type: "GET_NEW_ORDERS", payload: data });
             }
@@ -70,5 +70,19 @@ export const getBestSeller = () => {
 
         }
 
+    }
+}
+
+export const getChartDataAction = () => {
+    return async dispatch => {
+        try {
+            const { data, status } = await get_monthly_sales_servise();
+            if (status === 200) {
+                dispatch({ type: "GET_MONTHLY_SALES", payload: data });
+            }
+        }
+        catch (error) {
+            console.log(error, "ssssbbb");
+        }
     }
 }

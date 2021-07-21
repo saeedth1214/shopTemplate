@@ -56,9 +56,6 @@ const AddMedia = () => {
         }
     });
 
-
-
-
     const handleMediaForm = e => {
 
         // console.log(files);

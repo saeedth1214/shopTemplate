@@ -8,6 +8,7 @@ use App\Repositories\OrderRepository;
 use App\Repositories\dashbordRepository;
 use Illuminate\Support\Facades\DB;
 use App\Responses\ResponsesFacade;
+use App\Repositories\ProductRepositories;
 
 class OrderController extends Controller
 {
@@ -33,6 +34,8 @@ class OrderController extends Controller
     {
         $orders=[];
         $totalPrice=0;
+        $proQuantity=[];
+
         try {
             foreach (request()->all() as $key =>$item) {
                 // return response($item);
@@ -44,13 +47,15 @@ class OrderController extends Controller
                     "status" => $item["status"]
                 ];
                 $totalPrice+=$item['totalPrice'];
+                $proQuantity[$item['proId']]= $item['quantity'];
             }
 
+            // return $proQuantity;
             DB::beginTransaction();
             $res=$this->orderRepo->createOrders($orders);
-          
             if ($res instanceof Order) {
                 dashbordRepository::orderUpdate(sizeof($orders), $totalPrice);
+                ProductRepositories::decreaseProductQuantity($proQuantity);
                 DB::commit();
                 return ResponsesFacade::success(['msg' => "یک سفارش جدید ثبت شد", 'data' => 1], 201);
             }
@@ -58,6 +63,7 @@ class OrderController extends Controller
             return ResponsesFacade::faild();
         } catch (\Throwable $e) {
             DB::rollBack();
+            return $e->getMessage();
             return ResponsesFacade::faild();
         }
     }

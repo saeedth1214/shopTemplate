@@ -1,8 +1,9 @@
 import { removeUserById, createUserByData, RegisterUserServise, changeUserRoleService, userLoginFrontend, userLogoutFrontend, changeUserFronPassword, updateUserService } from "../../services/userService";
 import { errorNoti, successNoti, warrningNoti } from "../../utility/messageNotifcation";
 import { setCookie, removeCookie } from "../../services/cookieServise";
+import { showLoading, hideLoading } from "react-redux-loading-bar";
+import { useHistory } from "react-router-dom";
 
-import { Redirect } from 'react-router-dom';
 export const createUser = user => {
 
     return async (dispatch, getState) => {
@@ -55,16 +56,17 @@ export const removeUser = userId => {
 }
 export const RegisterUser = user => {
 
-    return async () => {
+    return async dispatch => {
 
         try {
+            dispatch(showLoading('register'));
             const { data, status } = await RegisterUserServise(user);
-
             if (status === 208) {
+                dispatch(hideLoading('register'));
                 warrningNoti(data.msg);
                 return;
             }
-
+            dispatch(hideLoading('register'));
             successNoti(data.msg);
 
         } catch (error) {
@@ -77,20 +79,15 @@ export const RegisterUser = user => {
 export const changeUserPassword = changePass => {
 
     return async () => {
-
-        // console.log(changePass);
-
         try {
             const { status, data } = await changeUserFronPassword(changePass);
             if (status === 200) {
                 successNoti(data.msg);
             }
-
         } catch (error) {
 
             console.log(error.response);
         }
-
     }
 }
 
@@ -101,6 +98,7 @@ export const userLoginFront = (login) => {
     return async dispatch => {
 
         try {
+            dispatch(showLoading('login'));
             const { data, status } = await userLoginFrontend(login);
             if (status === 200) {
                 const date = new Date();
@@ -108,12 +106,11 @@ export const userLoginFront = (login) => {
                 const options = { path: "/", expires: date };
                 setCookie("accessToken", data.userData.accessToken, options);
                 setCookie("user", data.userData.user, options);
+                dispatch(hideLoading('login'));
                 successNoti(data.msg);
                 dispatch({ type: "LOGIN", payload: true });
             }
         } catch (error) {
-            // errorNoti(error.response.data.msg);
-
             if (error.response.status === 401) {
                 errorNoti(error.response.data.msg);
                 return;
@@ -124,7 +121,7 @@ export const userLoginFront = (login) => {
 
 export const userLogoutFront = () => {
 
-    return async dispatch => {
+    return async () => {
         try {
 
             const { status, data } = await userLogoutFrontend();
@@ -132,9 +129,8 @@ export const userLogoutFront = () => {
             if (status === 200) {
                 removeCookie(['user', 'accessToken']);
                 successNoti(data.msg);
-                dispatch({ type: "LOGIN", payload: false });
-                
-               
+                // dispatch({ type: "LOGIN", payload: false });
+                console.log("action");
             }
         }
         catch (error) {

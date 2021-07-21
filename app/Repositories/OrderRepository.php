@@ -33,20 +33,11 @@ class OrderRepository extends BaseRepository
 //        dd($this->model::select(DB::raw("count('id') as number , YEAR('created_at') as date"))->groupBy(DB::raw("YEAR('created_at')"))->toSql());
     }
 
-    public function bestSeller()
+    public function monthlySales()
     {
-        try {
-            $res = DB::table('orders')
-                ->join('products', 'orders.product_id', '=', 'products.id')
-                ->select('product_id as Pid', DB::raw('sum(total_items) as number'), 'products.title as title', 'products.price as price', 'products.description as description')
-                ->groupBy(['pid', 'price', 'title'])
-                ->orderBy('number', 'desc')
-                ->take(5)
-                ->get();
-        } catch (\Throwable $th) {
-            return null;
-        }
-        return $res;
+        return $this->model::query()
+        ->select(DB::raw("SUM(orders.total_amount) AS totalAmounts,MONTH(orders.created_at) AS created_at"))
+        ->groupBy('created_at')->get();
     }
 
     public function newOrdersData()

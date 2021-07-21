@@ -1,13 +1,29 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import LoadingBar from 'react-redux-loading-bar';
-import { useSelector } from "react-redux";
+import { hasCookie } from '../../../services/cookieServise';
+import { useSelector, useDispatch } from 'react-redux';
+import { userLogoutFront } from '../../actions/user';
 const Header = () => {
 
-    const auth = useSelector(state => state.auth);
+    // const auth = useSelector(state => state.auth);
 
-    console.log(auth,"ssss");
+    const [, forcedUpdate] = useState();
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+
+        dispatch(userLogoutFront());
+        forcedUpdate(1);
+    }
+
+    console.log("header");
+
+    // useEffect(() => {
+
+    // }, [])
+
     return (
         <Fragment>
             <header id="header" className=" rtl">
@@ -19,21 +35,19 @@ const Header = () => {
                         <li className="nav-list_categories">
                             <ul className="nav-list_categories_items">
                                 {
-
-                                    auth ?
+                                    hasCookie('user') ?
                                         <Fragment>
                                             <li className="item">
                                                 <Link to="/user/profile">پروفایل</Link>
                                             </li>
                                             <li className="item">
-                                                <Link to="/user/logout">خروج</Link>
+                                                <button onClick={ () => handleLogout() } >خروج</button>
                                             </li>
                                         </Fragment>
                                         :
                                         <Fragment>
                                             <li className="item">
-                                                <Link to="/user/login">ورود</Link>
-
+                                                <Link to="/user/login" >ورود</Link>
                                             </li>
                                             <li className="item">
                                                 <Link to="/user/register">عضویت</Link>

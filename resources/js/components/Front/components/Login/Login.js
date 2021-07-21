@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { userLoginFront } from '../../../Admin/actions/user';
 import { ToastContainer } from 'react-toastify';
+import { LoadingBar } from 'react-redux-loading-bar';
 // import { hasCookie } from '../../../services/cookieServise';
 
 const Login = () => {
@@ -52,6 +53,7 @@ const Login = () => {
                     <div className="container d-flex flex-column justify-content-between ">
                         <div className="row justify-content-center mt-5">
                             <ToastContainer />
+                            <LoadingBar style={ { background: "lime", height: "5px" } } scope="login"/>
                             <div className="col-xl-5 col-lg-6 col-md-10">
                                 <div className="card">
                                     <div className="card-header bg-primary">
@@ -61,7 +63,6 @@ const Login = () => {
                                         </div>
                                     </div>
                                     <div className="card-body p-5">
-
                                         <h4 className="text-dark mb-5">ورود</h4>
                                         <form onSubmit={ handleSubmitLogin }>
                                             <div className="row">

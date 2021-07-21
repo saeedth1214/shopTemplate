@@ -65,11 +65,17 @@ Route::group(['prefix'=>'admin',"namespace"=>$adminNs,"middleware"=>["Authorize:
     Route::post("createReplyMessage", "ReviewController@createReplyMessage");
 
     // products
+<<<<<<< HEAD
 
 
     Route::get("products", "ProductController@index");
     Route::post("product/create", "ProductController@create");
     Route::delete("product/delete/{id}", "ProductController@remove");
+=======
+    Route::get("admin/products", "ProductController@index");
+    Route::post("admin/product/create", "ProductController@create");
+    Route::delete("admin/product/delete/{id}", "ProductController@remove");
+>>>>>>> c1e7a2da58ca8882e19267b85c6b45f3b5280156
 
 
     //users
@@ -129,9 +135,15 @@ Route::group(['prefix'=>'admin',"namespace"=>$adminNs,"middleware"=>["Authorize:
 
     // dashbord
 
+<<<<<<< HEAD
     Route::get("getDashboardDetail", "DashboardController@getDashboardInfo");
     Route::get("newOrders", "DashboardController@newOrders");
     Route::get("bestSeller", "DashboardController@bestSeller");
+=======
+    Route::get("admin/getDashboardDetail", "DashboardController@getDashboardInfo");
+    Route::get("admin/newOrders", "DashboardController@newOrders");
+    Route::get("admin/monthlySales", "DashboardController@monthlySales");
+>>>>>>> c1e7a2da58ca8882e19267b85c6b45f3b5280156
     // orders
     Route::get("allOrders", "OrderController@getAllOrders");
     // attribute value
