@@ -3,22 +3,18 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Repositories\UserRepositories;
-use Illuminate\Support\Facades\Auth;
-use App\Facade\EmailFacade\NotificationFacade;
 use App\Responses\ResponsesFacade;
-use Carbon\Carbon;
 use App\Facade\LoginFacade\AuthFacade;
-use App\Services\authenticateServise;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     //    use AuthenticatesUsers;
     private $userRepo = null;
   
-    private const TEST_MAIL= "fbcf65a1c7-ba201c@inbox.mailtrap.io";
-
     public function __construct()
     {
         $this->userRepo = resolve(UserRepositories::class);
@@ -27,7 +23,7 @@ class AuthController extends Controller
 
     public function login()
     {
-        // dd(request()->only(['email','password']));
+        // dd(request()->only());
         $email= request()->get('email');
         $password= request()->get('password');
      
@@ -35,44 +31,56 @@ class AuthController extends Controller
         return AuthFacade::login($email, $password, $rememberMe);
     }
 
-    public function register()
+    public function register(Request $request)
     {
-        $data = [
-            'fullname' => "saeed",
-            'email' => self::TEST_MAIL,
-            'password' => "123456",
-            'role' => "user",
-        ];
-     
-        cache()->set('data', $data);
+        $data = request()->all();
+        // return $data->only();
+        
+        try {
+            if ($this->ValidateEmail(['email'=> $data['email']])) {
+                return ResponsesFacade::emailAlreadyCreated();
+            }
+            $user = $this->createUser($data);
+            Auth::login($user);
+            $user->sendEmailVerificationNotification();
 
-        return NotificationFacade::send(request()->userName, self::TEST_MAIL);
-    }
-
-    public function verifyToken()
-    {
-        if (request()->has('token') && NotificationFacade::verifyEmail(request()->token)) {
-            return $this->createUser();
+            return ResponsesFacade::verifyEmailSendSuccessfuly();
+        } catch (\Throwable $th) {
+            return [ $th->getLine(),$th->getFile(),$th->getMessage()];
+            return ResponsesFacade::faild();
         }
-        return ResponsesFacade::tokenNotFound();
     }
 
-
-    private function createUser()
+    private function ValidateEmail($email)
     {
-        $data = cache()->pull('data');
+        $validator=Validator::make($email, [
+            'email'=> 'unique:users'
+        ]);
+        return $validator->fails();
+    }
+    // public function verifyToken()
+    // {
+    //     if (request()->has('token') && NotificationFacade::verifyEmail(request()->token)) {
+    //         return $this->createUser();
+    //     }
+    //     return ResponsesFacade::tokenNotFound();
+    // }
 
-        $user=$this->userRepo->create($data+['email_verified_at'=>Carbon::now()]);
+
+    private function createUser($data)
+    {
+        $user=$this->userRepo->create($data);
         $user=$user->getOrSend(function () {
             return ResponsesFacade::faild();
         });
 
+        return $user;
         return ResponsesFacade::registerUserIsOk();
     }
 
     public function logout()
     {
-        return AuthFacade::logout();
+        // return AuthFacade::logout();
     }
 
 

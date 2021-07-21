@@ -55,8 +55,8 @@ const Login = () => {
                             <div className="col-xl-5 col-lg-6 col-md-10">
                                 <div className="card">
                                     <div className="card-header bg-primary">
-                                        <div className="app-brand">
-                                            <span className="brand-name">solisa Shop</span>
+                                        <div className="app-brand text-center">
+                                            <span className="markTitle text-white">solisa Shop</span>
 
                                         </div>
                                     </div>
@@ -89,7 +89,10 @@ const Login = () => {
 
                                                     </div>
                                                     <button type="submit" className="btn btn-lg btn-primary btn-block mb-4">ورود</button>
-
+                                                    <p className="d-flex justify-content-around">
+                                                        <strong>ثبت نام نکرده ام ؟</strong>
+                                                        <strong><Link to="/user/register">عضویت</Link></strong>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </form>
@@ -98,8 +101,8 @@ const Login = () => {
                             </div>
                         </div>
                     </div> :
-                    <Redirect to="/"/>
-             }
+                    <Redirect to="/" />
+            }
         </Fragment>
     )
 }

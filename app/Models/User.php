@@ -7,6 +7,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
+use App\Jobs\sendEmail;
+use App\Mail\UserRegistered;
 
 class User extends Authenticatable
 {
@@ -79,5 +81,11 @@ class User extends Authenticatable
     {
         $user = auth()->user();
         return $user->role == "admin";
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+       
+        sendEmail::dispatch($this, new UserRegistered($this));
     }
 }

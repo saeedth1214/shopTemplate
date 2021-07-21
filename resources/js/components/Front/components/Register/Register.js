@@ -46,8 +46,8 @@ const Register = () => {
                 <div className="col-xl-5 col-lg-6 col-md-10">
                     <div className="card">
                         <div className="card-header bg-primary">
-                            <div className="app-brand">
-                                <span className="brand-name">solisa shop</span>
+                            <div className="app-brand text-center">
+                                <span className="markTitle  text-white">solisa shop</span>
                             </div>
                         </div>
                         <div className="card-body p-5">
@@ -72,12 +72,12 @@ const Register = () => {
                                     <div className="form-group col-md-12 ">
                                         <input type="password" className="form-control input-lg" name="cpassword" placeholder="Confirm Password" onChange={ e => setConfrimPassword(e.target.value) } />
                                         { validator.current.message("cpassword", confrimPassword, `required|alpha_num|min:8|max:15|in:${password}`) }
-
                                     </div>
                                     <div className="col-md-12">
                                         <button type="submit" className="btn btn-lg btn-primary btn-block mb-4">ثبت نهایی</button>
-                                        <p>قبلا ثبت نام کردید
-                                    <Link to="/user/login" >ورود</Link>
+                                        <p className="d-flex justify-content-around">
+                                            <strong> قبلا ثبت نام کرده ام</strong>
+                                            <strong><Link to="/user/login">ورود</Link></strong>
                                         </p>
                                     </div>
                                 </div>

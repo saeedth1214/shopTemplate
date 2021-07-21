@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\AuthController;
+use App\Http\Controllers\Frontend\VerifyController;
 
 Route::View("/", "Front.home.index");
 Route::View("/product/{pid}", "Front.home.index");
@@ -18,8 +19,8 @@ Route::View("/admin/media", "Admin.home.index")->middleware(['Authorize:api', 'i
 Route::View("/admin/reviews", "Admin.home.index")->middleware(['Authorize:api', 'isAdmin']);
 // Route::get("/admin/home", [AuthController::class, 'admin'])->middleware(['Authorize:api','isAdmin']);
 
-Route::get('/email/verify', [AuthController::class, 'verifyToken'])
-    ->name('verification.verify');
+Route::get('/email/verify', [ VerifyController::class, 'verify'])
+    ->name('authenticate.verify.email');
 
 //
 //Route::group(["prefix"=>"admin","namespace"=>"Admin"], function () {

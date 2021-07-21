@@ -9,6 +9,7 @@
 namespace App\Responses;
 
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ReactResponses
 {
@@ -32,7 +33,7 @@ class ReactResponses
     
     public function verifyEmailSendSuccessfuly()
     {
-        return response()->json(['msg'=>"یک ایمیل تایید برای شماارسال شد"], Response::HTTP_OK);
+        return response()->json(['msg'=>"یک ایمیل تایید برای شماارسال شد" ,'user'=>Auth::user()], Response::HTTP_OK);
     }
     public function tokenNotValid()
     {
@@ -62,5 +63,13 @@ class ReactResponses
     public function warning($data = null, $status = Response::HTTP_BAD_REQUEST)
     {
         return response()->json($data, $status);
+    }
+    public function hasValidSignature()
+    {
+        return response()->json(['msg'=>'لینک ارسالی شما با موفقیت تایید شد وو شما میتوانید از تمامی امکانات سایت استفاده کنید'], Response::HTTP_OK);
+    }
+    public function notValidSignature()
+    {
+        return response()->json(['msg'=>'لینک ارسالی شما تایید نشد . لطفا دوباره تلاش کنید']);
     }
 }
