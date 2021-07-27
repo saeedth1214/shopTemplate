@@ -11,10 +11,10 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "imanghafoori/laravel-nullable": "^1.2",
         "laravel/framework": "^8.40",
-        "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
-        "morilog/jalali": "^3.2"
+        "morilog/jalali": "^3.2",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

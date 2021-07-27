@@ -1,8 +1,10 @@
-import { removeUserById, createUserByData, RegisterUserServise, changeUserRoleService, userLoginFrontend, userLogoutFrontend, changeUserFronPassword, updateUserService } from "../../services/userService";
+import { removeUserById, createUserByData, RegisterUserServise, changeUserRoleService, userLoginFrontend, userLogoutFrontend, changeUserFronPassword, updateUserService, forgetPasswordService, resetPasswordService } from "../../services/userService";
 import { errorNoti, successNoti, warrningNoti } from "../../utility/messageNotifcation";
-import { setCookie, removeCookie } from "../../services/cookieServise";
+import { removeCookie, setCookieForUserLoggedin } from "../../services/cookieServise";
 import { showLoading, hideLoading } from "react-redux-loading-bar";
-import { useHistory } from "react-router-dom";
+
+
+
 
 export const createUser = user => {
 
@@ -55,20 +57,20 @@ export const removeUser = userId => {
     }
 }
 export const RegisterUser = user => {
-
+    
     return async dispatch => {
-
         try {
             dispatch(showLoading('register'));
             const { data, status } = await RegisterUserServise(user);
+            
             if (status === 208) {
                 dispatch(hideLoading('register'));
                 warrningNoti(data.msg);
                 return;
             }
-            dispatch(hideLoading('register'));
             successNoti(data.msg);
-
+            setCookieForUserLoggedin(data.userData.access_token, data.userData.user);
+            dispatch(hideLoading('register'));
         } catch (error) {
             console.log(error.response);
         }
@@ -101,40 +103,39 @@ export const userLoginFront = (login) => {
             dispatch(showLoading('login'));
             const { data, status } = await userLoginFrontend(login);
             if (status === 200) {
-                const date = new Date();
-                date.setTime(date.getTime() + (24 * 3600 * 1000));
-                const options = { path: "/", expires: date };
-                setCookie("accessToken", data.userData.accessToken, options);
-                setCookie("user", data.userData.user, options);
+                setCookieForUserLoggedin(data.userData.access_token, data.userData.user);
                 dispatch(hideLoading('login'));
-                successNoti(data.msg);
                 dispatch({ type: "LOGIN", payload: true });
+                successNoti(data.msg);
+            }
+            if (status === 401) {
+                warrningNoti(data.msg);
+                dispatch(hideLoading('login'));
+
             }
         } catch (error) {
-            if (error.response.status === 401) {
-                errorNoti(error.response.data.msg);
-                return;
-            }
+
+            console.log(error);
         }
     }
 }
 
 export const userLogoutFront = () => {
 
-    return async () => {
+    return async dispatch => {
         try {
 
+            // dispatch(showLoading('logout'));
             const { status, data } = await userLogoutFrontend();
-            console.log(status);
+            console.log(status,data);
             if (status === 200) {
                 removeCookie(['user', 'accessToken']);
                 successNoti(data.msg);
-                // dispatch({ type: "LOGIN", payload: false });
-                console.log("action");
+                dispatch({ type: "LOGIN", payload: false });
             }
         }
         catch (error) {
-
+            dispatch(hideLoading('logout'));
             console.log(error.response);
         }
 
@@ -143,24 +144,16 @@ export const userLogoutFront = () => {
 }
 
 export const changeUserRole = role => {
-
-
-    return async (dispatch, getState) => {
+    return async () => {
 
         try {
             const { status } = await changeUserRoleService(role);
-            // console.log(response);
             if (status === 204 || status === 202) {
-                // const users = [...getState().users];
-                // const filterUsers = users.filter(item => item.id !== user.id);
-                // await dispatch({ type: "UPDATE_USER", payload: [...filterUsers, user] });
                 successNoti("یک کاربر با موفقیت ویرایش شد");
             }
         } catch (error) {
-            // console.log(error.response);
             errorNoti("مشکلی سمت سرور به وجود آمد");
         }
-
     }
 }
 
@@ -184,4 +177,48 @@ export const updateUser = (user) => {
         }
     }
 }
+
+
+export const forgetPassword = email => {
+
+    return async dispatch => {
+
+        try {
+            dispatch(showLoading('forget-password'));
+            const { data, status } = await forgetPasswordService(email);
+
+            if (status === 200) {
+                successNoti(data.msg);
+            } else if (status === 400) {
+                errorNoti(data.msg);
+            }
+            dispatch(hideLoading('forget-password'));
+
+        } catch (error) {
+            // errorNoti(error.response);
+            console.log(error);
+        }
+
+    }
+}
+export const resetPassword = creadential => {
+
+    return async dispatch => {
+
+        try {
+            const { data, status } = await resetPasswordService(creadential);
+            if (status === 200) {
+                successNoti(data.msg);
+            }
+            if (status === 400) {
+                errorNoti(data.msg);
+            }
+        } catch (error) {
+
+            console.log(error.response);
+        }
+
+    }
+}
+
 

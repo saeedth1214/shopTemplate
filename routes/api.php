@@ -26,19 +26,21 @@ Route::group(['prefix'=>'front',"namespace" => $frontNs], function () {
 //    // user register
     Route::post("user/Register", "AuthController@register");
     Route::post("user/login", "AuthController@login");
-    Route::post("user/changePassword", "AuthController@changePassword")->middleware("Authorize:api");
-    Route::get("user/Logout", "AuthController@logout")->middleware("Authorize:api");
+    Route::post("user/forget-password", "ForgetPasswordController@sendForgetPasswordEmail");
+    Route::post("user/reset-password", "ForgetPasswordController@resetPassword");
+    Route::post("user/changePassword", "AuthController@changePassword");
+    Route::get("user/Logout", "AuthController@logout");
 
 //
     //review
     Route::get("comments/{pid}", "ReviewController@getProductComment");
-    Route::get("userProfile/comments", "ReviewController@getUserProfileComment")->middleware("Authorize:api");
-    Route::post("review/create", "ReviewController@create")->middleware("Authorize:api");
+    Route::get("userProfile/comments", "ReviewController@getUserProfileComment")->middleware("auth:api");
+    Route::post("review/create", "ReviewController@create")->middleware("auth:api");
     Route::get("getReview/{reviewId}", "ReviewController@getReviews");
 
     //orders
-    Route::get("getOrders", "OrderController@index")->middleware("Authorize:api");
-    Route::post("create/orders", "OrderController@create")->middleware("Authorize:api");
+    Route::get("getOrders", "OrderController@index")->middleware("auth:api");
+    Route::post("create/orders", "OrderController@create")->middleware("auth:api");
 
     // email
     // Route::get("/verificationEmail/{token}", "UserController@verification");
@@ -47,10 +49,10 @@ Route::group(['prefix'=>'front',"namespace" => $frontNs], function () {
     Route::get("attribute_value/{pid}", "AttributeValueController@getAttrValueFront");
 });
 //
-Route::group(['prefix'=>'admin',"namespace"=>$adminNs,"middleware"=>["Authorize:api", 'isAdmin']], function () {
+Route::group(['prefix'=>'admin',"namespace"=>$adminNs,"middleware"=>['auth:api','isAdmin']], function () {
     // brand
     Route::get("brands/{catId}", "BrandController@getBrand");
-    Route::get("category_brand", "BrandController@category_brand")->withoutMiddleware(["Authorize:api", 'isAdmin']);
+    Route::get("category_brand", "BrandController@category_brand")->withoutMiddleware(['isAdmin']);
     Route::post("brand/create", "BrandController@create");
     Route::post("brand/remove", "BrandController@remove");
 

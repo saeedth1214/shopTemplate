@@ -13,11 +13,9 @@ class UserRepositories extends BaseRepository
 
     public function create($data)
     {
-        // dd($data);
         try {
             $user=User::query()->create($data);
         } catch (\Exception $e) {
-            // dd($e->getMessage());
             return Nullable(null);
         }
 

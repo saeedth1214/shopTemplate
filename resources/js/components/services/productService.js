@@ -1,7 +1,9 @@
 
 import config from "./config";
 import http from "./httpServices";
+import { getCookie } from "./cookieServise";
 
+const headers = { headers: { authorization: `Bearer ${getCookie('accessToken')}` } };
 
 export const getProduct = productId => {
 
@@ -11,16 +13,16 @@ export const getProduct = productId => {
 
 export const getProducts = () => {
 
-    return http.get(`${config.BASE_URL}api/admin/products`, config.TokenApi);
+    return http.get(`${config.BASE_URL}api/admin/products`, {headers});
 
 }
 
 export const createProductByData = product => {
-    return http.post(`${config.BASE_URL}api/admin/product/create`, product, config.TokenApi);
+    return http.post(`${config.BASE_URL}api/admin/product/create`, product, { headers });
 }
 
 export const removeProductById = productId => {
-    return http.delete(`${config.BASE_URL}api/admin/product/delete/${productId}`, config.TokenApi);
+    return http.delete(`${config.BASE_URL}api/admin/product/delete/${productId}`, { headers });
 }
 
 export const get_Random_Products = () => {
@@ -45,7 +47,7 @@ export const get_Products_By_category_Service = cid => {
 
 
 export const updateProductServises = (pId, product) => {
-    return http.put(`${config.BASE_URL}api/admin/product/update/${pId}`, product);
+    return http.put(`${config.BASE_URL}api/admin/product/update/${pId}`, product, { headers });
 
 }
 

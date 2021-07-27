@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Tymon\JWTAuth\Facades\JWTAuth as TymonJWTAuth;
+use Illuminate\Support\Facades\Cache;
 
 class isAdmin
 {
@@ -15,10 +17,7 @@ class isAdmin
      */
     public function handle($request, Closure $next)
     {
-       
-        if (!auth()->guard('api')->check()) {
-            return redirect("/user/login");
-        } elseif (!auth()->user()->isAdmin()) {
+        if (!auth('api')->user()->isAdmin()) {
             return redirect("/");
         }
         return $next($request);

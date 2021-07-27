@@ -17,6 +17,14 @@ class ReactResponses
     {
         return response()->json(['msg' => "شما از سایت خارج شدید"], Response::HTTP_OK);
     }
+    public function passwordWasChanged()
+    {
+        return response()->json(['msg' => "رمز عبور شما تعویض شد"], Response::HTTP_OK);
+    }
+    public function forgetPasswordEmailSent()
+    {
+        return response()->json(['msg' => "ایمیل بازیابی رمزعبور  برای شما ارسال شد"], Response::HTTP_OK);
+    }
     public function userLoggedIn($userData =null)
     {
         return response()->json(['msg' => "شمابا موفقیت در سایت وارد شدید" , 'userData'=>$userData], Response:: HTTP_OK);
@@ -31,9 +39,9 @@ class ReactResponses
         return response()->json(['msg' => "ثبت نام کاربر با موفقیت انجام شد"], Response::HTTP_OK);
     }
     
-    public function verifyEmailSendSuccessfuly()
+    public function verifyEmailSendSuccessfuly($userData=null)
     {
-        return response()->json(['msg'=>"یک ایمیل تایید برای شماارسال شد" ,'user'=>Auth::user()], Response::HTTP_OK);
+        return response()->json(['msg'=>"یک ایمیل تایید برای شماارسال شد" ,'userData'=>$userData], Response::HTTP_OK);
     }
     public function tokenNotValid()
     {
@@ -43,6 +51,10 @@ class ReactResponses
     {
         return response()->json(['msg' => "توکنی پیدا نشد"], Response::HTTP_BAD_REQUEST);
     }
+    public function emailNotFound()
+    {
+        return response()->json(['msg' => "چنین ایمیل وجودندارد"], Response::HTTP_BAD_REQUEST);
+    }
     public function tokenWasExpired()
     {
         return response()->json(['msg' => "توکن ارسالی منقضی شده است"], Response::HTTP_FORBIDDEN);
@@ -51,7 +63,10 @@ class ReactResponses
     {
         return response()->json(['msg' => "کاربری بااین ایمیل قیلا ثبت نام کرده است "], Response::HTTP_ALREADY_REPORTED);
     }
-
+    public function emailAlreadyVerified()
+    {
+        return response()->json(['msg' => "ایمیل شما قبلا تایید شده است "], Response::HTTP_OK);
+    }
     public function faild()
     {
         return response()->json(['msg' => "مشکلی سمت سرور به وجودآمده است "], Response::HTTP_INTERNAL_SERVER_ERROR);

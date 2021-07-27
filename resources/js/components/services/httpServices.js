@@ -7,7 +7,7 @@ axios.defaults.headers.post["Content-Type"] = "application/json";
 
 axios.interceptors.response.use(null, error => {
     const expectedErrors =
-        error.response && error.response.status == 429 || (error.response.status >= 500 && error.response.status <= 599);
+        error.response && error.response.status === 429 || (error.response.status >= 500 && error.response.status <= 599);
     if (expectedErrors) {
 
         // console.log(error);

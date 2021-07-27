@@ -855,13 +855,17 @@ label,input{
 }
 a{
    
-    color: #060e35 !important;
+    color: #060e35 ;
     text-transform: capitalize !important;
 
 }
+
+.item a{
+    color:#fff;
+}
 a:hover{
     text-decoration: none;
-    color:#444;
+    color:rgb(255, 4, 4);
     
 }
 #header{
@@ -982,6 +986,8 @@ a:hover{
 .menuClass{
     box-shadow: 0 7px 8px 0 rgb(0 0 0 / 4%);
     height: auto;
+    background: #0066ff;
+    padding: 0px 40px;
 }
 .nav-list_categories_items{
     display: flex;
@@ -989,7 +995,8 @@ a:hover{
 }
 .nav_list_Title{
 
-    margin-left: 20px
+    margin-left: 20px;
+    color: white;
 }
 .markTitle{
     font-family: 'Great Vibes', cursive;
@@ -1392,6 +1399,7 @@ align-items: center;
     height: auto;
     background: #434d69;
     padding: 15px;
+    margin-top: 20px;
 }
 
 #footer ul{

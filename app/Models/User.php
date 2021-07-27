@@ -6,13 +6,14 @@ use App\Repositories\ShamsiRepositories;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
-use Laravel\Passport\HasApiTokens;
 use App\Jobs\sendEmail;
 use App\Mail\UserRegistered;
+use App\Mail\forgetPassword;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable,HasApiTokens;
+    use Notifiable;
 
     protected $perPage = 5;
 
@@ -79,13 +80,32 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        $user = auth()->user();
-        return $user->role == "admin";
+       
+        return $this->role == "admin";
     }
 
     public function sendEmailVerificationNotification()
     {
        
         sendEmail::dispatch($this, new UserRegistered($this));
+    }
+
+    public function sendPasswordResetNotification ($token)
+    {
+        sendEmail::dispatchNow($this, new forgetPassword($this,$token));
+    }
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
