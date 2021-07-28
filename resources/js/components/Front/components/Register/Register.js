@@ -3,9 +3,9 @@ import { Link, Redirect } from "react-router-dom";
 import simpleReactValidator from "simple-react-validator";
 import { useDispatch, useSelector } from "react-redux";
 import { RegisterUser } from '../../../Admin/actions/user';
-import { useHistory } from "react-router";
 import { hasCookie } from '../../../services/cookieServise';
 import Layout from '../layout/layout';
+import { ToastContainer } from 'react-toastify';
 
 
 const Register = () => {
@@ -16,8 +16,7 @@ const Register = () => {
     const [confrimPassword, setConfrimPassword] = useState("");
     const [, forcedState] = useState();
     const dispatch = useDispatch();
-
-    const history = useHistory();
+    const auth = useSelector(state => state.auth);
 
     const validator = useRef(new simpleReactValidator({
         messages: {
@@ -52,9 +51,10 @@ const Register = () => {
 
     }
     return (
-        !hasCookie('user') ?
+        !auth && !hasCookie('user') ?
             <Layout>
                 <div className="container d-flex flex-column justify-content-between vh-100">
+                    <ToastContainer />
                     <div className="row justify-content-center mt-5">
                         <div className="col-xl-5 col-lg-6 col-md-10">
                             <div className="card">

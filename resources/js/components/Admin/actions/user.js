@@ -57,12 +57,13 @@ export const removeUser = userId => {
     }
 }
 export const RegisterUser = user => {
-    
+
     return async dispatch => {
         try {
             dispatch(showLoading('register'));
             const { data, status } = await RegisterUserServise(user);
-            
+
+            console.log(data.status);
             if (status === 208) {
                 dispatch(hideLoading('register'));
                 warrningNoti(data.msg);
@@ -71,8 +72,11 @@ export const RegisterUser = user => {
             successNoti(data.msg);
             setCookieForUserLoggedin(data.userData.access_token, data.userData.user);
             dispatch(hideLoading('register'));
+            dispatch({ type: 'LOGIN', payload: true });
         } catch (error) {
             console.log(error.response);
+            dispatch(hideLoading('register'));
+
         }
 
     }
@@ -108,13 +112,13 @@ export const userLoginFront = (login) => {
                 dispatch({ type: "LOGIN", payload: true });
                 successNoti(data.msg);
             }
-            if (status === 401) {
-                warrningNoti(data.msg);
-                dispatch(hideLoading('login'));
 
-            }
         } catch (error) {
-
+            if (error.response.status === 401) {
+                warrningNoti(error.response.data.msg);
+                dispatch(hideLoading('login'));
+                return;
+            }
             console.log(error);
         }
     }
@@ -127,7 +131,7 @@ export const userLogoutFront = () => {
 
             // dispatch(showLoading('logout'));
             const { status, data } = await userLogoutFrontend();
-            console.log(status,data);
+            console.log(status, data,"logout");
             if (status === 200) {
                 removeCookie(['user', 'accessToken']);
                 successNoti(data.msg);
@@ -186,19 +190,20 @@ export const forgetPassword = email => {
         try {
             dispatch(showLoading('forget-password'));
             const { data, status } = await forgetPasswordService(email);
-
             if (status === 200) {
                 successNoti(data.msg);
-            } else if (status === 400) {
-                errorNoti(data.msg);
             }
             dispatch(hideLoading('forget-password'));
 
         } catch (error) {
-            // errorNoti(error.response);
-            console.log(error);
-        }
 
+            if (error.response.status === 404) {
+                errorNoti(error.response.data.msg);
+                return;
+            }
+            console.log(error);
+
+        }
     }
 }
 export const resetPassword = creadential => {
@@ -210,12 +215,14 @@ export const resetPassword = creadential => {
             if (status === 200) {
                 successNoti(data.msg);
             }
-            if (status === 400) {
-                errorNoti(data.msg);
-            }
+
         } catch (error) {
 
-            console.log(error.response);
+            if (error.response.status === 400) {
+                errorNoti(error.response, data.msg);
+                return;
+            }
+            // console.log(error.response);
         }
 
     }

@@ -53,24 +53,6 @@ class User extends Authenticatable implements JWTSubject
     {
         $this->attributes['password'] = Hash::make($pass);
     }
-    // public function setRoleAttribute($role)
-    // {
-    //     $map=[
-    //         "کاربر عادی"=>"user",
-    //         "ادمین"=>"admin",
-    //     ];
-    //     $this->attributes['password'] = $map[$role];
-    // }
-    // public function getRoleNameAttribute()
-    // {
-    //     $user_role = $this->attributes['role'];
-    //     $role_name = [
-    //         "user" => "کاربر عادی",
-    //         "admin" => "ادمین",
-    //     ];
-
-    //     return $role_name[$user_role];
-    // }
 
     public function getCreatedAtAttribute($value)
     {

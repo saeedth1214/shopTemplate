@@ -24,7 +24,6 @@ const Header = () => {
                             <ul className="nav-list_categories_items">
                                 {
                                     auth || hasCookie('user') ?
-
                                         <Fragment>
                                             <li className="item">
                                                 <Link to="/">خانه</Link>

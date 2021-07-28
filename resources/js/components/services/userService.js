@@ -25,7 +25,7 @@ export const createUserByData = user => {
 
 export const RegisterUserServise = user => {
 
-    return http.post(`${config.BASE_URL}api/front/user/Register`, user);
+    return http.post(`${config.BASE_URL}api/front/user/register`, user);
 
 }
 
@@ -46,7 +46,7 @@ export const userLoginFrontend = login => {
 
 export const userLogoutFrontend = () => {
 
-    return http.get(`${config.BASE_URL}api/front/user/Logout`, { headers });
+    return http.get(`${config.BASE_URL}api/front/user/logout`, { headers });
 
 }
 export const changeUserFronPassword = pass => {

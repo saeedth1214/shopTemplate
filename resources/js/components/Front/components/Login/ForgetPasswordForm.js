@@ -36,10 +36,18 @@ const ForgetPasswordForm = (props) => {
         if (validator.current.allValid()) {
             const credential = { token, email,password}
             dispatch(resetPassword(credential));
+            reset();
         } else {
             validator.current.showMessages();
             forcedState('');
         }
+    }
+    const reset = () => {
+
+        setPassword("");
+        setConfrimPassword("");
+        forcedState(2);
+
     }
     return (
         <Layout>

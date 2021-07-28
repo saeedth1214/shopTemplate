@@ -3,26 +3,33 @@ import React, { Fragment, useState } from 'react';
 
 import { useDispatch } from "react-redux";
 import { forgetPassword } from '../../../Admin/actions/user';
-import { LoadingBar } from 'react-redux-loading-bar';
-import { ToastContainer } from 'react-toastify';
 import Layout from '../layout/layout';
 
 const ForgetPassword = () => {
 
 
     const [email, setEmail] = useState("");
+    const [, forcedState] = useState();
 
     const dispatch = useDispatch();
     const handleSubmitForgetPassword = e => {
-        
+
         e.preventDefault();
-        dispatch(forgetPassword({email}));
+        dispatch(forgetPassword({ email }));
+        reset();
+    }
+    const reset = () => {
+
+        setEmail("");
+        forcedState(2);
+
     }
     return (
         <Fragment>
             {
                 <Layout>
                     <div className="container d-flex flex-column justify-content-between ">
+                        {/* <ToastContainer/> */ }
                         <div className="row justify-content-center mt-5">
                             <div className="col-xl-5 col-lg-6 col-md-10">
                                 <div className="card">

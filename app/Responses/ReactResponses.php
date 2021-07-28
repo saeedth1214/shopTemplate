@@ -49,11 +49,11 @@ class ReactResponses
     }
     public function tokenNotFound()
     {
-        return response()->json(['msg' => "توکنی پیدا نشد"], Response::HTTP_BAD_REQUEST);
+        return response()->json(['msg' => "توکنی پیدا نشد"], Response::HTTP_NOT_FOUND);
     }
     public function emailNotFound()
     {
-        return response()->json(['msg' => "چنین ایمیل وجودندارد"], Response::HTTP_BAD_REQUEST);
+        return response()->json(['msg' => "چنین ایمیل وجودندارد"], Response::HTTP_NOT_FOUND);
     }
     public function tokenWasExpired()
     {

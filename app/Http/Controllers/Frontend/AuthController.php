@@ -32,7 +32,7 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
         $token = $this->attemptAction($credentials);
-        Cache::put('tokenApi', $token, Carbon::now()->addSeconds(60));
+        Cache::put('tokenApi', $token, Carbon::now()->addMinutes(60));
         if (!$token) {
             return ResponsesFacade::emailOrPasswordNotValid();
         }
@@ -63,6 +63,7 @@ class AuthController extends Controller
     {
         auth('api')->logout();
 
+        Cache::forget('tokenApi');
         return ResponsesFacade::userLoggedOut();
     }
 
@@ -103,7 +104,7 @@ class AuthController extends Controller
           
             $token=$this->attemptAction(['email'=>$data['email'],'password'=>$data['password']]);
 
-            Cache::put('tokenApi', $token, Carbon::now()->addSeconds(60));
+            Cache::put('tokenApi', $token, Carbon::now()->addMinutes(60));
             event(new userRegistered($user));
 
             return ResponsesFacade::verifyEmailSendSuccessfuly($this->respondWithToken($token));

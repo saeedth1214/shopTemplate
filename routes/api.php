@@ -24,12 +24,12 @@ Route::group(['prefix'=>'front',"namespace" => $frontNs], function () {
 
 //
 //    // user register
-    Route::post("user/Register", "AuthController@register");
+    Route::post("user/register", "AuthController@register");
     Route::post("user/login", "AuthController@login");
     Route::post("user/forget-password", "ForgetPasswordController@sendForgetPasswordEmail");
     Route::post("user/reset-password", "ForgetPasswordController@resetPassword");
     Route::post("user/changePassword", "AuthController@changePassword");
-    Route::get("user/Logout", "AuthController@logout");
+    Route::get("user/logout", "AuthController@logout");
 
 //
     //review

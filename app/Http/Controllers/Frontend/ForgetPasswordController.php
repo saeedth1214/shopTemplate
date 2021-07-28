@@ -7,6 +7,7 @@ use App\Responses\ResponsesFacade;
 use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Hashing\BcryptHasher;
 
 class ForgetPasswordController extends Controller
 {
@@ -55,7 +56,7 @@ class ForgetPasswordController extends Controller
 
     protected function reset($user, $password)
     {
-        $user->password = Hash::make($password);
+        $user->password =$password;
         $user->save();
     }
 }
