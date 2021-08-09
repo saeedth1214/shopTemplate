@@ -19,8 +19,9 @@ class BrandController extends Controller
     {
         try {
             $brands = $this->brandRepo->getcategoryBrands(request('catId'));
-            return ResponsesFacade::succss($brands);
+            return ResponsesFacade::success($brands);
         } catch (\Throwable $th) {
+            return response()->json(['msg'=>$th->getMessage()]);
             return ResponsesFacade::faild();
         }
     }

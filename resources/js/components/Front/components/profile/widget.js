@@ -40,38 +40,37 @@ const Widgets = () => {
     }
     return (
         <Fragment>
-            <div className="mt-5" />
             <div className="row">
-                <div className="col-xl-4">
+                <div className="col-md-4">
                     <div className="media widget-media p-4 bg-white border">
-                        <div className="icon rounded-circle mr-4 bg-primary">
+                        <div className="icon rounded-circle mr-2 bg-warning">
                             <i className="mdi mdi-account-outline text-white "></i>
                         </div>
                         <div className="media-body align-self-center">
-                            <h4 className="text-primary mb-2">{ getSuccessOrderCount() }</h4>
-                            <p>تعداد سفارش های موفق</p>
+                            <p className="text-primary text-small mb-2 font-size-12">{ getSuccessOrderCount() }</p>
+                            <p className="text-small text-dark font-size-12">تعداد سفارش های موفق</p>
                         </div>
                     </div>
                 </div>
-                <div className="col-xl-4">
+                <div className="col-md-4">
                     <div className="media widget-media p-4 bg-white border">
-                        <div className="icon rounded-circle bg-warning mr-4">
+                        <div className="icon rounded-circle bg-warning text-small mr-2">
                             <i className="mdi mdi-cart-outline text-white "></i>
                         </div>
                         <div className="media-body align-self-center">
-                            <h4 className="text-primary mb-2">{ getFailedOrderCount() }</h4>
-                            <p>تعداد سفارش های ناموفق</p>
+                            <p className="text-primary text-small mb-2 font-size-12">{ getFailedOrderCount() }</p>
+                            <p className="text-dark text-small font-size-12">تعداد سفارش های ناموفق</p>
                         </div>
                     </div>
                 </div>
-                <div className="col-xl-4">
+                <div className="col-md-4">
                     <div className="media widget-media p-4 bg-white border">
-                        <div className="icon rounded-circle bg-warning mr-4">
+                        <div className="icon rounded-circle bg-warning text-small mr-2">
                             <i className="mdi mdi-cart-outline text-white "></i>
                         </div>
                         <div className="media-body align-self-center">
-                            <h4 className="text-primary mb-2">{ totalAmountOfSuccessOrder() }</h4>
-                            <p>هزینه کلی</p>
+                            <p className="text-primary text-small mb-2 font-size-12">{ totalAmountOfSuccessOrder() }</p>
+                            <p className="text-small text-dark font-size-12">هزینه کلی</p>
                         </div>
                     </div>
                 </div>

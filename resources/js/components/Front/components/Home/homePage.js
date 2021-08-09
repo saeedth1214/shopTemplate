@@ -13,6 +13,7 @@ import Profile from "../profile/profile";
 import ShowSingleProduct from "../product/showSingleProduct";
 import ForgetPassword from "../Login/ForgetPassword";
 import ForgetPasswordForm from "../Login/ForgetPasswordForm";
+import Profile2 from "../profile/profile2";
 
 
 const HomePage = () => {
@@ -28,8 +29,8 @@ const HomePage = () => {
                 <Route path="/user/register" component={ Register } />
                 <Route path="/user/forget-password" component={ ForgetPassword } />
                 <Route path="/user/forget-password-form" component={ ForgetPasswordForm } />
-                <Route path="/user/profile"
-                    render={ () => <Login_middleware profile="true"><Profile /></Login_middleware> } />
+                {/* <Route path="/user/profile" render={ () => <Login_middleware profile="true"><Profile /></Login_middleware> } /> */}
+                <Route path="/user/profile" render={ () => <Login_middleware profile="true"><Profile2 /></Login_middleware> } />
                 <Route path="/user/card" component={ Card } />
                 <Route path="/product/:id" component={ ShowSingleProduct } />
             </Switch>

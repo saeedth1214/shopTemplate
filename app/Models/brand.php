@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class brand extends Model
 {
+    use HasFactory;
     public $table="brands";
     public $timestamps = false;
     public $perPage = 4;

@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Repositories\ShamsiRepositories;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class review extends Model
 {
+    use HasFactory;
     const CREATED_AT = 'created_at';
     const UPDATED_AT = null;
     protected $guarded = ['id'];

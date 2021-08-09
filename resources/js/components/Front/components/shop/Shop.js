@@ -14,8 +14,8 @@ const Shop = () => {
             <Header />
             <section className="shopContent rtl">
                 <div className="container">
-                    {/* <Filter />
-                    <MainItem /> */}
+                     <Filter />
+                    <MainItem /> 
                 </div>
                 <Footer />
             </section>

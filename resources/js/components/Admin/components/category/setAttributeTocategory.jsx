@@ -72,6 +72,7 @@ const Set_Attribute_To_Category = ({ categories }) => {
 
     }
 
+    console.log(cateAttr,"cate attr");
     return (
         <div className="col-6">
 

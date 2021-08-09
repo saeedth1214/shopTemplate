@@ -16,12 +16,12 @@ const Orders = () => {
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                                <th>ردیف</th>
+                                <th>کد سفارش</th>
                                 <th>نام محصول</th>
                                 <th className="d-none d-xl-table-cell">تعداد</th>
-                                <th className="d-none d-xl-table-cell">تاریخ</th>
-                                <th className="d-none d-xl-table-cell">هزینه کلی</th>
-                                <th className="d-none d-xl-table-cell">وضعیت نهایی</th>
+                                <th>تاریخ</th>
+                                <th>هزینه کلی</th>
+                                <th>وضعیت نهایی</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,9 +34,9 @@ const Orders = () => {
                                             <a className="text-dark" href=""> { item.title }</a>
                                         </td>
                                         <td className="d-none d-xl-table-cell">{ item.count }</td>
-                                        <td className="d-none d-xl-table-cell">{ item.date }</td>
-                                        <td className="d-none d-xl-table-cell">{ getSingleProductPrice(item.amount) }تومان</td>
-                                        <td className="d-none d-xl-table-cell">{ item.status === "completed" ? "تکمیل شده" : "ناموفق" }</td>
+                                        <td >{ item.date }</td>
+                                        <td >{ getSingleProductPrice(item.amount) }تومان</td>
+                                        <td >{ item.status === "completed" ? "تکمیل شده" : "ناموفق" }</td>
 
                                     </tr>
                                 ) : null

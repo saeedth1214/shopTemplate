@@ -3,13 +3,16 @@ import { errorNoti, successNoti, warrningNoti } from "../../utility/messageNotif
 
 
 export const getAllCateAttr = id => {
-
     return async (dispatch, getState) => {
-
-        const { data } = await getcatAttr(id);
-        dispatch({ type: "GET_CATEATTR", payload: data.data })
+        try {
+            const { data, status } = await getcatAttr(id);
+            if (status === 200) {
+                dispatch({ type: "GET_CATEATTR", payload: data })
+            }
+        } catch (error) {
+            console.log(error.response);
+        }
     }
-
 }
 
 export const getAttributeByCatID = id => {
@@ -17,18 +20,17 @@ export const getAttributeByCatID = id => {
 
     return async dispatch => {
         try {
-            const { data ,status} = await getAttributeByCateID(id);
-            
-            if (status === 200) { 
-                const { items } = data;
-                dispatch({ type: "GET_CATEATTR", payload: items })
+            const { data, status } = await getAttributeByCateID(id);
+            if (status === 200) {
+                // const { items } = data;
+                dispatch({ type: "GET_CATEATTR", payload: data })
             }
         } catch (error) {
-            
-            console.log(error.resposne);
+
+            console.log(error.response);
         }
 
-        
+
 
     }
 }
@@ -43,7 +45,7 @@ export const createCategoryAttributes = catAttr => {
                 const { data, status } = await createCatAttrs(catAttr);
                 successNoti(data.msg);
                 // console.log(data,status); 201
-            } else { 
+            } else {
                 warrningNoti("لطفا یک دسته بندی را انتخاب کنید");
             }
         } catch (error) {

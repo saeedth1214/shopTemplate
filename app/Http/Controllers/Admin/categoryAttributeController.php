@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Repositories\AttributeRepositories;
 use App\Repositories\CategoryRepositories;
+use App\Responses\ResponsesFacade;
 
 class categoryAttributeController extends Controller
 {
@@ -20,9 +21,14 @@ class categoryAttributeController extends Controller
 
     public function index()
     {
-        $id=request("id");
-        $res = $this->cateRepo->getAttributes($id);
-        return response(["data"=>$res]);
+        try {
+            $id = request("id");
+            $res = $this->cateRepo->getAttributes($id);
+            return ResponsesFacade::success($res);
+        } catch (\Throwable $th) {
+            return response()->json(['msg'=>$th->getMessage()]);
+            return ResponsesFacade::faild();
+        }
     }
 
     public function create()
@@ -34,16 +40,19 @@ class categoryAttributeController extends Controller
             return response(["msg" => "یک مورد با موفقیت ساخته شد","data"=>$res], 201);
         }
         return response(["msg" => "خطایی سمت سرور رخ داده است","data"=>$res ], 204);
-        
     }
 
     public function cateAttr()
     {
-        $id = request("id");
-        $data = $this->cateRepo->allAttributes($id);
-        // $data=$this->attrRepo->getInfo($res);
-
-        return response(['items'=>$data]);
+        try {
+            $id = request("id");
+            $data = $this->cateRepo->allAttributes($id);
+            return ResponsesFacade::success($data);
+            return response(['items'=>$data]);
+        } catch (\Throwable $th) {
+            
+            return ResponsesFacade::faild();
+        }
     }
   
 

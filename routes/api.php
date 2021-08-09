@@ -134,6 +134,7 @@ Route::group(['prefix'=>'admin',"namespace"=>$adminNs,"middleware"=>['auth:api',
     Route::get("getDashboardDetail", "DashboardController@getDashboardInfo");
     Route::get("newOrders", "DashboardController@newOrders");
     Route::get("bestSeller", "DashboardController@bestSeller");
+    Route::get("monthlySales", "DashboardController@monthlySales");
     // orders
     Route::get("allOrders", "OrderController@getAllOrders");
     // attribute value

@@ -37,19 +37,20 @@ const Info = () => {
     // });
     return (
         <Fragment>
-            <div className="card text-center widget-profile px-0 border-0">
-                <div className="card-img mx-auto rounded-circle">
-                    {/* <div { ...getRootProps({ className: 'dropzone' }) }>
+
+            <div className="card-img mx-auto rounded-circle">
+                {/* <div { ...getRootProps({ className: 'dropzone' }) }>
                         <input { ...getInputProps() } />
 
                     </div> */}
-                        <img src={ img['USER'] } alt="user image" style={ { width: "100px", height: "100px" } } />
-                </div>
-                <div className="card-body">
-                    <h4 className="py-2 text-dark">{ user.fullname }</h4>
-                    <p>{ user.email }</p>
-                </div>
+                <img src={ img['USER'] } alt="user image" style={ { width: "100px", height: "100px" } } />
             </div>
+            <div className="card-body">
+                <p className="py-2 text-dark text-small">{ user.fullname }</p>
+                <p class="text-small text-dark">{ user.email }</p>
+                <a className="btn btn-primary btn-pill btn-sm my-4" href="#">تغییر عکس پروفایل</a>
+            </div>
+
         </Fragment>
     );
 }

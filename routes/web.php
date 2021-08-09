@@ -13,12 +13,12 @@ Route::View("/user/profile", "Front.home.index")->name('profile')->middleware('a
 Route::View("/user/card", "Front.home.index")->name('card');
 
 Route::group(['prefix'=>'admin','middleware'=>['auth:api','isAdmin']], function () {
-    Route::view("/admin/home", "Admin.home.index");
-    Route::view("/admin/users", "Admin.home.index");
-    Route::View("/admin/category", "Admin.home.index");
-    Route::View("/admin/product", "Admin.home.index");
-    Route::View("/admin/media", "Admin.home.index");
-    Route::View("/admin/reviews", "Admin.home.index");
+    Route::view("/home", "Admin.home.index");
+    Route::view("/users", "Admin.home.index");
+    Route::View("/category", "Admin.home.index");
+    Route::View("/product", "Admin.home.index");
+    Route::View("/media", "Admin.home.index");
+    Route::View("/reviews", "Admin.home.index");
 });
 
 Route::get('/email/verify', [ VerifyController::class, 'verify'])->name('authenticate.verify.email');

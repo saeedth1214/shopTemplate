@@ -10,10 +10,11 @@ use App\Jobs\sendEmail;
 use App\Mail\UserRegistered;
 use App\Mail\forgetPassword;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable,HasFactory;
 
     protected $perPage = 5;
 

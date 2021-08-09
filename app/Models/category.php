@@ -5,15 +5,17 @@ namespace App\Models;
 use App\Repositories\CategoryRepositories;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class category extends Model
 {
+    use HasFactory;
     public $timestamps = false;
     public $perPage = 4;
 
     //
 
-    public $fillable = ['slug', 'title', 'banner', 'parent'];
+    public $fillable = ['slug', 'title'];
 
     public function attributes()
     {

@@ -10,7 +10,7 @@ const Rewiews = () => {
 
             <div className="card card-default" data-scroll-height="550" style={ { height: "auto", overflow: "hidden" } }>
                 <div className="card-header justify-content-between ">
-                    <h2>نظرات ثبت شده</h2>
+                    <p className="text-dark text-small">نظرات ثبت شده</p>
                 </div>
 
                 {
@@ -22,8 +22,8 @@ const Rewiews = () => {
                                     <i className="mdi mdi-email-outline font-size-20"></i>
                                 </div>
                                 <div className="media-body pr-3">
-                                    <a className="mt-0 mb-1 font-size-15 text-dark" href="#">{ item.title }</a>
-                                    <p>{ item.comment }</p>
+                                    <span className="mt-0 mb-1 font-size-15 text-dark">{ item.title }</span>
+                                    <p className="text-dark text-small">{ item.comment }</p>
                                 </div>
                                 <span className=" font-size-12 d-inline-block"><i className="mdi mdi-clock-outline"></i> { item.date }</span>
                             </div>
@@ -35,7 +35,7 @@ const Rewiews = () => {
                                                 <i className="mdi mdi-email-outline font-size-20"></i>
                                             </div>
                                             <div className="media-body pr-3">
-                                                <p>{ reply.reply }</p>
+                                                <p className="text-dark text-small">{ reply.reply }</p>
                                             </div>
                                             <span className=" font-size-12 d-inline-block"><i className="mdi mdi-clock-outline"></i> { reply.date }</span>
                                         </div>
