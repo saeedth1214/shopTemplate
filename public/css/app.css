@@ -1012,6 +1012,12 @@ a:hover{
     margin-top: 15px;
 }
 
+.slim-scroll{
+
+    height: 325px;
+    overflow-y: scroll;
+}
+
 /* .nav-link i{
 
     margin-left: 5px;
@@ -10897,7 +10903,10 @@ div.copied {
 .app-brand {
   position: relative;
   display: block;
-  background-color: #4c84ff; }
+  background-color: #4c84ff; 
+    padding:5px;
+
+}
   .app-brand a {
     display: flex;
     flex-direction: row;

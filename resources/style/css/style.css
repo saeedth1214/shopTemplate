@@ -178,6 +178,12 @@ a:hover{
     margin-top: 15px;
 }
 
+.slim-scroll{
+
+    height: 325px;
+    overflow-y: scroll;
+}
+
 /* .nav-link i{
 
     margin-left: 5px;

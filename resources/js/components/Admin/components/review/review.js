@@ -12,7 +12,7 @@ const Reviews = () => {
 
 
 
-    const [perPage] = useState(2);
+    const [perPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
 
 

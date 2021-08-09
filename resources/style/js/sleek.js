@@ -58,6 +58,8 @@ $(document).ready(function () {
   if ($(window).width() < 768) {
     $(document).on("click", ".sidebar-toggle", function (e) {
       e.preventDefault();
+      
+
       var min = "sidebar-minified",
         min_out = "sidebar-minified-out",
         body = "#body";
@@ -78,6 +80,8 @@ $(document).ready(function () {
     window.isCollapsed = false;
 
     $("#sidebar-toggler").on("click", function () {
+      
+
       if (
         body.hasClass("sidebar-fixed-offcanvas") ||
         body.hasClass("sidebar-static-offcanvas")
