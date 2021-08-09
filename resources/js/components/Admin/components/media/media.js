@@ -5,7 +5,6 @@ const Media = () => {
     return (
         <Fragment>
             <MediaList />
-            
             <AddMedia />
         </Fragment>
     )
