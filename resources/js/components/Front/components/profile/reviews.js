@@ -27,17 +27,21 @@ const Rewiews = () => {
                                 </div>
                                 <span className=" font-size-12 d-inline-block"><i className="mdi mdi-clock-outline"></i> { item.date }</span>
                             </div>
-                            <div className="media py-3 align-items-center justify-content-between">
+                            <div className="media-body py-3 align-items-center">
                                 {
                                     (item.reply !== undefined && item.reply.length > 0) ? item.reply.map((reply, Idx) =>
-                                        <div className="media py-3 align-items-center justify-content-between">
-                                            <div className="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
-                                                <i className="mdi mdi-email-outline font-size-20"></i>
+                                        <div className="media p-3 align-items-center justify-content-between">
+                                            <div className="media">
+                                                <div className="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
+                                                    <i className="mdi mdi-email-outline font-size-20"></i>
+                                                </div>
+                                                <div className="media-body pr-3">
+                                                    <p className="text-dark text-small">{ reply.reply }</p>
+                                                </div>
                                             </div>
-                                            <div className="media-body pr-3">
-                                                <p className="text-dark text-small">{ reply.reply }</p>
+                                            <div className="pr-3">
+                                                <p className=" font-size-12 d-inline-block"><i className="mdi mdi-clock-outline"></i> { reply.date }</p>
                                             </div>
-                                            <span className=" font-size-12 d-inline-block"><i className="mdi mdi-clock-outline"></i> { reply.date }</span>
                                         </div>
                                     ) : null
                                 }

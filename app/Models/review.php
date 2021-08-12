@@ -25,9 +25,9 @@ class review extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function getdataAttribute()
+    public function getdateAttribute()
     {
-        return ShamsiRepositories::miladi_to_shamsi($this->attributes['created_at']);
+        return ShamsiRepositories::miladi_to_shamsi($this->attributes['date']);
     }
 
     public function replys()

@@ -11,7 +11,6 @@ export const getSingleProduct = (pid) => {
     return async dispatch => {
 
         try {
-            console.log("single");
             dispatch(showLoading("singleProduct"));
             let item = {};
             const { data, status } = await getProduct(pid);
@@ -33,6 +32,7 @@ export const getSingleProduct = (pid) => {
             dispatch({ type: "GET_SINGLE_PRODUCT", payload: item });
             dispatch(hideLoading("singleProduct"));
         } catch (error) {
+            alert(error.response.msg);
             console.log(error.response, 'sssddd');
         }
     }
