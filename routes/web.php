@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\VerifyController;
 
-Route::View("/", "front.home.index");
+Route::View("/", "Front.home.index");
 Route::View("/product/{pid}", "Front.home.index");
 Route::View("/user/login", "Front.home.index")->name('login');
 Route::View("/user/forget-password", "Front.home.index")->name('forgetPassword');
