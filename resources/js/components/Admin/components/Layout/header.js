@@ -6,9 +6,9 @@ const Header = () => {
         <header className="main-header " id="header">
             <nav className="navbar navbar-static-top navbar-expand-lg">
 
-                <button id="sidebar-toggler" className="sidebar-toggle">
+                 <button id="sidebar-toggler" className="sidebar-toggle">
                     <span className="sr-only">Toggle navigation</span>
-                </button>
+                </button> 
 
                 <div className="search-form d-none d-lg-inline-block">
                     {/* <div className="input-group"> */}

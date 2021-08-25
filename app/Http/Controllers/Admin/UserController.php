@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Repositories\userRepositories;
 use App\Responses\ResponsesFacade;
+use Illuminate\Support\Facades\DB;
+use App\Repositories\dashbordRepository;
 
 class UserController extends Controller
 {
@@ -35,6 +37,7 @@ class UserController extends Controller
             if ($email) {
                 return ResponsesFacade::emailAlreadyCreated();
             }
+            DB::beginTransaction();
             $user_data = [
                 'fullname' => request()->userName,
                 'email' => request()->email,
@@ -42,49 +45,68 @@ class UserController extends Controller
                 'role' => request()->has("role") ? request()->role : "user",
                 "avatar" => request()->avatar ?? ""
             ];
+            
             $user = $this->userRepo->create($user_data);
 
+            $user = $user->getOrSend(function () {
+                return ResponsesFacade::faild();
+            });
+
+            // return ResponsesFacade::success(["msg" => "یک کاربر با موفقیت ثبت کردید", 'data' => $user], 201);
+            
             if ($user instanceof User) {
+                app()->make(dashbordRepository::class)->userCountIncrease();
+                DB::commit();
                 return ResponsesFacade::success(["msg" => "یک کاربر با موفقیت ثبت کردید", 'data' => $user], 201);
             }
+            DB::rollBack();
+            // return ResponsesFacade::faild();
         } catch (\Throwable $th) {
-            return ResponsesFacade::faild();           
+            return response()->json(['msg'=>$th->getMessage()]);
+            DB::rollBack();
+            return ResponsesFacade::faild();
         }
-
     }
 
 
     public function update()
     {
-        $data = [
-            'fullname' =>request()->userName,
-            'password' =>request()->password,
-            'role' =>request()->role,
-            "avatar" =>request()->avatar ?? ""
+        try {
+            $data = [
+                'fullname' => request()->userName,
+                'password' => request()->password,
+                'role' => request()->role,
+                "avatar" => request()->avatar ?? ""
 
-        ];
-        $user = $this->userRepo->find(request()->id);
-        $user = $user->update($data);
-        if ($user) {
-            return response(null, 204);
+            ];
+            $user = $this->userRepo->find(request()->id);
+            $user = $user->update($data);
+            if ($user) {
+                return response(null, 204);
+            }
+            return ResponsesFacade::success(null, 204);
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
         }
-        return response(["msg"=>"مشکلی سمت سرور به وجود آمده است"], 500);
     }
 
     public function remove(int $id)
     {
-
         try {
+            DB::beginTransaction();
             $user = $this->userRepo->find($id);
             $res = $user->delete();
             if ($res) {
+                app()->make(dashbordRepository::class)->userCountDecrease();
+                DB::commit();
                 return ResponsesFacade::success(["msg" => "یک کاربر با موفقیت حذف شد"], 202);
             }
+            DB::rollBack();
+            return ResponsesFacade::faild();
         } catch (\Throwable $th) {
-            return ResponsesFacade::faild();                        
+            DB::rollBack();
+            return ResponsesFacade::faild();
         }
-
-        
     }
 
     public function changeRole()
@@ -95,11 +117,8 @@ class UserController extends Controller
             if ($res) {
                 return ResponsesFacade::success(null, 204);
             }
-
         } catch (\Throwable $th) {
-            return ResponsesFacade::faild();                        
+            return ResponsesFacade::faild();
         }
-
-      
     }
 }

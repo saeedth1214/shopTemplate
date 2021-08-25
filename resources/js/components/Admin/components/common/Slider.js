@@ -55,27 +55,27 @@ const Slider = () => {
     const createPrevNext =()=>(
 
          <Fragment>
-              <div className="previuse"><span onClick={ previuseImage } className="carousel-control-prev-icon" aria-hidden="true"></span></div>
+            <div className="previuse"><span onClick={ previuseImage } className="carousel-control-prev-icon" aria-hidden="true"></span></div>
+            <div className="imageSlider">
+
+
+            </div>
                 <div className="next"><span onClick={ nextImage } className="carousel-control-next-icon" aria-hidden="true"></span></div>
          </Fragment>
     )
     return (
         <Fragment>
-            <div className="imageSlider">
-
-
-            </div>
-            <div className="pre-next">
+         
+          
 
 
 {
-    !isNull(images)  
+    images.length>0
     ?
            createPrevNext()
 :null
 }
     
-            </div>
 
         </Fragment>
     )

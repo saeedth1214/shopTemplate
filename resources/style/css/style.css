@@ -490,7 +490,7 @@ text-decoration: none;
 
 .state{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     margin-top: 1.5em;
 align-items: center;
 
@@ -738,7 +738,6 @@ input[type=checkbox]{
     margin-bottom: 50px !important;
     border: 1px solid #edeff2;
     border-radius: 2px;
-    padding: 50px 70px;
     border:1px solid #ffffff;
 }
 
@@ -923,6 +922,8 @@ input[type=checkbox]{
     height: auto;
     margin: 0 auto
 }
+
+
 .card_Item{
     display: flex;
     flex-direction: row;
@@ -1130,11 +1131,42 @@ font-size: 1.5em;
 
 }
 
-
+ /* media query */
 @media screen and (max-width:1200px){
 
     .filter-group > ul {
         flex-direction: column;
         align-items: stretch;
     }
+}
+
+@media screen and  (max-width:600px){
+    
+    .card_Item_List{
+        width:100%
+    }
+
+    .other-filter{
+        font-size: 0.8em;
+    }
+
+    .product{
+        margin: 10px auto;
+    }
+    p,button,input,a,label{
+
+        font-size: 0.9em;
+    }
+    *{
+        font-size: 0.9rem;
+
+    }
+.status{
+    margin-left: 3px;
+font-size: 1.1rem
+}
+    .dialogContent{
+        width: 80%
+    }
+
 }

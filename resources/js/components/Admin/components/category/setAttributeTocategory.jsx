@@ -9,10 +9,14 @@ const Set_Attribute_To_Category = ({ categories }) => {
     const attributes = useSelector(state => state.attributes);
     const cateAttr = useSelector(state => state.cateAttr);
     const [category, setCategory] = useState(0);
-    const [updateId, setupdateId] = useState(0);
+    const [updateAttribute, setupdateAttribute] = useState(0);
     const [openDialog, setOpenDialog] = useState(false);
 
-    const showDialog = () => { setOpenDialog(true) }
+    const showDialog = id => {
+        setOpenDialog(true);
+        let attribute = attributes.find(item => item.id === id);
+        setupdateAttribute(attribute)
+    }
     const closeDialog = () => { setOpenDialog(false) }
     const dispatch = useDispatch();
 
@@ -40,11 +44,20 @@ const Set_Attribute_To_Category = ({ categories }) => {
     const getCateAttr = cateId => {
         // let btn = document.getElementById("btn-cateAttr");
 
-        if (cateId != 0) {
+
+        if (parseInt(cateId) !== 0) {
             dispatch(getAllCateAttr(cateId));
             // btn.removeAttribute("disabled");
-            setCategory(cateId)
         }
+        // if (parseInt(cateId) === 0) {
+        //     var mdis = document.querySelectorAll(".mdibg");
+        //     var mdiArr = Array.from(mdis); // convert nodelist to array
+        //     mdiArr.map(mdi => {
+        //         // get selected attributes 
+        //         mdi.classList.toggle("mdibg");
+        //     });
+        // }
+        setCategory(parseInt(cateId));
     }
     const handleAttributeDelete = e => {
 
@@ -56,32 +69,27 @@ const Set_Attribute_To_Category = ({ categories }) => {
         dispatch(removeAttribute(id));
 
     }
-    const handleAttributeUpdate = e => {
-
-        var el = e.target;
-        var id = el.getAttribute('value');
-        setupdateId(id);
-        showDialog();
-
-    }
-
     const handleSelectItem = el => {
 
         let mdi = el.target;
         mdi.classList.toggle("mdibg");
 
     }
-
-    console.log(cateAttr,"cate attr");
     return (
-        <div className="col-6">
+        <div className="col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-6">
 
-            <UpdateAttributeDialog showDialog={ openDialog } closeDialog={ closeDialog } id={ updateId } />
+            <UpdateAttributeDialog showDialog={ openDialog } closeDialog={ closeDialog } attribute={ updateAttribute } />
             <div className="card card-default todo-table">
                 <div className="card-header justify-content-between align-items-center card-header-border-bottom">
                     <h2 className="d-inline-block">ویژگیها</h2>
 
-                    <button className="btn btn-outline-primary btn-sm" id="btn-cateAttr" onClick={ handleCategoryAttr }> ثبت تغییرات</button>
+                    {
+                        attributes.length === 0 ?
+                            <button className="btn btn-outline-primary btn-sm" disabled id="btn-cateAttr" onClick={ handleCategoryAttr }> ثبت تغییرات</button>
+                            :
+                            <button className="btn btn-outline-primary btn-sm" id="btn-cateAttr" onClick={ handleCategoryAttr }> ثبت تغییرات</button>
+
+                    }
 
                 </div>
 
@@ -113,7 +121,7 @@ const Set_Attribute_To_Category = ({ categories }) => {
 
                                     <div className="badge-style">
                                         <span className="badge badge-warning" value={ attribute.id } onClick={ handleAttributeDelete }>حذف</span>
-                                        <span className="badge badge-primary" value={ attribute.id } onClick={ handleAttributeUpdate }>ویرایش</span>
+                                        <span className="badge badge-primary" value={ attribute.id } onClick={ () => showDialog(attribute.id) }>ویرایش</span>
                                     </div>
                                 </div>
 

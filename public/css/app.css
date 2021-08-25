@@ -1330,7 +1330,7 @@ text-decoration: none;
 
 .state{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     margin-top: 1.5em;
 align-items: center;
 
@@ -1578,7 +1578,6 @@ input[type=checkbox]{
     margin-bottom: 50px !important;
     border: 1px solid #edeff2;
     border-radius: 2px;
-    padding: 50px 70px;
     border:1px solid #ffffff;
 }
 
@@ -1765,6 +1764,8 @@ input[type=checkbox]{
     height: auto;
     margin: 0 auto
 }
+
+
 .card_Item{
     display: flex;
     flex-direction: row;
@@ -1978,13 +1979,44 @@ font-size: 1.5em;
 
 }
 
-
+ /* media query */
 @media screen and (max-width:1200px){
 
     .filter-group > ul {
         flex-direction: column;
         align-items: stretch;
     }
+}
+
+@media screen and  (max-width:600px){
+    
+    .card_Item_List{
+        width:100%
+    }
+
+    .other-filter{
+        font-size: 0.8em;
+    }
+
+    .product{
+        margin: 10px auto;
+    }
+    p,button,input,a,label{
+
+        font-size: 0.9em;
+    }
+    *{
+        font-size: 0.9rem;
+
+    }
+.status{
+    margin-left: 3px;
+font-size: 1.1rem
+}
+    .dialogContent{
+        width: 80%
+    }
+
 }
 
 /*!
@@ -10829,13 +10861,23 @@ div.copied {
   position: fixed;
   display: flex;
   flex-direction: column;
-  transform: translateX(250px); }
+  transform: translateX(250px); } 
   @media (min-width: 768px) {
     .left-sidebar {
       transform: translateX(0);
       width: 250px;
       position: relative;
-      z-index: 1; } }
+      z-index: 1; }    
+      } 
+@media only screen and (max-width: 600px) {
+  .markTitle{
+    font-size:1.5em
+  }
+  #footer ul{
+    width:100%
+  }
+
+}
 
 .sidebar {
   display: flex;
@@ -10904,7 +10946,7 @@ div.copied {
   position: relative;
   display: block;
   background-color: #4c84ff; 
-    padding:5px;
+    /* padding:5px; */
 
 }
   .app-brand a {
@@ -11029,6 +11071,7 @@ div.copied {
   z-index: 1050;
   transform: translateX(0);
   transition: transform .3s ease-in-out; }
+
   @media (min-width: 768px) {
     .sidebar-minified .left-sidebar {
       width: 75px;
@@ -11069,6 +11112,7 @@ div.copied {
       display: block !important;
       opacity: 1;
       visibility: visible; } }
+
   @media screen and (max-width: 767.98px) and (prefers-reduced-motion: reduce) {
     .sidebar-minified .left-sidebar .nav li.has-sub.expand .collapse > .sub-menu {
       transition: none; } }
@@ -11123,7 +11167,7 @@ div.copied {
     .sidebar-minified .left-sidebar:hover .brand-name {
       transition: none; } }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .sidebar-minified .left-sidebar:hover .app-brand .brand-name {
     opacity: 1;
     visibility: visible;
@@ -11136,7 +11180,7 @@ div.copied {
 .sidebar-minified .left-sidebar:hover .separator {
   border-top-width: 1px; }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .sidebar-minified .left-sidebar:hover .sidebar-footer {
     height: -webkit-min-content;
     height: -moz-min-content;
@@ -11183,24 +11227,25 @@ div.copied {
 /* Sidebar Fixed With Minified Layout Container */
 @media (min-width: 768px) {
   .sidebar-fixed.sidebar-minified .page-wrapper {
-    padding-right: 4.69rem;
+     padding-right: 4.69rem; 
     transition: padding-right 0.3s ease-in-out; } }
   @media screen and (min-width: 768px) and (prefers-reduced-motion: reduce) {
     .sidebar-fixed.sidebar-minified .page-wrapper {
       transition: none; } }
 
 @media (min-width: 768px) {
-  .sidebar-fixed.sidebar-minified.header-fixed .page-wrapper .main-header {
-    padding-right: 4.69rem;
-    transition: padding-right 0.3s ease-in-out; } }
+   .sidebar-fixed.sidebar-minified.header-fixed .page-wrapper .main-header {
+    padding-right: 4.69rem; 
+    transition: padding-right 0.3s ease-in-out; } 
+   } 
   @media screen and (min-width: 768px) and (prefers-reduced-motion: reduce) {
     .sidebar-fixed.sidebar-minified.header-fixed .page-wrapper .main-header {
       transition: none; } }
 
 /* Sidebar Minified Out */
-.sidebar-minified-out {
-  /* Sidebar Fixed With Sidebar Minified Out */ }
-  .sidebar-minified-out .left-sidebar {
+ /* .sidebar-minified-out { */
+  /* Sidebar Fixed With Sidebar Minified Out */  
+   .sidebar-minified-out .left-sidebar {
     z-index: 10000;
     transform: translateX(250px);
     transition: transform .3s ease-in-out !important; }
@@ -11251,7 +11296,7 @@ div.copied {
       transition: padding-right 0.3s ease-in-out; }
       @media screen and (prefers-reduced-motion: reduce) {
         .sidebar-minified-out .page-wrapper .main-header {
-          transition: none; } }
+          transition: none; } } 
 
 /* Sidebar Fixed And Offcanvas */
 @media (min-width: 768px) {
@@ -11351,7 +11396,7 @@ div.copied {
 @media (min-width: 768px) {
   .sidebar-static.header-fixed .main-header,
   .sidebar-static-offcanvas.header-fixed .main-header {
-    padding-right: 15.6rem; } }
+    padding-right: 15.6rem; } } 
 
 /* Mobile Sticky Body Overlay */
 .mobile-sticky-body-overlay {

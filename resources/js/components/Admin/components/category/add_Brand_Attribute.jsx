@@ -11,7 +11,7 @@ const Add_Brand_Attribute = ({ categories }) => {
 
     // set attributes
     const [attributeSlug, setAttributeSlug] = useState("");
-    const [atributeTitle, setAttributeTitle] = useState("");
+    const [attributeTitle, setAttributeTitle] = useState("");
 
     // set brand
     const [brandSlug, setBrandSlug] = useState("");
@@ -31,18 +31,20 @@ const Add_Brand_Attribute = ({ categories }) => {
 
         dispatch(createBrand(brand));
 
-        setSlug("");
-        setTitle("");
+        setBrandSlug("");
+        setBrandTitle("");
     }
     const handleSubmitAttributes = e => {
 
         e.preventDefault();
-        let newTitle = removeSpace(atributeTitle);
+        let newTitle = removeSpace(attributeTitle);
         let newSlug = removeSpace(attributeSlug);
         const attribute = { slug: newSlug, title: newTitle, type };
 
         dispatch(createAttribute(attribute));
 
+        setAttributeSlug("");
+        setAttributeTitle("");
     }
 
 
@@ -52,7 +54,7 @@ const Add_Brand_Attribute = ({ categories }) => {
     // console.log("from brand attribute", config.TYPE_OF_ATTRBUTES);
     return (
 
-        <div className="col-6">
+        <div className="col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-6">
 
             <div className="card card-default">
 
@@ -74,11 +76,11 @@ const Add_Brand_Attribute = ({ categories }) => {
                             <form onSubmit={ handleSubmitAttributes }>
                                 <label className="text-dark font-weight-medium">نامک</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="مثلا:color" required onChange={ e => { setAttributeSlug(e.target.value) } } />
+                                    <input type="text" className="form-control" value={ attributeSlug } placeholder="مثلا:color" required onChange={ e => { setAttributeSlug(e.target.value) } } />
                                 </div>
                                 <label className="text-dark font-weight-medium">عنوان</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="مثلا:رنگ" required onChange={ e => { setAttributeTitle(e.target.value) } } />
+                                    <input type="text" className="form-control" value={ attributeTitle } placeholder="مثلا:رنگ" required onChange={ e => { setAttributeTitle(e.target.value) } } />
                                 </div>
                                 <label className="text-dark font-weight-medium">نوع</label>
                                 <div className="input-group">
@@ -115,11 +117,11 @@ const Add_Brand_Attribute = ({ categories }) => {
                                 </div>
                                 <label className="text-dark font-weight-medium">نامک</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="مثلا:samsung" required onChange={ e => { setBrandSlug(e.target.value) } } />
+                                    <input type="text" className="form-control" value={ brandSlug } placeholder="مثلا:samsung" required onChange={ e => { setBrandSlug(e.target.value) } } />
                                 </div>
                                 <label className="text-dark font-weight-medium">عنوان</label>
                                 <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="سامسونگ:مثلا" required onChange={ e => { setBrandTitle(e.target.value) } } />
+                                    <input type="text" className="form-control" value={ brandTitle } placeholder="سامسونگ:مثلا" required onChange={ e => { setBrandTitle(e.target.value) } } />
                                 </div>
                                 <button type="submit" className="btn btn-primary btn-sm"> ثبت نهایی </button>
                             </form>

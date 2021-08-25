@@ -62,7 +62,7 @@ const Item = () => {
                         <div className="container">
                             <article className="pro-sum">
                                 <div className="row">
-                                    <div className="col-md-6">
+                                    <div className="col-md-6 col-sm-6">
                                         <div className="single-title">
                                             <span> { product.title } </span>
                                         </div>
@@ -89,7 +89,7 @@ const Item = () => {
                                         </div>
 
                                     </div>
-                                    <div className="col-md-6">
+                                    <div className="col-md-6 col-sm-6">
                                         <Slider />
                                     </div>
                                 </div>

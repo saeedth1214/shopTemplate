@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 import { updateAttribute } from '../../../actions/attributes';
 import config from "../../../../services/config";
 
-const UpdateAttributeDialog = ({ showDialog, closeDialog, id }) => {
+import _ from "lodash";
+
+const UpdateAttributeDialog = ({ showDialog, closeDialog, attribute }) => {
 
 
 
@@ -13,14 +15,23 @@ const UpdateAttributeDialog = ({ showDialog, closeDialog, id }) => {
     const [title, setCatTitle] = useState("");
     const [type, setType] = useState("integer");
 
+    useEffect(() => {
+
+        if (!_.isEmpty(attribute)) {
+
+            setCatSlug(attribute.slug);
+            setCatTitle(attribute.title);
+        }
+    }, [attribute]);
+
     const handleSubmitAttributeForm = e => {
 
         e.preventDefault();
-        
-        const attribute = { id, slug, title, type }
+
+        const newAttribute = { id: attribute.id, slug, title, type }
         // console.log(attribute);
-        dispatch(updateAttribute(attribute));
-            closeDialog();
+        dispatch(updateAttribute(newAttribute));
+        closeDialog();
 
     }
     return (
@@ -40,11 +51,11 @@ const UpdateAttributeDialog = ({ showDialog, closeDialog, id }) => {
                         <form className="form-pill" onSubmit={ handleSubmitAttributeForm }>
                             <div className="form-group">
                                 <label htmlFor="slug">عنوان ویژگی</label>
-                                <input type="text" className="form-control" id="slug" placeholder="مثلا : mobile" required onChange={ e => setCatSlug(e.target.value) } />
+                                <input type="text" className="form-control" value={ slug } id="slug" placeholder="مثلا : mobile" required onChange={ e => setCatSlug(e.target.value) } />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="title">نامک ویژگی</label>
-                                <input type="text" className="form-control" id="title" placeholder="مثلا: موبایل" required onChange={ e => setCatTitle(e.target.value) } />
+                                <input type="text" className="form-control" value={ title } id="title" placeholder="مثلا: موبایل" required onChange={ e => setCatTitle(e.target.value) } />
                             </div>
                             <div className="input-group">
 

@@ -22,7 +22,7 @@ const Reviews = () => {
 
     const archiveReviews = paginate(reviews, currentPage, perPage);
 
-    const handlePageChange = (page,pageCount) => {
+    const handlePageChange = (page, pageCount) => {
 
         (page >= 1 && page <= pageCount)
             ?
@@ -87,18 +87,18 @@ const Reviews = () => {
             </div>
             <div className="row">
                 <div className="col-12">
-                    <div className="card card-default" id="recent-orders">
+                    <div className="card card-default table-responsive" id="recent-orders">
                         <div className="card-body pt-0 pb-5">
                             <table className="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>ردیف</th>
                                         <th>نام محصول</th>
-                                        <th className="d-none d-md-table-cell">نام کاربر</th>
-                                        <th className="d-none d-md-table-cell">نمره</th>
-                                        <th className="d-none d-md-table-cell">وضعیت نمایش</th>
-                                        <th className="d-none d-md-table-cell">نظر</th>
-                                        <th className="d-none d-md-table-cell">ایجاد پاسخ</th>
+                                        <th>نام کاربر</th>
+                                        <th>نمره</th>
+                                        <th>وضعیت نمایش</th>
+                                        <th>نظر</th>
+                                        <th>ایجاد پاسخ</th>
                                         <th>وضعیت</th>
                                     </tr>
                                 </thead>
@@ -113,19 +113,19 @@ const Reviews = () => {
                                                     <td >
                                                         { review.title }
                                                     </td>
-                                                    <td className="d-none d-md-table-cell">{ review.fullname }</td>
-                                                    <td className="d-none d-md-table-cell">{ review.rate }</td>
-                                                    <td className="d-none d-md-table-cell">
+                                                    <td>{ review.fullname }</td>
+                                                    <td>{ review.rate }</td>
+                                                    <td>
                                                         <select className="selectStatus" onChange={ e => changeStatus(e, review.id) }>
                                                             <option selected={ review.status === "فعال" ? "selected" : "" }>فعال</option>
                                                             <option selected={ review.status === "غیر فعال" ? "selected" : "" }>غیر فعال</option>
                                                         </select>
                                                     </td>
-                                                    <td className="d-none d-md-table-cell">{ review.comment }</td>
-                                                    <td className="d-none d-md-table-cell text-center">
+                                                    <td >{ review.comment }</td>
+                                                    <td className="text-center">
                                                         <button onClick={ () => handleShowReviewBox(review.id) } className="btn btn-outline-primary btn-sm">ایجاد</button>
                                                     </td>
-                                                    <td className="d-none d-md-table-cell text-center">
+                                                    <td className="text-center">
                                                         <button onClick={ () => handleRemoveProduct(review.id) } className="status"><i className="fa fa-trash"></i></button>
                                                     </td>
                                                 </tr>
@@ -150,7 +150,7 @@ const Reviews = () => {
 
                         <div className="mb-3">
                             <label className="form-label">پاسخ به نظر:</label>
-                            <textarea className="form-control" value={ replyMessage}  rows="3" onChange={ e => setReplyMessage(e.target.value) } ></textarea>
+                            <textarea className="form-control" value={ replyMessage } rows="3" onChange={ e => setReplyMessage(e.target.value) } ></textarea>
                         </div>
                         <div className="mb-3">
                             <button className="btn btn-outline-primary btn-sm" onClick={ () => createReplyMessage() }>ثبت </button>

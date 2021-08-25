@@ -1,11 +1,12 @@
-import { toast } from "react-toastify";
+import { toast, Slide } from "react-toastify";
 
 export function successNoti(message) {
 
     toast.success(message, {
         position: "top-right",
-        autoClose: 2000,
-        closeOnClick: true,
+        autoClose: 1000,
+        transition: Slide
+        
     });
 
 }
@@ -13,9 +14,9 @@ export function successNoti(message) {
 
 export function errorNoti(message) { 
     toast.error(message, {
-        position: "top-right",
-        autoClose: 2000,
-        closeOnClick: true,
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000,
+        transition: Slide
     });
 
 }
@@ -23,8 +24,8 @@ export function errorNoti(message) {
 export function warrningNoti(message) {
     toast.warning(message, {
         position: "top-right",
-        autoClose: 2000,
-        closeOnClick: true,
+        autoClose: 1000,
+        transition: Slide
     });
 
 }

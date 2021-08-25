@@ -101,12 +101,25 @@ const AddProduct = () => {
 
             const product = { title, quantity, price, description, category, brand, attributeArray };
             dispatch(createProduct(product));
+            reset();
         } else {
             validator.current.showMessages();
             forceUpdate('');
         }
 
     }
+
+
+    const reset = () => {
+
+        setTitle("");
+        setQuantity(0);
+        setPrice(1000);
+        setDescription("");
+
+
+    }
+
     // end attributes
 
     const getBrandID = id => {
@@ -120,7 +133,7 @@ const AddProduct = () => {
                     <div className="card card-default p-3">
                         <form onSubmit={ handleCreateProduct }>
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-6">
                                     <div className="card card-default">
                                         <div className="card-header card-header-border-bottom">
                                             <h5>مشخصات کلی محصول</h5>
@@ -147,7 +160,7 @@ const AddProduct = () => {
                                             </div>
                                             <div className="col-md-12 mb-3">
                                                 <label>عنوان</label>
-                                                <input type="text" className="form-control" name="proTitle" onChange={ e => setTitle(e.target.value) } />
+                                                <input type="text" value={ title } className="form-control" name="proTitle" onChange={ e => setTitle(e.target.value) } />
                                                 { validator.current.message("proTitle", title, "required|min:3|max:128") }
                                             </div>
                                             <div className="col-md-12 mb-3">
@@ -164,7 +177,7 @@ const AddProduct = () => {
                                             </div>
                                             <div className="col-md-12 mb-3">
                                                 <label>توضیحات</label>
-                                                <textarea className="form-control" row="3" name="proDes" onChange={ e => setDescription(e.target.value) } />
+                                                <textarea className="form-control" value={ description } row="3" name="proDes" onChange={ e => setDescription(e.target.value) } />
                                                 { validator.current.message("proDes", description, "required|min:3") }
 
                                             </div>
@@ -173,7 +186,7 @@ const AddProduct = () => {
                                     </div>
                                 </div>
 
-                                <div className="col-md-6">
+                                <div className="col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-6">
                                     <div className="card card-default">
                                         <div className="card-header card-header-border-bottom">
                                             <h5>مشخصات نسبت به دسته بندی محصول</h5>

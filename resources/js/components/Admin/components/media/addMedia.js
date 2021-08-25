@@ -76,6 +76,8 @@ const AddMedia = () => {
 
     }
 
+
+    // console.log(proId, fileType);
     return (
 
         <div className="row" >
@@ -85,7 +87,7 @@ const AddMedia = () => {
                 <div className="card-body pro-header">
 
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-6">
 
                             <div className="form-group">
                                 <label htmlFor="productName">محصول</label>
@@ -126,10 +128,7 @@ const AddMedia = () => {
                             </div>
 
                         </div>
-
-
-
-                        <div className="col-6">
+                        <div className="col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-6">
 
                             <div className="form-group">
 
@@ -165,7 +164,7 @@ const AddMedia = () => {
                                         </div>
                                     </aside>
                                 </section>
-                                <button type="buttom" onClick={ handleMediaForm } className="btn btn-outline-primary" disabled={ (files.length <= 0 || proId === 0 || fileType === '') ? "disabled" : null }>ثبت</button>
+                                <button type="buttom" onClick={ handleMediaForm } className="btn btn-outline-primary" disabled={ (files.length <= 0 || parseInt(proId) === 0 || parseInt(fileType) === 0) ? "disabled" : null }>ثبت</button>
                             </div>
                         </div>
                     </div>

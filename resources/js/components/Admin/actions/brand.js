@@ -54,10 +54,7 @@ export const createBrand = brand => {
                 return;
             }
 
-            const response = await createBrandServise(brand);
-
-            console.log(response);
-
+            const { data,status} = await createBrandServise(brand);
             if (status === 201) {
                 const brands = [...getState().brands];
                 const category = getState().categories.find(cat => cat.id == brand.catBrand);

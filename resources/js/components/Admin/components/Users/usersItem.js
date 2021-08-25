@@ -30,7 +30,7 @@ const UsersItem = ({ users }) => {
 
     const usersData = paginate(users, currentPage, perPage);
 
-    const handlePageChange = (page,pageCount) => {
+    const handlePageChange = (page, pageCount) => {
 
         (page >= 1 && page <= pageCount)
             ?
@@ -78,15 +78,15 @@ const UsersItem = ({ users }) => {
             </div>
             <div className="row">
                 <div className="col-12">
-                    <div className="card card-default" id="recent-orders">
+                    <div className="card card-default table-responsive" id="recent-orders">
                         <div className="card-body pt-0 pb-5">
                             <table className="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>ردیف</th>
                                         <th>نام کاربر</th>
-                                        <th className="d-none d-md-table-cell">ایمیل</th>
-                                        <th className="d-none d-md-table-cell">نقش کاربری</th>
+                                        <th>ایمیل</th>
+                                        <th>نقش کاربری</th>
                                         <th>وضعیت</th>
 
                                     </tr>
@@ -99,12 +99,12 @@ const UsersItem = ({ users }) => {
                                                 <td >
                                                     { user.fullname }
                                                 </td>
-                                                <td className="d-none d-md-table-cell">{ user.email }</td>
-                                                <td className="d-none d-md-table-cell">
+                                                <td>{ user.email }</td>
+                                                <td>
 
                                                     <select className="selectRole" onChange={ e => changeRole(e, user.id) }>
-                                                        <option value="user"  selected={ user.role === "user" ? "user" : "" }>کاربر عادی</option>
-                                                        <option value="admin"  selected={ user.role === "admin" ? "admin" : "" }>ادمین</option>
+                                                        <option value="user" selected={ user.role === "user" ? "user" : "" }>کاربر عادی</option>
+                                                        <option value="admin" selected={ user.role === "admin" ? "admin" : "" }>ادمین</option>
                                                     </select>
                                                 </td>
                                                 <td className="text-center">

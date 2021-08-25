@@ -10,9 +10,9 @@ import { showLoading, hideLoading } from "react-redux-loading-bar";
 export const getSingleProduct = (pid) => {
     return async dispatch => {
 
+        let item = {};
         try {
             dispatch(showLoading("singleProduct"));
-            let item = {};
             const { data, status } = await getProduct(pid);
             if (status === 400) {
                 errorNoti(response.data.msg);
@@ -32,8 +32,14 @@ export const getSingleProduct = (pid) => {
             dispatch({ type: "GET_SINGLE_PRODUCT", payload: item });
             dispatch(hideLoading("singleProduct"));
         } catch (error) {
-            alert(error.response.msg);
-            console.log(error.response, 'sssddd');
+
+            if (error.response.status === 404) {
+                dispatch({ type: "NOT_FOUND", payload: true });
+                dispatch(hideLoading("singleProduct"));
+            } else {
+                alert(error.response.date.msg);
+                console.log(error.response, 'sssddd');
+            }
         }
     }
 }
@@ -150,7 +156,7 @@ export const removeProduct = productId => {
             if (status === 202) {
                 const products = [...getState().products];
                 const filterPro = products.filter(item => parseInt(item.id) !== parseInt(productId));
-                await dispatch({ type: "REMOVE_PRODUCT", payload: filterPro });
+                dispatch({ type: "REMOVE_PRODUCT", payload: filterPro });
                 successNoti(data.msg);
             }
         } catch (error) {
@@ -179,8 +185,6 @@ export const createProduct = product => {
             }
             const { data, status } = await createProductByData(product);
             if (status === 201) {
-
-
                 const products = [...getState().products];
                 const brands = [...getState().brands];
                 const categories = [...getState().categories];
@@ -196,7 +200,7 @@ export const createProduct = product => {
                     btitle: brand.title
                 };
                 products.push(newProduct);
-                await dispatch({ type: "CREATE_PRODUCT", payload: products });
+                dispatch({ type: "CREATE_PRODUCT", payload: products });
                 successNoti(data.msg);
             }
         } catch (error) {

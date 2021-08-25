@@ -14,11 +14,10 @@ class UserRepositories extends BaseRepository
     public function create($data)
     {
         try {
-            $user=User::query()->create($data);
+            $user=$this->model::query()->create($data);
         } catch (\Exception $e) {
             return Nullable(null);
         }
-
         if (!$user->exists) {
             return Nullable(null);
         }
@@ -62,5 +61,15 @@ class UserRepositories extends BaseRepository
     public function setPasswordAttribute($pass)
     {
         return bcrypt($pass);
+    }
+
+    public function updateProfile($fileName, $uid)
+    {
+        $user = $this->model::query()->find($uid);
+        if (!$user) {
+            return Nullable(null);
+        }
+        $res=$this->model::query()->where('id', $uid)->update(['avatar'=>$fileName]);
+        return Nullable($res);
     }
 }

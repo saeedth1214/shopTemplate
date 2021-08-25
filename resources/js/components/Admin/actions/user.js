@@ -1,6 +1,6 @@
-import { removeUserById, createUserByData, RegisterUserServise, changeUserRoleService, userLoginFrontend, userLogoutFrontend, changeUserFronPassword, updateUserService, forgetPasswordService, resetPasswordService } from "../../services/userService";
+import { removeUserById, createUserByData, RegisterUserServise, changeUserRoleService, userLoginFrontend, userLogoutFrontend, changeUserFronPassword, updateUserService, forgetPasswordService, resetPasswordService, changeUserProfileImage } from "../../services/userService";
 import { errorNoti, successNoti, warrningNoti } from "../../utility/messageNotifcation";
-import { removeCookie, setCookieForUserLoggedin } from "../../services/cookieServise";
+import { removeCookie, setCookieForUserLoggedin, getCookie, setCookie, hasCookie } from "../../services/cookieServise";
 import { showLoading, hideLoading } from "react-redux-loading-bar";
 
 
@@ -21,7 +21,7 @@ export const createUser = user => {
                     role: data.data.role,
                 };
                 users.push(newUser);
-                await dispatch({ type: "CREATE_USER", payload: users });
+                dispatch({ type: "CREATE_USER", payload: users });
                 successNoti(data.msg);
             }
             else if (status === 202) {
@@ -30,6 +30,7 @@ export const createUser = user => {
 
         } catch (error) {
 
+            console.log(error.response);
             errorNoti("مشکلی سمت سرور پیش آمده است ");
 
         }
@@ -43,10 +44,10 @@ export const removeUser = userId => {
 
         try {
             const { data, status } = await removeUserById(userId);
-            if (status === 201) {
+            if (status === 202) {
                 const users = [...getState().users];
                 const newUsers = users.filter(user => user.id !== userId);
-                await dispatch({ type: "REMOVE_USER", payload: newUsers });
+                dispatch({ type: "REMOVE_USER", payload: newUsers });
                 successNoti(data.msg);
             }
 
@@ -131,7 +132,7 @@ export const userLogoutFront = () => {
 
             // dispatch(showLoading('logout'));
             const { status, data } = await userLogoutFrontend();
-            console.log(status, data,"logout");
+            console.log(status, data, "logout");
             if (status === 200) {
                 removeCookie(['user', 'accessToken']);
                 successNoti(data.msg);
@@ -171,7 +172,7 @@ export const updateUser = (user) => {
             if (response.status === 204 || response.status === 202) {
                 const users = [...getState().users];
                 const filterUsers = users.filter(item => item.id !== user.id);
-                await dispatch({ type: "UPDATE_USER", payload: [...filterUsers, user] });
+                dispatch({ type: "UPDATE_USER", payload: [...filterUsers, user] });
                 successNoti("یک کاربر با موفقیت ویرایش شد");
             }
         } catch (error) {
@@ -227,5 +228,49 @@ export const resetPassword = creadential => {
 
     }
 }
+
+export const changeProfileImage = image => {
+
+
+    return async dispatch => {
+
+
+
+        try {
+
+            const { data, status } = await changeUserProfileImage(image);
+            // console.log(data);
+
+            if (status === 200) {
+                if (hasCookie('cookie-expires')) {
+
+                    /// now date
+                    const nowDate = new Date();
+                    var now = nowDate.getTime();
+
+                    // set cookies date
+                    var cookieExpires = getCookie('cookie-expires');
+
+                    const cookieDate = new Date(cookieExpires);
+                    var cookie = cookieDate.getTime();
+
+                    // get user from cookie
+                    var user = getCookie('user');
+                    user = { ...user, avatar: image.fileName };
+                    nowDate.setTime(nowDate.getTime() + (cookie - now));
+                    const options = { path: "/", expires: nowDate };
+
+                    setCookie('user', user, options);
+                    successNoti(data.msg);
+                }
+                else {
+                    warrningNoti("لطفا به صفحه ورود بروید");
+                }
+            }
+        } catch (error) {
+        }
+    }
+}
+
 
 

@@ -71,6 +71,11 @@ export const updateUserService = user => {
 
 }
 
+export const changeUserProfileImage = image => {
+
+    return http.post(`${config.BASE_URL}api/front/user/changeProfileImage`, image,headers);
+
+}
 
 
 

@@ -53,7 +53,7 @@ const MediaList = () => {
 
                         <div className="row align-items-center">
 
-                            <div className="col-12">
+                            <div className="col-md-12">
 
                                 <span>نمایش رسانه </span>
                             </div>
@@ -62,7 +62,7 @@ const MediaList = () => {
                     </div>
                 </div>
                 <div className="col-12">
-                    <div className="card card-default">
+                    <div className="card card-default table-responsive">
                         <div className="card-body pt-0 pb-5">
                             <table className="table table-hover">
                                 <thead>

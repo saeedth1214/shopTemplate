@@ -55,6 +55,10 @@ class ReactResponses
     {
         return response()->json(['msg' => "چنین ایمیل وجودندارد"], Response::HTTP_NOT_FOUND);
     }
+    public function userNotFound()
+    {
+        return response()->json(['msg' => "چنین کاربری وجودندارد"], Response::HTTP_NOT_FOUND);
+    }
     public function tokenWasExpired()
     {
         return response()->json(['msg' => "توکن ارسالی منقضی شده است"], Response::HTTP_FORBIDDEN);
@@ -75,7 +79,7 @@ class ReactResponses
     {
         return response()->json($data, $status);
     }
-    public function warning($data = null, $status = Response::HTTP_BAD_REQUEST)
+    public function ProductnotFount($data = null, $status = Response::HTTP_NOT_FOUND)
     {
         return response()->json($data, $status);
     }

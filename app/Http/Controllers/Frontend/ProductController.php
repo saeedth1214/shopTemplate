@@ -74,7 +74,7 @@ class ProductController extends Controller
                 $data = $this->getSliderImage($product);
                 return ResponsesFacade::success($data);
             }
-            return ResponsesFacade::warning(['msg'=>"چنین محصولی وجود ندارد"]);
+            return ResponsesFacade::ProductnotFount(['msg'=>"چنین محصولی وجود ندارد",'data'=>[]]);
         } catch (\Throwable $th) {
             return ResponsesFacade::faild();
         }

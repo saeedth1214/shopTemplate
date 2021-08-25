@@ -24,6 +24,7 @@ const Profile = () => {
     return (
         <>
             <ProfileContext.Provider value={ { user, comments: profileData.comments, orders: profileData.orders } }>
+                
                 <div className="bg-white border rounded">
                     <ToastContainer />
                     <div className="row no-gutters">

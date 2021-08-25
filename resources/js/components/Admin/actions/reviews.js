@@ -53,8 +53,8 @@ export const RemoveReview = reviewId => {
 
     return async (dispatch, getState) => {
         try {
-            const response = await RemoveReviewById(reviewId);
-            console.log(response);
+            const { data,status} = await RemoveReviewById(reviewId);
+            // console.log(response);
             if (status === 202) {
                 const reviews = [...getState().reviews];
                 const filterReview = reviews.filter(item => item.id !== reviewId);

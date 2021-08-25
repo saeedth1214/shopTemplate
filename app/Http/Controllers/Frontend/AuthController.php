@@ -11,6 +11,8 @@ use App\Events\userRegistered;
 use Imanghafoori\Helpers\Nullable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use App\Repositories\dashbordRepository;
 
 class AuthController extends Controller
 {
@@ -100,6 +102,7 @@ class AuthController extends Controller
             if ($this->ValidateEmail(['email' => $data['email']])) {
                 return ResponsesFacade::emailAlreadyCreated();
             }
+
             $user = $this->createUser($data);
           
             $token=$this->attemptAction(['email'=>$data['email'],'password'=>$data['password']]);
@@ -127,6 +130,7 @@ class AuthController extends Controller
         $user = $user->getOrSend(function () {
             return ResponsesFacade::faild();
         });
+        app()->make(dashbordRepository::class)->userCountIncrease();
         return $user;
     }
 

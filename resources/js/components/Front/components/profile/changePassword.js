@@ -41,7 +41,7 @@ const ChangePassword = () => {
             <div className="card-body pt-0 pb-5">
                 <div className="card card-default">
                     <div className="card-header card-header-border-bottom">
-                        <p class="text-dark text-small">تغییر رمز عبور</p>
+                        <p className="text-dark text-small">تغییر رمز عبور</p>
                     </div>
                     <div className="card-body">
                         <form className="horizontal-form" onSubmit={ handleChangePassword }>

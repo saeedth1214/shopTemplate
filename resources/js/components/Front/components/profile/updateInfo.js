@@ -7,7 +7,7 @@ const UpdateInfo = () => {
             <div className="card-body border-0 pt-0 pb-5">
                 <div className="card card-default">
                     <div className="card-header card-header-border-bottom">
-                        <p class="text-dark text-small">ویرایش اطلاعات</p>
+                        <p className="text-dark text-small">ویرایش اطلاعات</p>
                     </div>
                     <div className="card-body">
                             <div className="form-group row">

@@ -26,20 +26,24 @@ class MediaController extends Controller
     }
     public function create()
     {
-        $data = [
-            'product_id' => request("proId"),
-            'type'  =>  request("fileType"),
-            "url"=>request()->fileName
-        ];
-        $media = $this->mediaRepo->createMedia($data);
-        $media=$media->getOrSend(function () {
+        try {
+            $data = [
+                'product_id' => request("proId"),
+                'type'  =>  request("fileType"),
+                "url" => request()->fileName
+            ];
+            $media = $this->mediaRepo->createMedia($data);
+            $media = $media->getOrSend(function () {
+                return ResponsesFacade::faild();
+            });
+            $image = request()->fileResult;
+            $pattern = "/data:image\/[a-zA-z0-9]{3,6};base64,/";
+            $result = preg_replace($pattern, '', $image);
+            Storage::put(request()->fileName, base64_decode(($result)));
+            return ResponsesFacade::success(["msg" => "یک عکس با موفقیت ثبت شد", 'media' => $media], 201);
+        } catch (\Throwable $th) {
             return ResponsesFacade::faild();
-        });
-        $image = request()->fileResult;
-        $pattern = "/data:image\/[a-zA-z0-9]{3,6};base64,/";
-        $result = preg_replace($pattern, '', $image);
-        Storage::put(request()->fileName, base64_decode(($result)));
-        return ResponsesFacade::success(["msg" => "یک عکس با موفقیت ثبت شد", 'media' => $media], 201);
+        }
     }
     public function delete()
     {

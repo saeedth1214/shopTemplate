@@ -41,16 +41,18 @@ export const createCategoryAttributes = catAttr => {
 
         try {
 
-            if (catAttr.category != 0) {
+            console.log(parseInt(catAttr.category), catAttr.category !== 0, catAttr.attrs.length !== 0);
+            if (parseInt(catAttr.category) !== 0 && catAttr.attrs.length !== 0) {
                 const { data, status } = await createCatAttrs(catAttr);
-                successNoti(data.msg);
-                // console.log(data,status); 201
+                if (status === 201) {
+                    successNoti(data.msg);
+                }
             } else {
-                warrningNoti("لطفا یک دسته بندی را انتخاب کنید");
+                warrningNoti("لطفا یک دسته بندی یا ویزگی را انتخاب کنید  ");
             }
         } catch (error) {
 
-            errorNoti(error.resposne.msg);
+            errorNoti(error.response.msg);
         }
 
     }

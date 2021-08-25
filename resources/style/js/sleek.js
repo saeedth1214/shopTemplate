@@ -10,7 +10,7 @@
 
 ====== End ======*/
 
-$(document).ready(function () {
+$(document).ready(function() {
   "use strict";
 
   /*======== 1. SCROLLBAR SIDEBAR ========*/
@@ -31,12 +31,12 @@ $(document).ready(function () {
   /*======== 2. BACKDROP ========*/
   if ($(window).width() < 768) {
     var shadowClass = $(".mobile-sticky-body-overlay");
-    $(".sidebar-toggle").on("click", function () {
+    $(".sidebar-toggle").on("click", function() {
       shadowClass.addClass("active");
       $("body").css("overflow", "hidden");
     });
 
-    $(".mobile-sticky-body-overlay").on("click", function (e) {
+    $(".mobile-sticky-body-overlay").on("click", function(e) {
       $(this).removeClass("active");
       $("#body").removeClass("sidebar-minified").addClass("sidebar-minified-out");
       $("body").css("overflow", "auto");
@@ -44,32 +44,30 @@ $(document).ready(function () {
   }
 
   /*======== 3. SIDEBAR MENU ========*/
-  $(".sidebar .nav > .has-sub > a").click(function () {
+  $(".sidebar .nav > .has-sub > a").click(function(){
     $(this).parent().siblings().removeClass('expand')
     $(this).parent().toggleClass('expand')
   })
 
-  $(".sidebar .nav > .has-sub .has-sub > a").click(function () {
+  $(".sidebar .nav > .has-sub .has-sub > a").click(function(){
     $(this).parent().toggleClass('expand')
   })
 
 
   /*======== 4. SIDEBAR TOGGLE FOR MOBILE ========*/
   if ($(window).width() < 768) {
-    $(document).on("click", ".sidebar-toggle", function (e) {
+    $(document).on("click", ".sidebar-toggle", function(e) {
       e.preventDefault();
-      
-
       var min = "sidebar-minified",
         min_out = "sidebar-minified-out",
         body = "#body";
       $(body).hasClass(min)
         ? $(body)
-          .removeClass(min)
-          .addClass(min_out)
+            .removeClass(min)
+            .addClass(min_out)
         : $(body)
-          .addClass(min)
-          .removeClass(min_out)
+            .addClass(min)
+            .removeClass(min_out)
     });
   }
 
@@ -80,8 +78,6 @@ $(document).ready(function () {
     window.isCollapsed = false;
 
     $("#sidebar-toggler").on("click", function () {
-      
-
       if (
         body.hasClass("sidebar-fixed-offcanvas") ||
         body.hasClass("sidebar-static-offcanvas")
@@ -139,64 +135,51 @@ $(document).ready(function () {
 
   /*======== 6. TODO LIST ========*/
 
-  var mdis = document.querySelectorAll(".todo-single-item .mdi");
-  // console.log(mdis);
-  mdis.forEach(
-    function (mdi) {
-      mdi.addEventListener("click", function (e) {
+  function todoCheckAll() {
+    var mdis = document.querySelectorAll(".todo-single-item .mdi");
+    mdis.forEach(function(fa) {
+      fa.addEventListener("click", function(e) {
         e.stopPropagation();
-        alert("is ok");
         e.target.parentElement.classList.toggle("finished");
-      })
-    }
-  );
-  // function todoCheckAll() {
-  //   var mdis = document.querySelectorAll(".todo-single-item .mdi");
-  //   mdis.forEach(function (fa) {
-  //     fa.addEventListener("click", function (e) {
-  //       e.stopPropagation();
-  //       e.target.parentElement.classList.toggle("finished");
-  //     });
-  //   });
-  // }
+      });
+    });
+  }
 
-  // if (document.querySelector("#todo")) {
-  //   var list = document.querySelector("#todo-list"),
-  //     todoInput = document.querySelector("#todo-input"),
-  //     todoInputForm = todoInput.querySelector("form"),
-  //     item = todoInputForm.querySelector("input");
+  if (document.querySelector("#todo")) {
+    var list = document.querySelector("#todo-list"),
+      todoInput = document.querySelector("#todo-input"),
+      todoInputForm = todoInput.querySelector("form"),
+      item = todoInputForm.querySelector("input");
 
-  //   document.querySelector("#add-task").addEventListener("click", function (e) {
-  //     e.preventDefault();
-  //     todoInput.classList.toggle("d-block");
-  //     item.focus();
-  //   });
+    document.querySelector("#add-task").addEventListener("click", function(e) {
+      e.preventDefault();
+      todoInput.classList.toggle("d-block");
+      item.focus();
+    });
 
-  //   todoInputForm.addEventListener("submit", function (e) {
-  //     e.preventDefault();
-  //     if (item.value.length <= 0) {
-  //       return;
-  //     }
-  //     list.innerHTML =
-  //       '<div class="todo-single-item d-flex flex-row justify-content-between">' +
-  //       '<i class="mdi"></i>' +
-  //       '<span>' +
-  //       item.value +
-  //       '</span>' +
-  //       '<span class="badge badge-primary">Today</span>' +
-  //       '</div>' +
-  //       list.innerHTML;
-  //     item.value = "";
-  //     //Close input field
-  //     todoInput.classList.toggle("d-block");
-  //     todoCheckAll();
-  //   });
+    todoInputForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      if (item.value.length <= 0) {
+        return;
+      }
+      list.innerHTML =
+        '<div class="todo-single-item d-flex flex-row justify-content-between">' +
+        '<i class="mdi"></i>' +
+        '<span>' +
+        item.value +
+        '</span>' +
+        '<span class="badge badge-primary">Today</span>' +
+        '</div>' +
+        list.innerHTML;
+      item.value = "";
+      //Close input field
+      todoInput.classList.toggle("d-block");
+      todoCheckAll();
+    });
 
-  //   todoCheckAll();
-  // }
+    todoCheckAll();
+  }
 
-
-  // todoCheckAll();
   /*======== 7. RIGHT SIDEBAR ========*/
   if ($(window).width() < 1025) {
     body.addClass('right-sidebar-toggoler-out');
@@ -216,15 +199,13 @@ $(document).ready(function () {
   }
 
   var navRightSidebarLink = $('.nav-right-sidebar .nav-link');
-  var table = $('.table');
 
   navRightSidebarLink.on('click', function () {
 
-
-    if (!body.hasClass('right-sidebar-in')) {
+    if(!body.hasClass('right-sidebar-in')){
       body.addClass('right-sidebar-in').removeClass('right-sidebar-out');
-      table.addClass('small-size');
-    } else if ($(this).hasClass('active')) {
+
+    } else if ($(this).hasClass('show')){
       body.addClass('right-sidebar-out').removeClass('right-sidebar-in');
     }
   });
@@ -235,5 +216,3 @@ $(document).ready(function () {
     body.removeClass('right-sidebar-in').addClass('right-sidebar-out');
   })
 });
-
-$('.carousel').carousel();
