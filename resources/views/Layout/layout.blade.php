@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="/css/app.css">
     <title>Document</title>
 </head>
-<body class="sidebar-fixed sidebar-dark header-light header-fixed rtl" id="body" >
+<body class="header-fixed sidebar-fixed sidebar-dark header-light right-sidebar-toggoler-out sidebar-minified-out rtl" id="body" style="overflow: auto;">
+
     @yield('content')
        <script src="/js/app.js"></script>
 </body>

@@ -1,6 +1,9 @@
 
 import config from "./config";
 import http from "./httpServices";
+import { getCookie } from "./cookieServise";
+
+const headers = { headers: { authorization: `Bearer ${getCookie('accessToken')}` } };
 
 export const getCategories = () => {
 
@@ -9,21 +12,21 @@ export const getCategories = () => {
 }
 export const getAttrForCate = id => {
 
-    return http.get(`${config.BASE_URL}api/admin/categoryAttr/${id}`, config.TokenApi);
+    return http.get(`${config.BASE_URL}api/admin/categoryAttr/${id}`, { headers});
 
 }
 
 export const createCategoryData = category => {
 
-    return http.post(`${config.BASE_URL}api/admin/category/create`, category, config.TokenApi);
+    return http.post(`${config.BASE_URL}api/admin/category/create`, category, { headers});
 }
 
 export const deleteCategory = categoryId => {
-    return http.delete(`${config.BASE_URL}api/admin/category/delete/${categoryId}`, config.TokenApi);
+    return http.delete(`${config.BASE_URL}api/admin/category/delete/${categoryId}`, { headers});
 }
 
 export const updateCategoryService = (category) => {
-    return http.put(`${config.BASE_URL}api/admin/category/update`, category, config.TokenApi);
+    return http.put(`${config.BASE_URL}api/admin/category/update`, category, { headers});
 }
 
 

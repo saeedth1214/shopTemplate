@@ -8,7 +8,7 @@ export const getAllattributes = () => {
         try {
             const { data } = await getAttributes();
             console.log(data);
-            await dispatch({ type: "GET_ATTRIBUTES", payload: data });
+            dispatch({ type: "GET_ATTRIBUTES", payload: data });
             
         } catch (error) {
             console.log(error);
@@ -40,7 +40,7 @@ export const createAttribute = attribute => {
                     type: attribute.type,
                 };
                 attributes.push(newAttribute);
-                await dispatch({ type: "CREATE_ATTRIBUTE", payload: attributes });    
+                 dispatch({ type: "CREATE_ATTRIBUTE", payload: attributes });    
                 successNoti(data.msg);
             }
             
@@ -66,7 +66,7 @@ export const removeAttribute = id => {
             if (status === 202) {
                 const attributes = [...getState().attributes];
                 const newAttributes = attributes.filter(attribute => parseInt(attribute.id) !== parseInt(id));
-                await dispatch({ type: "REMOVE_ATTRIBUTE", payload: newAttributes });
+                 dispatch({ type: "REMOVE_ATTRIBUTE", payload: newAttributes });
                 successNoti(data.msg);
             } else { 
                 warrningNoti(data.msg);
@@ -94,7 +94,7 @@ export const updateAttribute = (attribute) => {
                 const attributes = [...getState().attributes];
                 const filterAttribute = attributes.filter(item => parseInt(item.id) !== parseInt(attribute.id));
                 console.log(filterAttribute,"aa");
-                await dispatch({ type: "UPDATE_ATTRIBUTE", payload: [...filterAttribute, attribute] });
+                 dispatch({ type: "UPDATE_ATTRIBUTE", payload: [...filterAttribute, attribute] });
                 warrningNoti("یک ویژگی ویرایش شد");
             }
         } catch (error) {

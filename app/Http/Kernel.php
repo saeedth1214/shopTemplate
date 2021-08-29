@@ -4,7 +4,6 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use App\Http\Middleware\isAdmin;
-use App\Http\Middleware\setPassportToken;
 
 class Kernel extends HttpKernel
 {
@@ -69,6 +68,5 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         "isAdmin"=>isAdmin::class,
-        'Authorize'=>setPassportToken::class
     ];
 }

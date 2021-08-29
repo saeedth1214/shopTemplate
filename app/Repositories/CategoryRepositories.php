@@ -21,7 +21,7 @@ class CategoryRepositories extends BaseRepository
 
     public function setAttributes($cat_id, $attrs)
     {
-        $cat = $this->find($cat_id);
+        $cat = $this->model::query()->find($cat_id);
         if ($cat) {
             return $cat->attributes()->sync($attrs);
         }
@@ -30,7 +30,7 @@ class CategoryRepositories extends BaseRepository
 
     public function getAttributes($cat_id)
     {
-        $cat = $this->find($cat_id);
+        $cat = $this->model::query()->find($cat_id);
         if ($cat) {
             return $cat->attributes()->pluck("attribute_id")->toArray();
         }
@@ -39,7 +39,7 @@ class CategoryRepositories extends BaseRepository
 
     public function allAttributes($cat_id)
     {
-        $cat = $this->find($cat_id);
+        $cat = $this->model::query()->find($cat_id);
         if ($cat) {
             return $cat->attributes()->get();
         }

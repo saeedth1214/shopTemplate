@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import config from "../../../services/config.json";
 const Aside = () => {
     return (
 
         <aside className="left-sidebar bg-sidebar">
             <div id="sidebar" className="sidebar sidebar-with-footer">
                 <div className="app-brand">
-                        <span className="brand-name">Solisa Shop</span>
+                        <span className="brand-name markTitle">Solisa Shop</span>
                 </div>
                 <div className="sidebar-scrollbar">
                     <ul className="nav sidebar-inner" id="sidebar-menu">

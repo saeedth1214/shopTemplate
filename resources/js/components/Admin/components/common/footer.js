@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-const Footer = (props) => {
+const Footer = () => {
     return (
         <Fragment>
             <footer id="footer">

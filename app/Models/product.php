@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Repositories\ShamsiRepositories;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class product extends Model
 {
+    use HasFactory;
     public $timestamps = false;
     //
     protected $perPage = 5;
@@ -21,13 +23,13 @@ class product extends Model
     }
 
 
-    public function reveiws ()
+    public function reveiws()
     {
         return $this->hasMany(review::class);
     }
 //     public function comments()
 //     {
-// //        is user
+    // //        is user
 //         return $this->hasMany(review::class);
 
 //            ->where('status',1)->with(array('user'=>function($query){

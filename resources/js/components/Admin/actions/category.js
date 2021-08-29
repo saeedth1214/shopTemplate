@@ -9,7 +9,7 @@ export const getAllcategories = () => {
 
             const { data, status } = await getCategories();
             if (status === 200) {
-                await dispatch({ type: "GET_CATEGORIES", payload: data });
+                 dispatch({ type: "GET_CATEGORIES", payload: data });
             }
         } catch (error) {
 
@@ -54,7 +54,7 @@ export const createCategory = category => {
                     title: category.title,
                 };
                 categories.push(newCategory);
-                await dispatch({ type: "CREATE_CATEGORY", payload: categories });
+                 dispatch({ type: "CREATE_CATEGORY", payload: categories });
                 successNoti(data.msg);
             }
 
@@ -77,7 +77,7 @@ export const removeCategory = id => {
             if (status === 204 || status === 202) {
                 const categories = [...getState().categories];
                 const filterCategory = categories.filter(category => category.id !== id);
-                await dispatch({ type: "REMOVE_CATEGORY", payload: filterCategory });
+                 dispatch({ type: "REMOVE_CATEGORY", payload: filterCategory });
                 successNoti("یک مورد با موفقیت حذف شد");
             }
 
@@ -94,13 +94,17 @@ export const updatecategory = (category) => {
     return async (dispatch, getState) => {
 
         try {
+            if (category.title.length === 0 || category.slug.length === 0) {
+                warrningNoti("لطفا یک مقدار معتبر وارد کنید ");
+                return;
+            }
             const { status } = await updateCategoryService(category);
 
             // console.log(response);
             if (status === 204 || status === 202) {
                 const categories = [...getState().categories];
                 const filterCategory = categories.filter(item => item.id !== category.id);
-                await dispatch({ type: "UPDATE_CATEGORY", payload: [...filterCategory, category] });
+                 dispatch({ type: "UPDATE_CATEGORY", payload: [...filterCategory, category] });
                 warrningNoti("یک دسته بندی ویرایش شد");
             }
         } catch (error) {

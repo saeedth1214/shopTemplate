@@ -1,7 +1,6 @@
 
 import Cookies from "universal-cookie";
 import _ from "lodash";
-import { isArray } from "util";
 
 const cookies = new Cookies();
 
@@ -24,11 +23,24 @@ export const hasCookie = key => {
 export const removeCookie = keys => {
 
     if (Array.isArray(keys)) {
-            keys.map(key => {
-                hasCookie(key);
+        keys.map(key => {
+            if (hasCookie(key)) {
                 cookies.remove(key);
-            })
+            }
+        })
     } else {
         return cookies.remove(key);
     }
+}
+
+
+export const setCookieForUserLoggedin = (accessToken, user) => {
+
+    const date = new Date();
+    date.setTime(date.getTime() + (1000 * 3600));
+    const options = { path: "/", expires: date };
+    setCookie("accessToken", accessToken, options);
+    setCookie("user", user, options);
+    setCookie("cookie-expires", date, options);
+
 }

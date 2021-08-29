@@ -1,55 +1,78 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
+import { useDispatch } from "react-redux";
 import * as img from "../../../Admin/components/common/data";
 import ProfileContext from '../../context/profileContext';
-// import { useDropzone } from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
+import { errorNoti } from '../../../utility/messageNotifcation';
+import { changeProfileImage } from '../../../Admin/actions/user';
+
+import config from "../../../services/config";
+import { getCookie } from '../../../services/cookieServise';
+
 
 const Info = () => {
 
     const { user } = useContext(ProfileContext);
-    // const { getRootProps, getInputProps } = useDropzone({
-    //     accept: "image/*",
-    //     multiple: false,
-    //     onDrop: (acceptedFiles, fileRejections) => {
+    const [profileResult, setFileResult] = useState("");
+    const [fileName, setFileName] = useState("");
+    // const [files, setFiles] = useState('');
 
-    //         if (fileRejections.length > 0) {
 
-    //             errorNoti("لطفا یک عکس با فرمت های صحیح انتخاب کنید");
-    //             return;
+    const dispatch = useDispatch();
+    const { getRootProps, getInputProps } = useDropzone({
+        accept: "image/jpeg,image/png,image/jpg",
+        maxSize: 500000,
+        multiple: false,
+        onDrop: (acceptedFiles, fileRejections) => {
 
-    //         } else {
-    //             var reader = new FileReader();
-    //             reader.onerror = () => console.log('file reading has failed')
-    //             reader.onload = () => {
+            if (fileRejections.length > 0) {
 
-    //                 setFileResult(reader.result);
-    //             }
-    //             reader.readAsDataURL(acceptedFiles[0]);
-    //             setFileName(acceptedFiles[0].name);
+                errorNoti("ممکن است خطا به دلیل فرمت فایل انتخابی باشد.. یا اینکه فایل انتخابی باید کمتر از500 کیلو بایت باشد");
+                return;
 
-    //             setFiles(acceptedFiles.map((file, index) =>
-    //                 Object.assign(file, {
-    //                     preview: URL.createObjectURL(file),
-    //                     id: index
-    //                 })
-    //             ));
-    //         }
-    //     }
-    // });
+            } else {
+                var reader = new FileReader();
+                reader.onerror = () => console.log('file reading has failed')
+                reader.onload = () => {
+
+                    setFileResult(reader.result);
+                }
+                reader.readAsDataURL(acceptedFiles[0]);
+                setFileName(acceptedFiles[0].name);
+            }
+        }
+    });
+
+
+    const handleChangeProfileImage = () => {
+
+        const image = { fileName, profileResult };
+
+        dispatch(changeProfileImage(image));
+
+        setFileName("");
+        setFileResult("");
+
+    }
     return (
         <Fragment>
-            <div className="card text-center widget-profile px-0 border-0">
-                <div className="card-img mx-auto rounded-circle">
-                    {/* <div { ...getRootProps({ className: 'dropzone' }) }>
-                        <input { ...getInputProps() } />
 
-                    </div> */}
-                        <img src={ img['USER'] } alt="user image" style={ { width: "100px", height: "100px" } } />
-                </div>
-                <div className="card-body">
-                    <h4 className="py-2 text-dark">{ user.fullname }</h4>
-                    <p>{ user.email }</p>
-                </div>
+            <div className="card-img mx-auto rounded-circle">
+
+                <img src={ getCookie('user').avatar !== null ? `${config.BASE_AVATAR_PATH}/${getCookie('user').avatar}` : `${config.BASE_AVATAR_PATH}/avatar1.png` } alt="user image" style={ { width: "100px", height: "100px" } } />
             </div>
+            <div className="card-body">
+                <p className="py-2 text-dark text-small">{ user.fullname }</p>
+                <p className="text-small text-dark">{ user.email }</p>
+                <div { ...getRootProps({ className: 'dropzone' }) }>
+                    <input { ...getInputProps() } />
+                    <a className="btn btn-primary btn-pill btn-sm my-4" href="#">تغییر عکس پروفایل</a>
+                </div>
+
+                <button className="btn btn-primary btn-pill btn-sm my-4" disabled={ (profileResult === '') ? "disabled" : null } onClick={ handleChangeProfileImage }>ثبت</button>
+
+            </div>
+
         </Fragment>
     );
 }

@@ -1,6 +1,6 @@
 import { createOrderServise } from "../../services/orderServices";
 import { successNoti, errorNoti } from "../../utility/messageNotifcation";
-import { isNull } from "util";
+import _ from "lodash";
 import { hasCookie } from "../../services/cookieServise";
 
 
@@ -17,19 +17,21 @@ export const createOrderAction = card => {
                     orders.push(order);
                 });
                 const response = await createOrderServise(orders);
+
+                console.log(response);
                 if (response.data === 1) {
                     localStorage.removeItem("card");
                 }
                 let card = localStorage.getItem("card");
-                dispatch({ type: "GET_ITEMS", payload: !isNull(card) ? JSON.parse(card) : [] });
+                dispatch({ type: "GET_ITEMS", payload: !_.isNull(card) ? JSON.parse(card) : [] });
                 successNoti(response.data.msg);
                 return;
             }
             errorNoti("برای ایجاد سفارش باید لاگین باشید");
         } catch (error) {
-            console.log(error.response,'err');
+            console.log(error.response, 'err');
         }
-       
+
     }
 
 }

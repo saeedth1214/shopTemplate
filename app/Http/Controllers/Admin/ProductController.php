@@ -48,9 +48,17 @@ class ProductController extends Controller
     public function remove()
     {
         try {
-            $this->productRepo->remove(request()->id);
-            return ResponsesFacade::success(["یک محصول از سیستم حذف شد"], 202);
+            DB::beginTransaction();
+            $res=$this->productRepo->remove(request()->id);
+            if ($res) {
+                app()->make(dashbordRepository::class)->productCountdecrease();
+                DB::commit();
+                return ResponsesFacade::success(['msg'=>"یک محصول از سیستم حذف شد"], 202);
+            }
+            DB::rollBack();
+            return ResponsesFacade::faild();
         } catch (\Throwable $th) {
+            DB::rollBack();
             return ResponsesFacade::faild();
         }
     }
@@ -70,14 +78,15 @@ class ProductController extends Controller
             $ProRes = $this->productRepo->create($pro_data);
             $this->productRepo->setAttributes($ProRes, request()->attributeArray);
             if ($ProRes instanceof product) {
-                app()->make(dashbordRepository::class)->productCountUpdate();
+                app()->make(dashbordRepository::class)->productCountIncrease();
                 DB::commit();
-                return ResponsesFacade::success(["msg" => "یک محصول با موفقیت ثبت کردید"], 201);
+                return ResponsesFacade::success(["msg" => "یک محصول با موفقیت ثبت کردید",'data'=>$ProRes], 201);
             }
             DB::rollBack();
             return ResponsesFacade::faild();
         } catch (\Throwable $th) {
             DB::rollBack();
+            return response()->json(['msg'=>$th->getMessage()]);
             return ResponsesFacade::faild();
         }
     }

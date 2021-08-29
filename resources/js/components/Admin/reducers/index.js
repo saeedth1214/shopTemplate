@@ -22,6 +22,8 @@ import { attributeValueReducers } from "./attributeValue";
 import { profileReducer } from "./profile";
 import { loadingBarReducer } from "react-redux-loading-bar";
 import { monthlySalesReducer } from "./monthlySales";
+import { redirectReducer } from "./redicrectReducer";
+import { notfoundReducers } from "./notFound";
 
 export const reducers = combineReducers({
     product: productReducer,
@@ -46,5 +48,7 @@ export const reducers = combineReducers({
     monthlySales: monthlySalesReducer,
     attributeValue: attributeValueReducers,
     profileData: profileReducer,
-    loadingBar:loadingBarReducer
+    loadingBar: loadingBarReducer,
+    redirect: redirectReducer,
+    notFound:notfoundReducers
 });

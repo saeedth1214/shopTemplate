@@ -7,21 +7,22 @@ const Orders = () => {
         return new Intl.NumberFormat().format(price);
     }
     return (
-        <div className="col-12">
-            <div className="card card-default" id="recent-orders">
+        <div className="col-md-12">
+            <div className="card card-default table-responsive" id="recent-orders">
                 <div className="card-header justify-content-between">
                     <h2>آخرین سفارشات</h2>
                 </div>
-                <div className="card-body pt-0 pb-5">
-                    <table className="table table-hover">
+                {/* <div className="table-responsive"> */ }
+                <div className="card-body table-responsive">
+                    <table className="table table-striped table-bordered table-hover ">
                         <thead>
                             <tr>
-                                <th>ردیف</th>
+                                <th>کد سفارش</th>
                                 <th>نام محصول</th>
-                                <th className="d-none d-xl-table-cell">تعداد</th>
-                                <th className="d-none d-xl-table-cell">تاریخ</th>
-                                <th className="d-none d-xl-table-cell">هزینه کلی</th>
-                                <th className="d-none d-xl-table-cell">وضعیت نهایی</th>
+                                <th >تعداد</th>
+                                <th>هزینه کلی</th>
+                                <th>وضعیت نهایی</th>
+                                <th>تاریخ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,10 +34,10 @@ const Orders = () => {
                                         <td>
                                             <a className="text-dark" href=""> { item.title }</a>
                                         </td>
-                                        <td className="d-none d-xl-table-cell">{ item.count }</td>
-                                        <td className="d-none d-xl-table-cell">{ item.date }</td>
-                                        <td className="d-none d-xl-table-cell">{ getSingleProductPrice(item.amount) }تومان</td>
-                                        <td className="d-none d-xl-table-cell">{ item.status === "completed" ? "تکمیل شده" : "ناموفق" }</td>
+                                        <td>{ item.count }</td>
+                                        <td >{ getSingleProductPrice(item.amount) }تومان</td>
+                                        <td >{ item.status === "completed" ? "تکمیل شده" : "ناموفق" }</td>
+                                        <td >{ item.date }</td>
 
                                     </tr>
                                 ) : null
@@ -44,6 +45,7 @@ const Orders = () => {
                         </tbody>
                     </table>
                 </div>
+                {/* </div> */ }
             </div>
         </div>
     )

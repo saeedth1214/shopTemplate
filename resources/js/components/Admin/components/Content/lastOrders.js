@@ -15,7 +15,7 @@ const LastOrders = () => {
         <div className="row">
             <div className="col-12">
 
-                <div className="card card-default" i>
+                <div className="card card-default table-responsive" >
                     <div className="card-header justify-content-between">
                         <h2>سفارشات اخیر</h2>
                     </div>
@@ -26,10 +26,10 @@ const LastOrders = () => {
                                     <th>کد سفارش</th>
                                     <th>نام محصول</th>
                                     <th>نام مشتری</th>
-                                    <th className="d-none d-md-table-cell">تعداد</th>
-                                    <th className="d-none d-md-table-cell">قیمت کل</th>
+                                    <th >تعداد</th>
+                                    <th >قیمت کل</th>
                                     <th>وضعیت</th>
-                                    <th className="d-none d-md-table-cell">تاریخ سفارش</th>
+                                    <th >تاریخ سفارش</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -38,20 +38,20 @@ const LastOrders = () => {
                                 {
                                     orders.length > 0 ? orders.map(order => (
 
-                                        <tr key={ order.id}>
-                                            <td >{ order.id}</td>
+                                        <tr key={ order.id }>
+                                            <td >{ order.id }</td>
                                             <td >
-                                                { order.title}
+                                                { order.title }
                                             </td>
                                             <td >
                                                 { order.fullname }
                                             </td>
-                                            <td className="d-none d-md-table-cell">{ order.total_items }</td>
-                                            <td className="d-none d-md-table-cell">{ convertToNumberFormat(order.total_amount) } تومان</td>
+                                            <td>{ order.total_items }</td>
+                                            <td>{ convertToNumberFormat(order.total_amount) } تومان</td>
                                             <td >
-                                                <span className="badge badge-success">{ order.status}</span>
+                                                <span className="badge badge-success">{ order.status }</span>
                                             </td>
-                                            <td className="d-none d-md-table-cell">{ order.date}</td>
+                                            <td>{ order.date }</td>
                                         </tr>
                                     )) : <tr><td>مورد خاصی پیدا نشد</td></tr>
                                 }

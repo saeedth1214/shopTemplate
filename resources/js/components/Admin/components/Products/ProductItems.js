@@ -59,7 +59,7 @@ const ProductItems = () => {
         dispatch(getAllProducts());
     }, []);
 
-    const [perPage] = useState(2);
+    const [perPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
 
     const archiveProducts = paginate(products, currentPage, perPage);
@@ -77,12 +77,14 @@ const ProductItems = () => {
             setCurrentPage(page) :
             null;
     }
+
+    console.log(productUpdate, cateAttr, updateDialog);
     return (
         <Fragment>
 
             <div className="products-content">
                 {
-                    (!_.isEmpty(productUpdate) && !_.isEmpty(cateAttr) && updateDialog)
+                    (!_.isEmpty(productUpdate) && updateDialog)
                         ? <UpdateProductDialog showDialog={ updateDialog } closeDialog={ closeDialog } product={ productUpdate } />
                         : null
                 }
@@ -103,12 +105,13 @@ const ProductItems = () => {
 
                 <div className="row">
                     <div className="col-12">
-                        <div className="card card-default" id="recent-orders">
+                        <div className="card card-default table-responsive" id="recent-orders">
+
                             <div className="card-body pt-0 pb-5">
                                 <table className="table table-hover ">
                                     <thead>
                                         <tr>
-                                            <th><span>ردیف</span></th>
+                                            {/* <th><span>ردیف</span></th> */ }
                                             <th><span>نام محصول</span></th>
                                             <th><span>دسته بندی</span></th>
                                             <th><span>برند</span></th>
@@ -125,7 +128,7 @@ const ProductItems = () => {
 
                                                 (
                                                     <tr key={ product.id }>
-                                                        <td >{ product.id }</td>
+                                                        {/* <td >{ product.id }</td> */ }
                                                         <td >{ product.pro_title }</td>
                                                         <td>{ product.ctitle }</td>
                                                         <td>{ product.btitle }</td>
@@ -146,6 +149,7 @@ const ProductItems = () => {
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
                     </div>
                 </div>

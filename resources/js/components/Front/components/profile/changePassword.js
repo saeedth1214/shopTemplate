@@ -41,21 +41,21 @@ const ChangePassword = () => {
             <div className="card-body pt-0 pb-5">
                 <div className="card card-default">
                     <div className="card-header card-header-border-bottom">
-                        <h5>تغییر رمز عبور</h5>
+                        <p className="text-dark text-small">تغییر رمز عبور</p>
                     </div>
                     <div className="card-body">
                         <form className="horizontal-form" onSubmit={ handleChangePassword }>
                             <div className="form-group">
                                 <label htmlFor="">رمز عبور جدید</label>
 
-                                <input type="password" name="password" className="form-control" onChange={ e => setPassword(e.target.value) } />
+                                <input type="password" name="password" className="form-control form-control-sm" onChange={ e => setPassword(e.target.value) } />
                                 { validator.current.message("password", password, "required|alpha_num|min:8|max:15") }
 
                             </div>
                             <div className="form-group ">
                                 <label htmlFor="">تایید  رمز عبور</label>
 
-                                <input type="password" className="form-control" name="cpassword" onChange={ e => setConfrimPPassword(e.target.value) } />
+                                <input type="password" className="form-control form-control-sm" name="cpassword" onChange={ e => setConfrimPPassword(e.target.value) } />
                                 { validator.current.message("cpassword", confrimPassword, `required|alpha_num|min:8|max:15|in:${password}`) }
 
                             </div>

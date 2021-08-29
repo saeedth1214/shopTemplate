@@ -9,7 +9,6 @@ const ShowProduct = ({ products, filter }) => {
 
     const filterProducts = filter.length > 0 ? filter : products;
 
-    console.log(filterProducts);
     const [perPage] = useState(6);
     const [currentPage, setCurrentPage] = useState(1);
 

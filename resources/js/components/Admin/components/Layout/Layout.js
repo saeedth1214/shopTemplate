@@ -11,34 +11,36 @@ const Layout = (props) => {
 
             <div className="mobile-sticky-body-overlay"></div>
 
-            <div className="wrapper">
+                <div className="wrapper">
 
-                {/* aside section */ }
-
-
-                <Aside />
-
-                {/* end aside section */ }
-
-                <div className="page-wrapper">
+                    {/* aside section */ }
 
 
-                    {/* header sectin */ }
+                    <Aside />
 
-                    <Header />
+                    {/* end aside section */ }
+
+                    <div className="page-wrapper">
 
 
-                    {/* end header section */ }
+                        {/* header sectin */ }
+
+                        <Header />
 
 
-                    <div className="content-wrapper">
-                        <div className="content">
-                            <ToastContainer />
-                            { props.children }
+                        {/* end header section */ }
+
+
+                        <div className="content-wrapper">
+                            <div className="content">
+                                <ToastContainer />
+                                { props.children }
+                            </div>
                         </div>
                     </div>
-                </div>
+
             </div>
+
         </Fragment>
 
 

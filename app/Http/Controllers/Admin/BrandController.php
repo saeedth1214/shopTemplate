@@ -19,8 +19,9 @@ class BrandController extends Controller
     {
         try {
             $brands = $this->brandRepo->getcategoryBrands(request('catId'));
-            return ResponsesFacade::succss($brands);
+            return ResponsesFacade::success($brands);
         } catch (\Throwable $th) {
+            return response()->json(['msg'=>$th->getMessage()]);
             return ResponsesFacade::faild();
         }
     }
@@ -39,8 +40,6 @@ class BrandController extends Controller
                 return ResponsesFacade::success(['data' => $brand, 'msg' => "یک برند با موفقیت ثبت شد"], 201);
             }
         } catch (\Throwable $th) {
-            // return response()->json(['msg' => $th->getMessage()]);
-            // return response()->json($th->getMessage());
             return ResponsesFacade::faild();
         }
     }

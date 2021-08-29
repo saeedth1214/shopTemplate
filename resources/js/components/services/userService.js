@@ -1,7 +1,10 @@
 
 import config from "./config";
 import http from "./httpServices";
+import { getCookie } from "./cookieServise";
 
+
+const headers = { headers: { authorization: `Bearer ${getCookie('accessToken')}` } };
 
 
 export const getUser = userId => {
@@ -12,27 +15,27 @@ export const getUser = userId => {
 
 export const getUsers = () => {
 
-    return http.get(`${config.BASE_URL}api/admin/users`, config.TokenApi);
+    return http.get(`${config.BASE_URL}api/admin/users`, headers);
 
 }
 
 export const createUserByData = user => {
-    return http.post(`${config.BASE_URL}api/admin/users/create`, user, config.TokenApi);
+    return http.post(`${config.BASE_URL}api/admin/users/create`, user, headers);
 }
 
 export const RegisterUserServise = user => {
 
-    return http.post(`${config.BASE_URL}api/front/user/Register`, user);
+    return http.post(`${config.BASE_URL}api/front/user/register`, user);
 
 }
 
 
 export const removeUserById = userId => {
-    return http.delete(`${config.BASE_URL}api/admin/user/delete/${userId}`, config.TokenApi);
+    return http.delete(`${config.BASE_URL}api/admin/user/delete/${userId}`, headers);
 }
 
 export const changeUserRoleService = data => {
-    return http.put(`${config.BASE_URL}api/admin/user/changeRole`, data, config.TokenApi);
+    return http.put(`${config.BASE_URL}api/admin/user/changeRole`, data, headers);
 }
 
 
@@ -43,7 +46,7 @@ export const userLoginFrontend = login => {
 
 export const userLogoutFrontend = () => {
 
-    return http.get(`${config.BASE_URL}api/front/user/Logout`);
+    return http.get(`${config.BASE_URL}api/front/user/logout`, { headers });
 
 }
 export const changeUserFronPassword = pass => {
@@ -52,12 +55,27 @@ export const changeUserFronPassword = pass => {
 
 }
 
-export const updateUserService = user => {
+export const forgetPasswordService = email => {
 
-    return http.put(`${config.BASE_URL}api/admin/user/update`, user, config.TokenApi);
+    return http.post(`${config.BASE_URL}api/front/user/forget-password`, email);
 
 }
 
+export const resetPasswordService = credential => {
+
+    return http.post(`${config.BASE_URL}api/front/user/reset-password`, credential);
+}
+export const updateUserService = user => {
+
+    return http.put(`${config.BASE_URL}api/admin/user/update`, user, headers);
+
+}
+
+export const changeUserProfileImage = image => {
+
+    return http.post(`${config.BASE_URL}api/front/user/changeProfileImage`, image,headers);
+
+}
 
 
 

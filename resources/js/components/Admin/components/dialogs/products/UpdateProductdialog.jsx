@@ -53,12 +53,6 @@ const UpdateProductDialog = ({ showDialog, closeDialog, product }) => {
         setCategoryTitle(product.ctitle);
         setCategory(product.cid);
         setProId(product.id);
-        // _.isEmpty(currentAttributeArray) ?
-        //     product.attribute.map(item => {
-        //         const attribute = { attribute_id: item.attrID, value: item.element, category_id: product.product.cid, product_id: product.product.id };
-        //         currentAttributeArray.push(attribute);
-        //     }) : null;
-
     }
     const getCategoryBrand = catId => {
         dispatch(getBrands(catId));

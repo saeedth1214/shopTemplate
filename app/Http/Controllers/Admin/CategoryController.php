@@ -16,6 +16,15 @@ class CategoryController extends Controller
     {
         $this->cateRepo = resolve(CategoryRepositories::class);
     }
+    public function index()
+    {
+        try {
+            $categories = $this->catRepo->total();
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
+        }
+        return ResponsesFacade::success($categories);
+    }
     public function create()
     {
         $data = [
@@ -52,7 +61,7 @@ class CategoryController extends Controller
         try {
             $cate = $this->cateRepo->find(request()->id);
             if (!$cate) {
-                return ResponsesFacade::warning(["msg" => " چنین دسته بندی پیدا نشد"], 400);
+                return ResponsesFacade::success(["msg" => " چنین دسته بندی پیدا نشد"], 400);
             }
             $category = $cate->update($data);
             if (!$category) {
@@ -71,7 +80,7 @@ class CategoryController extends Controller
             if ($cat) {
                 $res = $cat->delete();
                 if ($res) {
-                    return ResponsesFacade::warning(["msg"=>"یک دسته بندی حذف شد"], 202);
+                    return ResponsesFacade::success(["msg"=>"یک دسته بندی حذف شد"], 202);
                 }
                 return ResponsesFacade::faild();
             }

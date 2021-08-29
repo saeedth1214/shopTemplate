@@ -40,7 +40,7 @@ class OrderController extends Controller
             foreach (request()->all() as $key =>$item) {
                 // return response($item);
                 $orders[] = [
-                    "user_id" => auth()->id(),
+                    "user_id" => auth('api')->user()->id,
                     "product_id" => $item['proId'],
                     "total_items" => $item['quantity'],
                     "total_amount" => $item["totalPrice"],

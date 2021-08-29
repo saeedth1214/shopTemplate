@@ -11,7 +11,7 @@ const CategoryItem = () => {
 
     const categories = useSelector(state => state.categories);
     const dispatch = useDispatch();
-    const [perPage] = useState(2);
+    const [perPage] = useState(5);
     const [currentPage, setCurrentPage] = useState(1);
     const [newDialog, setNewCategoryDialog] = useState(false);
     const [updateCategory, setCategory] = useState("");
@@ -19,7 +19,7 @@ const CategoryItem = () => {
     const categoryData = paginate(categories, currentPage, perPage);
 
 
-    const handlePageChange = (page,pageCount) => {
+    const handlePageChange = (page, pageCount) => {
 
         (page >= 1 && page <= pageCount)
             ?

@@ -4,135 +4,141 @@ use Illuminate\Support\Facades\Route;
 $frontNs="App\Http\Controllers\Frontend";
 $adminNs="App\Http\Controllers\Admin";
 
-Route::group(["namespace" => $frontNs], function () {
+Route::group(['prefix'=>'front',"namespace" => $frontNs], function () {
 
 
     // filter products
-    Route::get("front/filterProducts/newest", "ProductController@filterByNewest");
-    Route::get("front/filterProducts/popular", "ProductController@filterByPopular");
-    Route::get("front/filterProducts/bestSeller", "ProductController@filterBybestSeller");
+    Route::get("filterProducts/newest", "ProductController@filterByNewest");
+    Route::get("filterProducts/popular", "ProductController@filterByPopular");
+    Route::get("filterProducts/bestSeller", "ProductController@filterBybestSeller");
 
 //    // home page
     // Route::get("/shopPage", "HomeController@index");
-    Route::get("front/categories", "CategoryController@index");
+    Route::get("categories", "CategoryController@index");
 
 
     // product
-    Route::get("front/productsBycategory/{cid}", "ProductController@getProductByCategory");
-    Route::get("front/product/{pid}", "ProductController@getSingleProduct");
-    Route::get("front/randomProduct", "ProductController@randomProduct");
+    Route::get("productsBycategory/{cid}", "ProductController@getProductByCategory");
+    Route::get("product/{pid}", "ProductController@getSingleProduct");
+    Route::get("randomProduct", "ProductController@randomProduct");
 
 //
 //    // user register
-    Route::post("front/user/Register", "AuthController@register");
-    Route::post("front/user/login", "AuthController@login");
-    Route::post("front/user/changePassword", "AuthController@changePassword")->middleware("Authorize:api");
-    Route::get("front/user/Logout", "AuthController@logout")->middleware("Authorize:api");
+    Route::post("user/register", "AuthController@register");
+    Route::post("user/login", "AuthController@login");
+    Route::post("user/forget-password", "ForgetPasswordController@sendForgetPasswordEmail");
+    Route::post("user/reset-password", "ForgetPasswordController@resetPassword");
+    Route::post("user/changePassword", "AuthController@changePassword");
+    Route::post("user/changeProfileImage", "UserController@changeProfileImage")->middleware("auth:api");
+    Route::get("user/logout", "AuthController@logout");
 
 //
     //review
-    Route::get("front/comments/{pid}", "ReviewController@getProductComment");
-    Route::get("front/userProfile/comments", "ReviewController@getUserProfileComment")->middleware("Authorize:api");
-    Route::post("front/review/create", "ReviewController@create")->middleware("Authorize:api");
-    Route::get("front/getReview/{reviewId}", "ReviewController@getReviews");
+    Route::get("comments/{pid}", "ReviewController@getProductComment");
+    Route::get("userProfile/comments", "ReviewController@getUserProfileComment")->middleware("auth:api");
+    Route::post("review/create", "ReviewController@create")->middleware("auth:api");
+    Route::get("getReview/{reviewId}", "ReviewController@getReviews");
 
     //orders
-    Route::get("front/getOrders", "OrderController@index")->middleware("Authorize:api");
-    Route::post("front/create/orders", "OrderController@create")->middleware("Authorize:api");
+    Route::get("getOrders", "OrderController@index")->middleware("auth:api");
+    Route::post("create/orders", "OrderController@create")->middleware("auth:api");
 
     // email
-    // Route::get("/front/verificationEmail/{token}", "UserController@verification");
+    // Route::get("/verificationEmail/{token}", "UserController@verification");
 
     //attribute value
-    Route::get("front/attribute_value/{pid}", "AttributeValueController@getAttrValueFront");
+    Route::get("attribute_value/{pid}", "AttributeValueController@getAttrValueFront");
 });
 //
-Route::group(["namespace"=>$adminNs,"middleware"=>["Authorize:api", 'isAdmin']], function () {
+Route::group(['prefix'=>'admin',"namespace"=>$adminNs,"middleware"=>['auth:api','isAdmin']], function () {
     // brand
     Route::get("brands/{catId}", "BrandController@getBrand");
-    Route::get("category_brand", "BrandController@category_brand")->withoutMiddleware(["Authorize:api", 'isAdmin']);
+    Route::get("category_brand", "BrandController@category_brand")->withoutMiddleware(['isAdmin']);
     Route::post("brand/create", "BrandController@create");
     Route::post("brand/remove", "BrandController@remove");
 
     //reviews
 
-    Route::get("admin/reviews", "ReviewController@index");
-    Route::post("admin/review/create", "ReviewController@create");
-    Route::put("admin/review/changeStatus/{id}", "ReviewController@changeStatus");
-    Route::delete("admin/review/delete/{id}", "ReviewController@remove");
+    Route::get("reviews", "ReviewController@index");
+    Route::post("review/create", "ReviewController@create");
+    Route::put("review/changeStatus/{id}", "ReviewController@changeStatus");
+    Route::delete("review/delete/{id}", "ReviewController@remove");
 
     // reply-message
-    Route::post("admin/createReplyMessage", "ReviewController@createReplyMessage");
+    Route::post("createReplyMessage", "ReviewController@createReplyMessage");
 
     // products
-    Route::get("admin/products", "ProductController@index");
-    Route::post("admin/product/create", "ProductController@create");
-    Route::delete("admin/product/delete/{id}", "ProductController@remove");
+
+
+    Route::get("products", "ProductController@index");
+    Route::post("product/create", "ProductController@create");
+    Route::delete("product/delete/{id}", "ProductController@remove");
 
 
     //users
-    Route::post("admin/changeRole", "UserController@changeRole");
-    Route::post("admin/users/create", "UserController@create");
-    Route::delete("admin/user/delete/{id}", "UserController@remove");
-    Route::get("admin/users", "UserController@index");
+    Route::post("changeRole", "UserController@changeRole");
+    Route::post("users/create", "UserController@create");
+    Route::delete("user/delete/{id}", "UserController@remove");
+    Route::get("users", "UserController@index");
 
     //medias
-    Route::post("admin/media/create", "MediaController@create");
-    Route::post("admin/media/delete", "MediaController@delete");
-    Route::put("admin/media/update", "MediaController@update");
-    Route::get("admin/medias", "MediaController@index");
+    Route::post("media/create", "MediaController@create");
+    Route::post("media/delete", "MediaController@delete");
+    Route::put("media/update", "MediaController@update");
+    Route::get("medias", "MediaController@index");
 
     // attributes
 
-    Route::get("admin/attributes", "AttributeController@index");
-    Route::post("admin/attribute/create", "AttributeController@create");
-    Route::put("admin/attribute/update", "AttributeController@update");
-    Route::delete("admin/attribute/delete/{attributeId}", "AttributeController@delete");
+    Route::get("attributes", "AttributeController@index");
+    Route::post("attribute/create", "AttributeController@create");
+    Route::put("attribute/update", "AttributeController@update");
+    Route::delete("attribute/delete/{attributeId}", "AttributeController@delete");
 
     // // products root
 
-    Route::get("admin/products", "ProductController@index");
-    Route::get("admin/product/{id}", "ProductController@singlePro");
-    Route::post("admin/products/create", "ProductController@create");
-    Route::delete("admin/product/delete/{id}", "ProductController@remove");
-    Route::put("admin/product/update/{id}", "ProductController@update");
+    Route::get("products", "ProductController@index");
+    Route::get("product/{id}", "ProductController@singlePro");
+    Route::post("products/create", "ProductController@create");
+    Route::delete("product/delete/{id}", "ProductController@remove");
+    Route::put("product/update/{id}", "ProductController@update");
 
     // //user root
 
-    Route::get("admin/users", "UserController@index");
-    Route::put("admin/user/update", "UserController@update");
-    Route::put("admin/user/changeRole", "UserController@changeRole");
+    Route::get("users", "UserController@index");
+    Route::put("user/update", "UserController@update");
+    Route::put("user/changeRole", "UserController@changeRole");
 
-    Route::post("admin/users/create", "UserController@create");
-    Route::delete("admin/user/delete/{id}", "UserController@remove");
+    Route::post("users/create", "UserController@create");
+    Route::delete("user/delete/{id}", "UserController@remove");
 
     // // options root
 
-    Route::get("admin/options", "OptionController@index");
-    Route::post("admin/option/create", "OptionController@create");
-    Route::delete("admin/option/delete/{optionId}", "OptionController@delete");
+    Route::get("options", "OptionController@index");
+    Route::post("option/create", "OptionController@create");
+    Route::delete("option/delete/{optionId}", "OptionController@delete");
 
 
     // // categories root
 
-    Route::get("admin/categories", "CategoryController@index");
-    Route::post("admin/category/create", "CategoryController@create");
-    Route::put("admin/category/update", "CategoryController@update");
-    Route::delete("admin/category/delete/{categoryId}", "CategoryController@delete");
+    Route::get("categories", "CategoryController@index");
+    Route::post("category/create", "CategoryController@create");
+    Route::put("category/update", "CategoryController@update");
+    Route::delete("category/delete/{categoryId}", "CategoryController@delete");
 
     // // category attribute
-    Route::get("admin/categoryAttribute/{id}", "categoryAttributeController@index");
-    Route::get("admin/categoryAttr/{id}", "categoryAttributeController@cateAttr");
-    Route::post("admin/categoryAttribute/create", "categoryAttributeController@create");
+    Route::get("categoryAttribute/{id}", "categoryAttributeController@index");
+    Route::get("categoryAttr/{id}", "categoryAttributeController@cateAttr");
+    Route::post("categoryAttribute/create", "categoryAttributeController@create");
 
     // dashbord
 
-    Route::get("admin/getDashboardDetail", "DashboardController@getDashboardInfo");
-    Route::get("admin/newOrders", "DashboardController@newOrders");
-    Route::get("admin/monthlySales", "DashboardController@monthlySales");
+    Route::get("getDashboardDetail", "DashboardController@getDashboardInfo");
+    Route::get("newOrders", "DashboardController@newOrders");
+    Route::get("bestSeller", "DashboardController@bestSeller");
+    Route::get("monthlySales", "DashboardController@monthlySales");
     // orders
-    Route::get("admin/allOrders", "OrderController@getAllOrders");
+    Route::get("allOrders", "OrderController@getAllOrders");
     // attribute value
-    Route::get("admin/attribute_value/{pid}", "AttributeValueController@getAttributeValue");
-    Route::put("admin/attribute_value/update", "AttributeValueController@updateAttributeValue");
+    Route::get("attribute_value/{pid}", "AttributeValueController@getAttributeValue");
+    Route::put("attribute_value/update", "AttributeValueController@updateAttributeValue");
 });

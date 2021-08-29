@@ -10,7 +10,7 @@ const Rewiews = () => {
 
             <div className="card card-default" data-scroll-height="550" style={ { height: "auto", overflow: "hidden" } }>
                 <div className="card-header justify-content-between ">
-                    <h2>نظرات ثبت شده</h2>
+                    <p className="text-dark text-small">نظرات ثبت شده</p>
                 </div>
 
                 {
@@ -22,22 +22,26 @@ const Rewiews = () => {
                                     <i className="mdi mdi-email-outline font-size-20"></i>
                                 </div>
                                 <div className="media-body pr-3">
-                                    <a className="mt-0 mb-1 font-size-15 text-dark" href="#">{ item.title }</a>
-                                    <p>{ item.comment }</p>
+                                    <span className="mt-0 mb-1 font-size-15 text-dark">{ item.title }</span>
+                                    <p className="text-dark text-small">{ item.comment }</p>
                                 </div>
                                 <span className=" font-size-12 d-inline-block"><i className="mdi mdi-clock-outline"></i> { item.date }</span>
                             </div>
-                            <div className="media py-3 align-items-center justify-content-between">
+                            <div className="media-body py-3 align-items-center">
                                 {
                                     (item.reply !== undefined && item.reply.length > 0) ? item.reply.map((reply, Idx) =>
-                                        <div className="media py-3 align-items-center justify-content-between">
-                                            <div className="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
-                                                <i className="mdi mdi-email-outline font-size-20"></i>
+                                        <div className="media p-3 align-items-center justify-content-between">
+                                            <div className="media">
+                                                <div className="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
+                                                    <i className="mdi mdi-email-outline font-size-20"></i>
+                                                </div>
+                                                <div className="media-body pr-3">
+                                                    <p className="text-dark text-small">{ reply.reply }</p>
+                                                </div>
                                             </div>
-                                            <div className="media-body pr-3">
-                                                <p>{ reply.reply }</p>
+                                            <div className="pr-3">
+                                                <p className=" font-size-12 d-inline-block"><i className="mdi mdi-clock-outline"></i> { reply.date }</p>
                                             </div>
-                                            <span className=" font-size-12 d-inline-block"><i className="mdi mdi-clock-outline"></i> { reply.date }</span>
                                         </div>
                                     ) : null
                                 }

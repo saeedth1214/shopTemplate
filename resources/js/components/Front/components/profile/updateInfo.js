@@ -4,25 +4,24 @@ const UpdateInfo = () => {
     const { user } = useContext(ProfileContext);
     return (
         <Fragment>
-            <div className="card-body pt-0 pb-5">
+            <div className="card-body border-0 pt-0 pb-5">
                 <div className="card card-default">
                     <div className="card-header card-header-border-bottom">
-                        <h5>ویرایش اطلاعات</h5>
+                        <p className="text-dark text-small">ویرایش اطلاعات</p>
                     </div>
                     <div className="card-body">
-                        <form className="horizontal-form">
                             <div className="form-group row">
 
                                 <label htmlFor="">نام کامل</label>
 
-                                <input type="text" value={ user.fullname } readOnly className="form-control" />
+                                <input type="text" value={ user.fullname } readOnly className="form-control form-control-sm" />
 
                             </div>
                             <div className="form-group row">
 
                                 <label htmlFor="">ایمیل</label>
 
-                                <input type="email" value={ user.email } readOnly className="form-control" />
+                                <input type="email" value={ user.email } readOnly className="form-control form-control-sm" />
 
                             </div>
                             <div className="form-group ">
@@ -44,7 +43,6 @@ const UpdateInfo = () => {
                                 <label htmlFor="">تاریخ عضویت</label>
                                 <label className="control date">{ user.created_at }</label>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>

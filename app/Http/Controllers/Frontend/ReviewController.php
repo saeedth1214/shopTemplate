@@ -32,6 +32,7 @@ class ReviewController extends Controller
             $comments = $this->revRepo->getHomeComments(request()->pid);
             return ResponsesFacade::success($comments);
         } catch (\Throwable $th) {
+            return response()->json(['msg'=>$th->getMessage()]);
             return ResponsesFacade::faild();
         }
     }

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Repositories\ShamsiRepositories;
 
 class reply extends Model
 {
+    use HasFactory;
     const CREATED_AT = 'created_at';
     const UPDATED_AT = null;
     protected $guarded = ['id'];
@@ -19,8 +22,8 @@ class reply extends Model
         return $this->belongsTo(review::class, "message_id", "id");
     }
 
-    public function getdataAttribute()
+    public function getdateAttribute()
     {
-        return ShamsiRepositories::miladi_to_shamsi($this->attributes['created_at']);
+        return ShamsiRepositories::miladi_to_shamsi($this->attributes['date']);
     }
 }

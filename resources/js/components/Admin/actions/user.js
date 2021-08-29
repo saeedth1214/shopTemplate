@@ -1,8 +1,10 @@
-import { removeUserById, createUserByData, RegisterUserServise, changeUserRoleService, userLoginFrontend, userLogoutFrontend, changeUserFronPassword, updateUserService } from "../../services/userService";
+import { removeUserById, createUserByData, RegisterUserServise, changeUserRoleService, userLoginFrontend, userLogoutFrontend, changeUserFronPassword, updateUserService, forgetPasswordService, resetPasswordService, changeUserProfileImage } from "../../services/userService";
 import { errorNoti, successNoti, warrningNoti } from "../../utility/messageNotifcation";
-import { setCookie, removeCookie } from "../../services/cookieServise";
+import { removeCookie, setCookieForUserLoggedin, getCookie, setCookie, hasCookie } from "../../services/cookieServise";
 import { showLoading, hideLoading } from "react-redux-loading-bar";
-import { useHistory } from "react-router-dom";
+
+
+
 
 export const createUser = user => {
 
@@ -19,7 +21,7 @@ export const createUser = user => {
                     role: data.data.role,
                 };
                 users.push(newUser);
-                await dispatch({ type: "CREATE_USER", payload: users });
+                dispatch({ type: "CREATE_USER", payload: users });
                 successNoti(data.msg);
             }
             else if (status === 202) {
@@ -28,6 +30,7 @@ export const createUser = user => {
 
         } catch (error) {
 
+            console.log(error.response);
             errorNoti("مشکلی سمت سرور پیش آمده است ");
 
         }
@@ -41,10 +44,10 @@ export const removeUser = userId => {
 
         try {
             const { data, status } = await removeUserById(userId);
-            if (status === 201) {
+            if (status === 202) {
                 const users = [...getState().users];
                 const newUsers = users.filter(user => user.id !== userId);
-                await dispatch({ type: "REMOVE_USER", payload: newUsers });
+                dispatch({ type: "REMOVE_USER", payload: newUsers });
                 successNoti(data.msg);
             }
 
@@ -57,20 +60,24 @@ export const removeUser = userId => {
 export const RegisterUser = user => {
 
     return async dispatch => {
-
         try {
             dispatch(showLoading('register'));
             const { data, status } = await RegisterUserServise(user);
+
+            console.log(data.status);
             if (status === 208) {
                 dispatch(hideLoading('register'));
                 warrningNoti(data.msg);
                 return;
             }
-            dispatch(hideLoading('register'));
             successNoti(data.msg);
-
+            setCookieForUserLoggedin(data.userData.access_token, data.userData.user);
+            dispatch(hideLoading('register'));
+            dispatch({ type: 'LOGIN', payload: true });
         } catch (error) {
             console.log(error.response);
+            dispatch(hideLoading('register'));
+
         }
 
     }
@@ -101,40 +108,39 @@ export const userLoginFront = (login) => {
             dispatch(showLoading('login'));
             const { data, status } = await userLoginFrontend(login);
             if (status === 200) {
-                const date = new Date();
-                date.setTime(date.getTime() + (24 * 3600 * 1000));
-                const options = { path: "/", expires: date };
-                setCookie("accessToken", data.userData.accessToken, options);
-                setCookie("user", data.userData.user, options);
+                setCookieForUserLoggedin(data.userData.access_token, data.userData.user);
                 dispatch(hideLoading('login'));
-                successNoti(data.msg);
                 dispatch({ type: "LOGIN", payload: true });
+                successNoti(data.msg);
             }
+
         } catch (error) {
             if (error.response.status === 401) {
-                errorNoti(error.response.data.msg);
+                warrningNoti(error.response.data.msg);
+                dispatch(hideLoading('login'));
                 return;
             }
+            console.log(error);
         }
     }
 }
 
 export const userLogoutFront = () => {
 
-    return async () => {
+    return async dispatch => {
         try {
 
+            // dispatch(showLoading('logout'));
             const { status, data } = await userLogoutFrontend();
-            console.log(status);
+            console.log(status, data, "logout");
             if (status === 200) {
-                removeCookie(['user', 'accessToken']);
+                removeCookie(['user', 'accessToken', 'cookie-expires']);
                 successNoti(data.msg);
-                // dispatch({ type: "LOGIN", payload: false });
-                console.log("action");
+                dispatch({ type: "LOGIN", payload: false });
             }
         }
         catch (error) {
-
+            dispatch(hideLoading('logout'));
             console.log(error.response);
         }
 
@@ -143,24 +149,16 @@ export const userLogoutFront = () => {
 }
 
 export const changeUserRole = role => {
-
-
-    return async (dispatch, getState) => {
+    return async () => {
 
         try {
             const { status } = await changeUserRoleService(role);
-            // console.log(response);
             if (status === 204 || status === 202) {
-                // const users = [...getState().users];
-                // const filterUsers = users.filter(item => item.id !== user.id);
-                // await dispatch({ type: "UPDATE_USER", payload: [...filterUsers, user] });
                 successNoti("یک کاربر با موفقیت ویرایش شد");
             }
         } catch (error) {
-            // console.log(error.response);
             errorNoti("مشکلی سمت سرور به وجود آمد");
         }
-
     }
 }
 
@@ -174,7 +172,7 @@ export const updateUser = (user) => {
             if (response.status === 204 || response.status === 202) {
                 const users = [...getState().users];
                 const filterUsers = users.filter(item => item.id !== user.id);
-                await dispatch({ type: "UPDATE_USER", payload: [...filterUsers, user] });
+                dispatch({ type: "UPDATE_USER", payload: [...filterUsers, user] });
                 successNoti("یک کاربر با موفقیت ویرایش شد");
             }
         } catch (error) {
@@ -184,4 +182,95 @@ export const updateUser = (user) => {
         }
     }
 }
+
+
+export const forgetPassword = email => {
+
+    return async dispatch => {
+
+        try {
+            dispatch(showLoading('forget-password'));
+            const { data, status } = await forgetPasswordService(email);
+            if (status === 200) {
+                successNoti(data.msg);
+            }
+            dispatch(hideLoading('forget-password'));
+
+        } catch (error) {
+
+            if (error.response.status === 404) {
+                errorNoti(error.response.data.msg);
+                return;
+            }
+            console.log(error);
+
+        }
+    }
+}
+export const resetPassword = creadential => {
+
+    return async dispatch => {
+
+        try {
+            const { data, status } = await resetPasswordService(creadential);
+            if (status === 200) {
+                successNoti(data.msg);
+            }
+
+        } catch (error) {
+
+            if (error.response.status === 400) {
+                errorNoti(error.response, data.msg);
+                return;
+            }
+            // console.log(error.response);
+        }
+
+    }
+}
+
+export const changeProfileImage = image => {
+
+
+    return async dispatch => {
+
+
+
+        try {
+
+            const { data, status } = await changeUserProfileImage(image);
+            // console.log(data);
+
+            if (status === 200) {
+                if (hasCookie('cookie-expires')) {
+
+                    /// now date
+                    const nowDate = new Date();
+                    var now = nowDate.getTime();
+
+                    // set cookies date
+                    var cookieExpires = getCookie('cookie-expires');
+
+                    const cookieDate = new Date(cookieExpires);
+                    var cookie = cookieDate.getTime();
+
+                    // get user from cookie
+                    var user = getCookie('user');
+                    user = { ...user, avatar: image.fileName };
+                    nowDate.setTime(nowDate.getTime() + (cookie - now));
+                    const options = { path: "/", expires: nowDate };
+
+                    setCookie('user', user, options);
+                    successNoti(data.msg);
+                }
+                else {
+                    warrningNoti("لطفا به صفحه ورود بروید");
+                }
+            }
+        } catch (error) {
+        }
+    }
+}
+
+
 
