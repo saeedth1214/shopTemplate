@@ -24,8 +24,9 @@ export const removeCookie = keys => {
 
     if (Array.isArray(keys)) {
         keys.map(key => {
-            hasCookie(key);
-            cookies.remove(key);
+            if (hasCookie(key)) {
+                cookies.remove(key);
+            }
         })
     } else {
         return cookies.remove(key);
@@ -33,12 +34,12 @@ export const removeCookie = keys => {
 }
 
 
-export const setCookieForUserLoggedin = (accessToken,user) => {
+export const setCookieForUserLoggedin = (accessToken, user) => {
 
     const date = new Date();
-    date.setTime(date.getTime() + (1000*3600));
+    date.setTime(date.getTime() + (1000 * 3600));
     const options = { path: "/", expires: date };
-    setCookie("accessToken", accessToken,options);
+    setCookie("accessToken", accessToken, options);
     setCookie("user", user, options);
     setCookie("cookie-expires", date, options);
 

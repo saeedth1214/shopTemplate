@@ -25,11 +25,14 @@ class UserController extends Controller
             $res = $res->getOrSend(function () {
                 return ResponsesFacade::faild();
             });
-            $image = $request->profileResult;
-            $pattern = "/data:image\/[a-zA-z0-9]{3,6};base64,/";
-            $result = preg_replace($pattern, '', $image);
-            Storage::put('avatar/'.$request->fileName, base64_decode(($result)));
-            return ResponsesFacade::success(["msg" => "تصویر با موفقیت ویرابش شد"], 200);
+            if ($res) {
+                $image = $request->profileResult;
+                $pattern = "/data:image\/[a-zA-z0-9]{3,6};base64,/";
+                $result = preg_replace($pattern, '', $image);
+                Storage::put('avatar/'.$request->fileName, base64_decode(($result)));
+                return ResponsesFacade::success(["msg" => "تصویر با موفقیت ویرابش شد"], 200);
+            }
+            return ResponsesFacade::faild();
         } catch (\Throwable $th) {
             return response()->json(['msg'=>$th->getMessage()]);
             return ResponsesFacade::faild();

@@ -29,7 +29,7 @@ Route::group(['prefix'=>'front',"namespace" => $frontNs], function () {
     Route::post("user/forget-password", "ForgetPasswordController@sendForgetPasswordEmail");
     Route::post("user/reset-password", "ForgetPasswordController@resetPassword");
     Route::post("user/changePassword", "AuthController@changePassword");
-    Route::post("user/changeProfileImage", "UserController@changeProfileImage");
+    Route::post("user/changeProfileImage", "UserController@changeProfileImage")->middleware("auth:api");
     Route::get("user/logout", "AuthController@logout");
 
 //

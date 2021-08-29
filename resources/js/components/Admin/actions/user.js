@@ -134,7 +134,7 @@ export const userLogoutFront = () => {
             const { status, data } = await userLogoutFrontend();
             console.log(status, data, "logout");
             if (status === 200) {
-                removeCookie(['user', 'accessToken']);
+                removeCookie(['user', 'accessToken', 'cookie-expires']);
                 successNoti(data.msg);
                 dispatch({ type: "LOGIN", payload: false });
             }

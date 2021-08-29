@@ -44,8 +44,6 @@ const Login = () => {
         forceUpdate('');
 
     }
-
-    console.log("login", auth, hasCookie('user'));
     return (
         <Fragment>
             {

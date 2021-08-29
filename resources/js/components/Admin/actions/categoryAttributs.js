@@ -41,14 +41,15 @@ export const createCategoryAttributes = catAttr => {
 
         try {
 
-            console.log(parseInt(catAttr.category), catAttr.category !== 0, catAttr.attrs.length !== 0);
             if (parseInt(catAttr.category) !== 0 && catAttr.attrs.length !== 0) {
                 const { data, status } = await createCatAttrs(catAttr);
                 if (status === 201) {
                     successNoti(data.msg);
+                    dispatch({ type: "GET_CATEATTR", payload: [] })
+
                 }
             } else {
-                warrningNoti("لطفا یک دسته بندی یا ویزگی را انتخاب کنید  ");
+                warrningNoti("لطفا یک دسته بندی یا ویژگی انتخاب کنید  ");
             }
         } catch (error) {
 

@@ -36,7 +36,7 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             
-             dd($e->getMessage());
+             dd($e->getMessage(),$e->getFile(),$e->getLine());
         });
     }
 }

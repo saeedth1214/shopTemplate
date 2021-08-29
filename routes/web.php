@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\VerifyController;
+use Illuminate\Support\Facades\Artisan;
 
 Route::View("/", "Front.home.index");
 Route::View("/product/{pid}", "Front.home.index");
@@ -24,6 +25,10 @@ Route::group(['prefix'=>'admin','middleware'=>['auth:api','isAdmin']], function 
 Route::get('/email/verify', [ VerifyController::class, 'verify'])->name('authenticate.verify.email');
 Route::get('/email-verification/send', [ VerifyController::class, 'send'])->name('authenticate.verify-email.send');
 
+
+Route::get('/link',function(){
+Artisan::command("storage:link");
+});
 //
 //Route::group(["prefix"=>"admin","namespace"=>"Admin"], function () {
 //    Route::get("/{path?}", [

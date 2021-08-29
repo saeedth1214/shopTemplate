@@ -20,13 +20,14 @@ const Info = () => {
 
     const dispatch = useDispatch();
     const { getRootProps, getInputProps } = useDropzone({
-        accept: "image/*",
+        accept: "image/jpeg,image/png,image/jpg",
+        maxSize: 500000,
         multiple: false,
         onDrop: (acceptedFiles, fileRejections) => {
 
             if (fileRejections.length > 0) {
 
-                errorNoti("لطفا یک عکس با فرمت های صحیح انتخاب کنید");
+                errorNoti("ممکن است خطا به دلیل فرمت فایل انتخابی باشد.. یا اینکه فایل انتخابی باید کمتر از500 کیلو بایت باشد");
                 return;
 
             } else {
@@ -58,7 +59,7 @@ const Info = () => {
 
             <div className="card-img mx-auto rounded-circle">
 
-                <img src={ `${config.BASE_AVATAR_PATH}/${getCookie('user').avatar}` } alt="user image" style={ { width: "100px", height: "100px" } } />
+                <img src={ getCookie('user').avatar !== null ? `${config.BASE_AVATAR_PATH}/${getCookie('user').avatar}` : `${config.BASE_AVATAR_PATH}/avatar1.png` } alt="user image" style={ { width: "100px", height: "100px" } } />
             </div>
             <div className="card-body">
                 <p className="py-2 text-dark text-small">{ user.fullname }</p>

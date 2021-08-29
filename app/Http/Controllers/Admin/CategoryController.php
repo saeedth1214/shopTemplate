@@ -16,6 +16,15 @@ class CategoryController extends Controller
     {
         $this->cateRepo = resolve(CategoryRepositories::class);
     }
+    public function index()
+    {
+        try {
+            $categories = $this->catRepo->total();
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
+        }
+        return ResponsesFacade::success($categories);
+    }
     public function create()
     {
         $data = [

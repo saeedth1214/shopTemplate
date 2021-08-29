@@ -11,6 +11,7 @@ const Set_Attribute_To_Category = ({ categories }) => {
     const [category, setCategory] = useState(0);
     const [updateAttribute, setupdateAttribute] = useState(0);
     const [openDialog, setOpenDialog] = useState(false);
+    const [update, forceUpdate] = useState(true);
 
     const showDialog = id => {
         setOpenDialog(true);
@@ -40,7 +41,9 @@ const Set_Attribute_To_Category = ({ categories }) => {
         })
         const data = { category, attrs };
         dispatch(createCategoryAttributes(data));
+        // forceUpdate(!update);
     }
+    console.log('rendered');
     const getCateAttr = cateId => {
         // let btn = document.getElementById("btn-cateAttr");
 
@@ -95,7 +98,7 @@ const Set_Attribute_To_Category = ({ categories }) => {
 
                 <div className="card-header justify-content-between align-items-center card-header-border-bottom">
                     <select className="form-control" name="parent" id="category" onChange={ e => getCateAttr(e.target.value) }>
-                        <option value={ 0 }> select option</option>
+                        <option value={ 0 } selected> select option</option>
                         {
                             categories.map(cate => {
 
