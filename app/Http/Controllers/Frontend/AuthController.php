@@ -34,10 +34,15 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
         $token = $this->attemptAction($credentials);
+
+        // return $token;
         Cache::put('tokenApi', $token, Carbon::now()->addMinutes(60));
         if (!$token) {
+            // return response()->json(['msg' =>"نشد"]);
             return ResponsesFacade::emailOrPasswordNotValid();
         }
+
+        // return response()->json(['data'=> $this->respondWithToken($token)]);
         return ResponsesFacade::userLoggedIn($this->respondWithToken($token));
     }
 
@@ -63,10 +68,13 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth('api')->logout();
-
-        Cache::forget('tokenApi');
-        return ResponsesFacade::userLoggedOut();
+        try {
+            auth('api')->logout();
+            Cache::forget('tokenApi');
+            return ResponsesFacade::userLoggedOut();
+        } catch (\Throwable $th) {
+            return ResponsesFacade::userNotLoggedOut();
+        }
     }
 
     /**

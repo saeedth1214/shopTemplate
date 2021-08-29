@@ -17,6 +17,12 @@ class ReactResponses
     {
         return response()->json(['msg' => "شما از سایت خارج شدید"], Response::HTTP_OK);
     }
+
+    public function userNotLoggedOut()
+    {
+        return response()->json(['msg' => " مشکلی هنگام خروج سایت به وجود امد "], Response::HTTP_BAD_REQUEST);
+    }
+    
     public function passwordWasChanged()
     {
         return response()->json(['msg' => "رمز عبور شما تعویض شد"], Response::HTTP_OK);

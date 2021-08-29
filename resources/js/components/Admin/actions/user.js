@@ -107,6 +107,7 @@ export const userLoginFront = (login) => {
         try {
             dispatch(showLoading('login'));
             const { data, status } = await userLoginFrontend(login);
+
             if (status === 200) {
                 setCookieForUserLoggedin(data.userData.access_token, data.userData.user);
                 dispatch(hideLoading('login'));
@@ -119,8 +120,10 @@ export const userLoginFront = (login) => {
                 warrningNoti(error.response.data.msg);
                 dispatch(hideLoading('login'));
                 return;
+            } else {
+                console.log(error);
+
             }
-            console.log(error);
         }
     }
 }
@@ -140,8 +143,15 @@ export const userLogoutFront = () => {
             }
         }
         catch (error) {
-            dispatch(hideLoading('logout'));
-            console.log(error.response);
+            if (error.response.data.status === 400) {
+                console.log(error.response.data.msg);
+                dispatch(hideLoading('logout'));
+
+            } else {
+
+                console.log(error.response);
+            }
+
         }
 
     }
@@ -261,6 +271,7 @@ export const changeProfileImage = image => {
                     const options = { path: "/", expires: nowDate };
 
                     setCookie('user', user, options);
+                    dispatch({ type: "UPDATE_USER_IMAGE", payload:true });
                     successNoti(data.msg);
                 }
                 else {

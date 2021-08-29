@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as img from "../../../Admin/components/common/data";
 import ProfileContext from '../../context/profileContext';
 import { useDropzone } from 'react-dropzone';
@@ -17,6 +17,7 @@ const Info = () => {
     const [fileName, setFileName] = useState("");
     // const [files, setFiles] = useState('');
 
+    const profileImage = useSelector(state => state.profileImage);
 
     const dispatch = useDispatch();
     const { getRootProps, getInputProps } = useDropzone({
@@ -60,6 +61,7 @@ const Info = () => {
             <div className="card-img mx-auto rounded-circle">
 
                 <img src={ getCookie('user').avatar !== null ? `${config.BASE_AVATAR_PATH}/${getCookie('user').avatar}` : `${config.BASE_AVATAR_PATH}/avatar1.png` } alt="user image" style={ { width: "100px", height: "100px" } } />
+                {/* <img src={ getCookie('user').avatar !== null ? `${config.BASE_AVATAR_PATH}/${getCookie('user').avatar}` : `${config.BASE_AVATAR_PATH}/avatar1.png` } alt="user image" style={ { width: "100px", height: "100px" } } /> */}
             </div>
             <div className="card-body">
                 <p className="py-2 text-dark text-small">{ user.fullname }</p>

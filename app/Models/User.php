@@ -77,6 +77,7 @@ class User extends Authenticatable implements JWTSubject
     {
         sendEmail::dispatchNow($this, new forgetPassword($this,$token));
     }
+    
     public function getJWTIdentifier()
     {
         return $this->getKey();
