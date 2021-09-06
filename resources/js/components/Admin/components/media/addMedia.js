@@ -6,7 +6,7 @@ import { useDropzone } from "react-dropzone";
 import config from "../../../services/config";
 import _ from "lodash";
 import { getAllProducts } from '../../actions/products';
-import { errorNoti } from '../../../utility/messageNotifcation';
+
 
 
 
@@ -33,7 +33,7 @@ const AddMedia = () => {
 
             if (fileRejections.length > 0) {
 
-                errorNoti("لطفا یک عکس با فرمت های صحیح انتخاب کنید");
+                // errorNoti("لطفا یک عکس با فرمت های صحیح انتخاب کنید");
                 return;
 
             } else {

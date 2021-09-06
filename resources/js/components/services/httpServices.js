@@ -1,5 +1,5 @@
 import axios from "axios";
-import { toast } from "react-toastify";
+// import { toast, Slide } from "react-toastify";
 
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -11,11 +11,13 @@ axios.interceptors.response.use(null, error => {
     if (expectedErrors) {
 
         // console.log(error);
-        toast.error('مشکلی از سمت سرور پیش آمده است', {
-            "position": "top-right",
-            "closeOnClick": true
-        });
-     
+        // toast.error('مشکلی از سمت سرور پیش آمده است', {
+        //     position: "top-right",
+        //     autoClose: 1000,
+        //     transition: Slide,
+        //     closeOnClick: true,
+        // });
+
     }
     return Promise.reject(error);
 });

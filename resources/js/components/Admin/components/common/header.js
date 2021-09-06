@@ -1,8 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
 import LoadingBar from 'react-redux-loading-bar';
-import { hasCookie } from '../../../services/cookieServise';
+import { hasCookie, getCookie } from '../../../services/cookieServise';
 import { useSelector } from 'react-redux';
 const Header = () => {
 
@@ -10,7 +9,6 @@ const Header = () => {
     return (
         <Fragment>
             <header id="header" className=" rtl">
-                <ToastContainer />
                 <nav className="menuClass">
                     <LoadingBar style={ { background: "lime", height: "5px" } } />
                     <LoadingBar style={ { background: "lime", height: "5px" } } scope="categoryFilter" />
@@ -28,6 +26,15 @@ const Header = () => {
                                             <li className="item">
                                                 <Link to="/">خانه</Link>
                                             </li>
+                                            {
+                                                getCookie('user').role === 'admin' ?
+                                                    <li className="item">
+                                                        <a href="/admin/home">مدیریت</a>
+                                                    </li>
+                                                    : null
+                                            }
+
+
                                             <li className="item">
                                                 <Link to="/user/profile">پروفایل</Link>
                                             </li>

@@ -7,6 +7,15 @@ body{
     font-size: 16px;
 }
 
+.rrt-middle-container{
+
+    font-family: is !important;
+    vertical-align: middle;
+}
+.rrt-text,.rrt-title{
+    font-size: 0.8rem !important;
+    margin-top: 10px;
+}
 ul{
     list-style: none;
 }

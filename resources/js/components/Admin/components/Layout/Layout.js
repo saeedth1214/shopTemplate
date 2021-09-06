@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { ToastContainer } from 'react-toastify';
 import Header from './header';
 import Aside from './aside';
 
@@ -33,7 +32,6 @@ const Layout = (props) => {
 
                         <div className="content-wrapper">
                             <div className="content">
-                                <ToastContainer />
                                 { props.children }
                             </div>
                         </div>

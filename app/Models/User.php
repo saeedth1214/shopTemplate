@@ -70,7 +70,7 @@ class User extends Authenticatable implements JWTSubject
     public function sendEmailVerificationNotification()
     {
        
-        sendEmail::dispatch($this, new UserRegistered($this));
+        sendEmail::dispatchNow($this, new UserRegistered($this));
     }
 
     public function sendPasswordResetNotification ($token)

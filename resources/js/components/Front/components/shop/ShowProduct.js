@@ -21,6 +21,8 @@ const ShowProduct = ({ products, filter }) => {
             setCurrentPage(page) :
             null;
     }
+
+    console.log(archiveProducts);
     return (
         <Fragment>
 
@@ -30,29 +32,29 @@ const ShowProduct = ({ products, filter }) => {
                         <div className="col-lg-3 col-md-4 col-sm-6  col-xs-4 " key={ product.id }>
                             <div className="product">
                                 <div className="card">
-                                    
-                                { 
-                                    product['quantity'] > 0 ?
-                                        <Link to={ `/product/${product.id}` } >
+
+                                    {
+                                        product['quantity'] > 0 ?
+                                            <Link to={ `/product/${product.id}` } >
+                                                <img src={ !_.isEmpty(product.url) ? `${config.BASE_IMG_PATH}${product.url}` : `${config.BASE_DEFAULT_IMG_PATH}` } className="card-img-top productImg" alt="product_image" />
+                                            </Link>
+                                            :
                                             <img src={ !_.isEmpty(product.url) ? `${config.BASE_IMG_PATH}${product.url}` : `${config.BASE_DEFAULT_IMG_PATH}` } className="card-img-top productImg" alt="product_image" />
-                                        </Link>
-                                        :
-                                        <img src={ !_.isEmpty(product.url) ? `${config.BASE_IMG_PATH}${product.url}` : `${config.BASE_DEFAULT_IMG_PATH}` } className="card-img-top productImg" alt="product_image" />                                        
-                                }
-                                        
+                                    }
+
                                     <div className="card-body">
                                         <h5 className="card-title">{ product.title }</h5>
                                         <p className="card-text"><small className="text-muted">{ product.price } تومان</small></p>
                                         {
                                             product['orderCount'] !== undefined
                                                 ?
-                                                <p className="card-text"><small>تعداد سفارش</small><small className="text-muted mr-2 text-black">{ product.orderCount }</small></p>
+                                                <p className="card-text"><small>تعداد سفارش</small><small className="text-muted ml-2 text-black">{ product.orderCount }</small></p>
                                                 : null
                                         }
                                         {
                                             product['totalSells'] !== undefined
                                                 ?
-                                                <p className="card-text "><small>تعداد فروش</small><small className="text-muted mr-2 text-black">{ product.totalSells } </small></p>
+                                                <p className="card-text "><small>تعداد فروش</small><small className="text-muted ml-2 text-black">{ product.totalSells } </small></p>
                                                 : null
                                         }
                                         {

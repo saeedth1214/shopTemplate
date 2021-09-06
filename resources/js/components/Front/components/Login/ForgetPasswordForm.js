@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import simpleReactValidator from "simple-react-validator";
 import { useDispatch } from "react-redux";
-import { ToastContainer } from 'react-toastify';
 import { LoadingBar } from 'react-redux-loading-bar';
 import { resetPassword } from '../../../Admin/actions/user';
 import Layout from '../layout/layout';
@@ -13,7 +12,6 @@ const ForgetPasswordForm = (props) => {
     var searchParams = new URLSearchParams(props.location.search);
     const email =searchParams.get("email");
     const token =searchParams.get("token");
-    // console.log(searchParams.getAll());
     const [password, setPassword] = useState("");
     const [confrimPassword, setConfrimPassword] = useState("");
     const [, forcedState] = useState();
@@ -53,7 +51,6 @@ const ForgetPasswordForm = (props) => {
         <Layout>
             <div className="container d-flex flex-column justify-content-between vh-100">
                 <div className="row justify-content-center mt-5">
-                    <ToastContainer />
                     <div className="col-xl-5 col-lg-6 col-md-10">
                         <div className="card">
                             <div className="card-header bg-primary">

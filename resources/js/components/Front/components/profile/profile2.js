@@ -9,10 +9,9 @@ import Rewiews from './reviews';
 import { getDataForProfile } from '../../actions/profileData';
 import { hasCookie, getCookie } from '../../../services/cookieServise';
 import ProfileContext from '../../context/profileContext';
-import { ToastContainer } from 'react-toastify';
 import Header from '../../../Admin/components/common/header';
 import Footer from '../../../Admin/components/common/footer';
-import { createOrderServise } from '../../../services/orderServices';
+
 const Profile2 = () => {
 
 

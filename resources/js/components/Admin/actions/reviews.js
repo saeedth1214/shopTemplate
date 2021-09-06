@@ -1,5 +1,6 @@
 import { getReviews, RemoveReviewById, createReviewData, changeStatusReviewService, getUserReviewServise, createReplyMessageService } from "../../services/reviewService";
-import { errorNoti, warrningNoti, successNoti } from "../../utility/messageNotifcation";
+import { toastr } from "react-redux-toastr";
+
 import { hasCookie, getCookie } from "../../services/cookieServise";
 
 export const getAllReviews = () => {
@@ -23,21 +24,21 @@ export const CreateReview = review => {
     return async () => {
         try {
             if (!hasCookie('accessToken')) {
-                warrningNoti("لطفا برای ثبت نظر لاگین کنید");
+                toastr.warning("لطفا برای ثبت نظر لاگین کنید");
                 return;
             }
 
             let pattern = /^\s+|\s+$/gm;
             let newComment = review.comment.replace(pattern, "");
             if (newComment.length === 0) {
-                warrningNoti("لطفا یک مقدار معتبر وارد کنید");
+                toastr.warning("لطفا یک مقدار معتبر وارد کنید");
                 return;
             }
             review = { ...review, user_id: getCookie("user").id }
 
             const response = await createReviewData(review);
             if (response.status === 201) {
-                successNoti(response.data.msg);
+                toastr.success(response.data.msg);
             }
         } catch (error) {
 
@@ -53,13 +54,12 @@ export const RemoveReview = reviewId => {
 
     return async (dispatch, getState) => {
         try {
-            const { data,status} = await RemoveReviewById(reviewId);
-            // console.log(response);
+            const { data, status } = await RemoveReviewById(reviewId);
             if (status === 202) {
                 const reviews = [...getState().reviews];
                 const filterReview = reviews.filter(item => item.id !== reviewId);
                 dispatch({ type: "REMOVE_REVIEW", payload: filterReview });
-                successNoti(data.msg);
+                toastr.success(data.msg);
             }
 
         } catch (error) {
@@ -75,7 +75,7 @@ export const changeStatusReview = (reviewId) => {
         try {
             const { status, data } = await changeStatusReviewService(reviewId);
             if (status === 202) {
-                successNoti(data.msg);
+                toastr.success(data.msg);
             }
         } catch (error) {
             console.log(error.response);
@@ -88,7 +88,6 @@ export const changeStatusReview = (reviewId) => {
 export const getUserReview = uId => {
     return async  dispatch => {
         const { data } = await getUserReviewServise(uId);
-        // console.log(response);
         dispatch({ type: "GET_REVIEWS", payload: data });
 
     }
@@ -103,14 +102,13 @@ export const createReplyMessageAction = reply => {
         try {
             if (reply.reply.length === 0) {
 
-                warrningNoti("لطفا مقدار معتبری را وارد کنید");
+                toastr.warning("لطفا مقدار معتبری را وارد کنید");
                 return;
             }
             const { status, data } = await createReplyMessageService(reply);
 
             if (status === 200) {
-
-                successNoti(data.msg);
+                toastr.success(data.msg);
             }
             console.log(response);
         } catch (error) {

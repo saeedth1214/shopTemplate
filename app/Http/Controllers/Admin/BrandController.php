@@ -46,10 +46,14 @@ class BrandController extends Controller
 
     public function category_brand()
     {
-        $brands=$this->brandRepo->getcategoryBrands(request()->cid);
-        if ($brands) {
-            return response($brands, 200);
+        try {
+            $brands = $this->brandRepo->getcategoryBrands(request()->cid);
+            if ($brands) {
+                return ResponsesFacade::success($brands);
+            }
+            return ResponsesFacade::faild();
+        } catch (\Throwable $th) {
+            return ResponsesFacade::faild();
         }
-        return response(["msg"=>"سرور دچار مشکل شده است"]);
     }
 }

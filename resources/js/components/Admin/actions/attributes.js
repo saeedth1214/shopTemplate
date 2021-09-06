@@ -1,5 +1,5 @@
 import { getAttributes, createAttributeData, deleteAttribute, updateAttributeService } from "../../services/attributeService";
-import { successNoti, errorNoti, warrningNoti } from "../../utility/messageNotifcation";
+import { toastr } from "react-redux-toastr";
 
 export const getAllattributes = () => {
 
@@ -9,7 +9,7 @@ export const getAllattributes = () => {
             const { data } = await getAttributes();
             console.log(data);
             dispatch({ type: "GET_ATTRIBUTES", payload: data });
-            
+
         } catch (error) {
             console.log(error);
         }
@@ -24,14 +24,11 @@ export const createAttribute = attribute => {
 
         try {
             if (attribute.slug.length === 0 || attribute.title.length === 0) {
-                warrningNoti("لطفا مقادیر معتبری را وارد کنید");
+                toastr.warning("لطفا مقادیر معتبری را وارد کنید");
                 return;
             }
-        const { data ,status} = await createAttributeData(attribute);
-
-        // console.log(data,status);
-    
-            if (status === 201) { 
+            const { data, status } = await createAttributeData(attribute);
+            if (status === 201) {
                 const attributes = [...getState().attributes];
                 const newAttribute = {
                     id: attributes.length == 0 ? data.data.id : attributes[attributes.length - 1].id + 1,
@@ -40,17 +37,17 @@ export const createAttribute = attribute => {
                     type: attribute.type,
                 };
                 attributes.push(newAttribute);
-                 dispatch({ type: "CREATE_ATTRIBUTE", payload: attributes });    
-                successNoti(data.msg);
+                dispatch({ type: "CREATE_ATTRIBUTE", payload: attributes });
+                toastr.success(data.msg);
             }
-            
-        
+
+
         } catch (error) {
-            
+
             console.log(error);
         }
 
-        
+
     }
 }
 
@@ -62,20 +59,17 @@ export const removeAttribute = id => {
 
         try {
             const { data, status } = await deleteAttribute(id);
-            // console.log(data, status);
             if (status === 202) {
                 const attributes = [...getState().attributes];
                 const newAttributes = attributes.filter(attribute => parseInt(attribute.id) !== parseInt(id));
-                 dispatch({ type: "REMOVE_ATTRIBUTE", payload: newAttributes });
-                successNoti(data.msg);
-            } else { 
-                warrningNoti(data.msg);
+                dispatch({ type: "REMOVE_ATTRIBUTE", payload: newAttributes });
+                toastr.success(data.msg);
+            } else {
+                toastr.warning(data.msg);
             }
 
         } catch (error) {
-
-            console.log(error);
-            // errorNoti(error.response.msg);
+            toastr.error(error.response.msg);
         }
 
     }
@@ -89,18 +83,15 @@ export const updateAttribute = (attribute) => {
         try {
             const { status } = await updateAttributeService(attribute);
 
-            // console.log(response);
             if (status === 204 || status === 202) {
                 const attributes = [...getState().attributes];
                 const filterAttribute = attributes.filter(item => parseInt(item.id) !== parseInt(attribute.id));
-                console.log(filterAttribute,"aa");
-                 dispatch({ type: "UPDATE_ATTRIBUTE", payload: [...filterAttribute, attribute] });
-                warrningNoti("یک ویژگی ویرایش شد");
+                console.log(filterAttribute, "aa");
+                dispatch({ type: "UPDATE_ATTRIBUTE", payload: [...filterAttribute, attribute] });
+                toastr.warning("یک ویژگی ویرایش شد");
             }
         } catch (error) {
-            console.log(error.response);
-            // errorNoti("مشکلی سمت سرور پیش آمده است");
-
+            toastr.error("مشکلی سمت سرور پیش آمده است");
         }
     }
 }

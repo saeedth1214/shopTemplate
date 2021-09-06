@@ -32,6 +32,10 @@ Route::group(['prefix'=>'front',"namespace" => $frontNs], function () {
     Route::post("user/changeProfileImage", "UserController@changeProfileImage")->middleware("auth:api");
     Route::get("user/logout", "AuthController@logout");
 
+
+    // brand
+    Route::get("category_brand", "BrandController@category_brand");
+
 //
     //review
     Route::get("comments/{pid}", "ReviewController@getProductComment");
@@ -53,7 +57,7 @@ Route::group(['prefix'=>'front',"namespace" => $frontNs], function () {
 Route::group(['prefix'=>'admin',"namespace"=>$adminNs,"middleware"=>['auth:api','isAdmin']], function () {
     // brand
     Route::get("brands/{catId}", "BrandController@getBrand");
-    Route::get("category_brand", "BrandController@category_brand")->withoutMiddleware(['isAdmin']);
+    Route::get("category_brand", "BrandController@category_brand");
     Route::post("brand/create", "BrandController@create");
     Route::post("brand/remove", "BrandController@remove");
 
