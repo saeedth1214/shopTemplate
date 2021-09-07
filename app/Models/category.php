@@ -31,7 +31,7 @@ class category extends Model
 
     public function products()
     {
-        return $this->hasMany(product::class, "category_id")->get(["products.title", 'products.category_id', 'products.id', 'products.price', "products.brand_id"]);
+        return $this->hasMany(product::class, "category_id")->get(["products.title", 'products.category_id', 'products.id', 'products.price', "products.brand_id", "products.quantity"]);
     }
     // public function getParentAttribute()
     // {

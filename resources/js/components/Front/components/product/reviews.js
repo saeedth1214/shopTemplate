@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { CreateReview } from '../../../Admin/actions/reviews';
-import { ToastContainer } from 'react-toastify';
 import SingleProContext from '../../context/singlePro';
 
 const Reviews = () => {
@@ -40,7 +39,6 @@ const Reviews = () => {
     return (
         <div className="tab-pane fade" id="ipills-profile" role="tabpanel" aria-labelledby="ipills-profile-tab">
             <div className="container">
-                <ToastContainer />
                 <div className="be-comment-block">
                     {
                         comments.length > 0 ? comments.map(comment => {

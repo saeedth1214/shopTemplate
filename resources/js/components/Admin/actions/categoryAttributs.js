@@ -1,5 +1,6 @@
 import { createCatAttrs, getcatAttr, getAttributeByCateID } from "../../services/categoryAttributesService";
-import { errorNoti, successNoti, warrningNoti } from "../../utility/messageNotifcation";
+import { toastr } from "react-redux-toastr";
+
 
 
 export const getAllCateAttr = id => {
@@ -10,7 +11,8 @@ export const getAllCateAttr = id => {
                 dispatch({ type: "GET_CATEATTR", payload: data })
             }
         } catch (error) {
-            console.log(error.response);
+            toastr.error(error.response.msg);
+
         }
     }
 }
@@ -26,12 +28,8 @@ export const getAttributeByCatID = id => {
                 dispatch({ type: "GET_CATEATTR", payload: data })
             }
         } catch (error) {
-
-            console.log(error.response);
+            toastr.error(error.response.msg);
         }
-
-
-
     }
 }
 
@@ -44,16 +42,15 @@ export const createCategoryAttributes = catAttr => {
             if (parseInt(catAttr.category) !== 0 && catAttr.attrs.length !== 0) {
                 const { data, status } = await createCatAttrs(catAttr);
                 if (status === 201) {
-                    successNoti(data.msg);
+                    toastr.success(data.msg);
                     dispatch({ type: "GET_CATEATTR", payload: [] })
 
                 }
             } else {
-                warrningNoti("لطفا یک دسته بندی یا ویژگی انتخاب کنید  ");
+                toastr.warning("لطفا یک دسته بندی یا ویژگی انتخاب کنید");
             }
         } catch (error) {
-
-            errorNoti(error.response.msg);
+            toastr.error(error.response.msg);
         }
 
     }

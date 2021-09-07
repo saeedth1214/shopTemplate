@@ -14,9 +14,11 @@ import SinglePro from "../components/Products/SinglePro";
 import Category_Attribute from "../components/category/Category_attribute";
 import Review from "../components/review/review";
 import Profile from "../components/Users/Profile";
+import ReduxToastr from 'react-redux-toastr'
 
 const Home = () => {
     return (
+        <>
         <BrowserRouter>
             <Layout>
                 <Switch>
@@ -34,6 +36,17 @@ const Home = () => {
                 </Switch>
             </Layout>
         </BrowserRouter>
+        
+         <ReduxToastr
+                timeOut={ 2000 }
+                newestOnTop={ false }
+                preventDuplicates
+                getState={ (state) => state.toastr } // This is the default
+                transitionIn="fadeIn"
+                transitionOut="fadeOut"
+                progressBar
+                closeOnToastrClick />
+                </>
     )
 }
 export default Home;

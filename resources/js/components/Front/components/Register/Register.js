@@ -5,9 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RegisterUser } from '../../../Admin/actions/user';
 import { hasCookie } from '../../../services/cookieServise';
 import Layout from '../layout/layout';
-import { ToastContainer } from 'react-toastify';
-
-
 const Register = () => {
 
     const [fullname, setUserName] = useState("");
@@ -53,8 +50,7 @@ const Register = () => {
     return (
         !auth && !hasCookie('user') ?
             <Layout>
-                <div className="container d-flex flex-column justify-content-between vh-100">
-                    <ToastContainer />
+                <div className="container d-flex flex-column justify-content-between">
                     <div className="row justify-content-center mt-5">
                         <div className="col-xl-5 col-lg-6 col-md-10">
                             <div className="card">

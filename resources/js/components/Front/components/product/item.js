@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Slider from '../../../Admin/components/common/Slider';
 import { addItem } from '../../actions/card';
-import { ToastContainer } from "react-toastify";
 import _ from "lodash";
 import SingleProContext from '../../context/singlePro';
 
@@ -19,10 +18,8 @@ const Item = () => {
         let image = ('urls' in product) ? product.urls : null
         const item = { product, image, quantity };
 
-        console.log(item);
         dispatch(addItem(item));
     }
-
     const increaseQuantity = () => {
 
         let num = quantity + 1;
@@ -43,13 +40,10 @@ const Item = () => {
     return (
 
         <Fragment>
-        
             {
-
                 (product !== undefined && product.id === parseInt(id))
                     ?
                     <section id="singlePro" className="rtl">
-                        <ToastContainer />
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12">

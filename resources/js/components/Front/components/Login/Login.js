@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { userLoginFront } from '../../../Admin/actions/user';
 import { hasCookie } from '../../../services/cookieServise';
-
 import Layout from '../layout/layout';
+
 
 
 const Login = () => {
@@ -15,7 +15,7 @@ const Login = () => {
     const [rememberMe, setRemember] = useState(false);
     const [, forceUpdate] = useState();
 
-    const auth = useSelector(state=>state.auth);
+    const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
 
     const changeRememberMe = e => {

@@ -102,7 +102,7 @@ class ProductRepositories extends BaseRepository
     {
         return $this->model::query()
             ->join('orders', 'products.id', 'orders.product_id')
-            ->select(DB::raw( 'count(orders.product_id) as orderCount,products.id,products.title,products.brand_id,products.price'))
+            ->select(DB::raw( 'count(orders.product_id) as orderCount,products.id,products.title,products.brand_id,products.price,products.quantity'))
             ->groupBy("product_id")
             ->orderBy('orderCount', 'desc')
             ->limit(10)->get();
@@ -111,7 +111,7 @@ class ProductRepositories extends BaseRepository
     { 
         return $this->model::query()
             ->join('orders', 'products.id', 'orders.product_id')
-            ->select(DB::raw( 'SUM(orders.total_items) as totalSells,products.id,products.title,products.brand_id,products.price'))
+            ->select(DB::raw( 'SUM(orders.total_items) as totalSells,products.id,products.title,products.brand_id,products.price,products.quantity'))
             ->groupBy("product_id")
             ->orderBy('totalSells', 'desc')
             ->limit(10)->get();

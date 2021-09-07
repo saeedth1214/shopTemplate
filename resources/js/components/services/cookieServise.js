@@ -22,14 +22,21 @@ export const hasCookie = key => {
 
 export const removeCookie = keys => {
 
+    // cookies.removeAll();
+
+    // console.log(Array.isArray(keys), 'keys');
     if (Array.isArray(keys)) {
         keys.map(key => {
             if (hasCookie(key)) {
-                cookies.remove(key);
+                cookies.remove(key, {
+                    path: '/'
+                });
             }
         })
     } else {
-        return cookies.remove(key);
+        return cookies.remove(key, {
+            path: '/'
+        });
     }
 }
 

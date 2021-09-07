@@ -1,5 +1,6 @@
 import { createMediaServise, getAllMediaServise, removeMediaServise, changeImageTypeServise } from "../../services/mediaServices";
-import { errorNoti, successNoti, warrningNoti } from "../../utility/messageNotifcation";
+import { toastr } from "react-redux-toastr";
+
 
 export const CreateMedia = media => {
 
@@ -21,7 +22,7 @@ export const CreateMedia = media => {
                 }
                 medias.push(newMedia);
                 dispatch({ type: "CREATE_MEDIA", payload: medias });
-                successNoti(data.msg);
+                toastr.success(data.msg);
 
             }
         } catch (error) {
@@ -55,18 +56,13 @@ export const removeMedia = image => {
     return async (dispatch, getState) => {
 
         try {
-            // const response = await removeMediaServise(image);
-            // console.log(response);
             const { data, status } = await removeMediaServise(image);
 
             if (status === 202) {
-
                 let medias = [...getState().medias];
                 let newMedias = medias.filter(item => parseInt(item.mid) !== parseInt(image.id));
-
                 dispatch({ type: "REMOVE_MEDIA", payload: newMedias });
-
-                successNoti(data.msg);
+                toastr.success(data.msg);
             }
         } catch (error) {
             console.log(error);
@@ -85,7 +81,7 @@ export const changeImageType = type => {
             const { data, status } = await changeImageTypeServise(type);
 
             if (status === 202) {
-                successNoti(data.msg);
+                toastr.success(data.msg);
             }
         } catch (error) {
             console.log(error.response);

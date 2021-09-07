@@ -1,7 +1,7 @@
 import { createOrderServise } from "../../services/orderServices";
-import { successNoti, errorNoti } from "../../utility/messageNotifcation";
 import _ from "lodash";
 import { hasCookie } from "../../services/cookieServise";
+import { toastr } from "react-redux-toastr";
 
 
 export const createOrderAction = card => {
@@ -17,17 +17,15 @@ export const createOrderAction = card => {
                     orders.push(order);
                 });
                 const response = await createOrderServise(orders);
-
-                console.log(response);
-                if (response.data === 1) {
+                if (response.data.data === 1) {
                     localStorage.removeItem("card");
                 }
                 let card = localStorage.getItem("card");
                 dispatch({ type: "GET_ITEMS", payload: !_.isNull(card) ? JSON.parse(card) : [] });
-                successNoti(response.data.msg);
+                toastr.success(response.data.msg);
                 return;
             }
-            errorNoti("برای ایجاد سفارش باید لاگین باشید");
+            toastr.warning("برای ایجاد سفارش باید لاگین باشید");
         } catch (error) {
             console.log(error.response, 'err');
         }

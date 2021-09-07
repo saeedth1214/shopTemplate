@@ -1,5 +1,5 @@
-import { getAllBrandServise, createBrandServise, removeBrandServise, getCategoryBrandServise } from "../../services/brandServices";
-import { successNoti, errorNoti, warrningNoti } from "../../utility/messageNotifcation";
+import { getAllBrandServise, createBrandServise, removeBrandServise, getCategoryBrandServise, getCategoryBrandFrontServise } from "../../services/brandServices";
+import { toastr } from "react-redux-toastr";
 
 
 export const getBrands = catId => {
@@ -38,6 +38,26 @@ export const getCategoryBrands = cid => {
         }
     }
 }
+export const getCategoryBrandsFront = cid => {
+    return async dispatch => {
+
+        try {
+            if (cid !== 0) {
+                const { data, status } = await getCategoryBrandFrontServise(cid);
+                if (status === 200) {
+                    dispatch({ type: "GET_BRANDS", payload: data });
+                }
+            } else {
+                dispatch({ type: "GET_BRANDS", payload: [] });
+            }
+
+        } catch (error) {
+
+            console.log(error.response);
+        }
+    }
+}
+
 
 export const createBrand = brand => {
     return async (dispatch, getState) => {
@@ -45,16 +65,16 @@ export const createBrand = brand => {
         console.log(brand);
         try {
             if (brand.catBrand === 0) {
-                warrningNoti("لطفا یک دسته بندی انتخاب کنید");
+                toastr.warning("لطفا یک دسته بندی انتخاب کنید");
                 return;
             }
 
             if (brand.brandSlug.length === 0 || brand.brandTitle.length === 0) {
-                warrningNoti("لطفا مقادیر معتبری را وارد کنید");
+                toastr.warning("لطفا مقادیر معتبری را وارد کنید");
                 return;
             }
 
-            const { data,status} = await createBrandServise(brand);
+            const { data, status } = await createBrandServise(brand);
             if (status === 201) {
                 const brands = [...getState().brands];
                 const category = getState().categories.find(cat => cat.id == brand.catBrand);
@@ -66,7 +86,7 @@ export const createBrand = brand => {
                 };
                 brands.push(newbrand);
                 dispatch({ type: "CREATE_BRAND", payload: brands });
-                successNoti(data.msg);
+                toastr.success(data.msg);
             }
         } catch (error) {
             console.log(error.response, "brand error");
@@ -76,9 +96,7 @@ export const createBrand = brand => {
 
 export const removeBrand = brandId => {
     return async dispatch => {
-
         const { data } = await removeBrandServise(brandId);
-        console.log(data);
         dispatch({ type: "REMOVE_BRANDS", payload: data });
     }
 }

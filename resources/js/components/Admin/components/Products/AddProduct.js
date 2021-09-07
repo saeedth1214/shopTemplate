@@ -5,9 +5,8 @@ import { getAttributeByCatID } from '../../actions/categoryAttributs';
 import Brands from '../category/brands';
 import { getBrands } from '../../actions/brand';
 import { createProduct } from '../../actions/products';
-
 import simpleReactValidator from "simple-react-validator";
-import { warrningNoti } from '../../../utility/messageNotifcation';
+
 
 
 const AddProduct = () => {
@@ -95,7 +94,7 @@ const AddProduct = () => {
             );
             if (message != -1) {
 
-                warrningNoti("لطفا مقادیری را برای ویژگی محصول انتخاب کنید");
+                // warrningNoti("لطفا مقادیری را برای ویژگی محصول انتخاب کنید");
                 return;
             }
 

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { getAllcategories } from '../../../Admin/actions/category';
 import { getProductsByCategory } from '../../../Admin/actions/products';
-import { getCategoryBrands } from '../../../Admin/actions/brand';
+import { getCategoryBrands, getCategoryBrandsFront } from '../../../Admin/actions/brand';
 import BrandFilter from './brandFilter';
 const Categoryfilter = () => {
     const categories = useSelector(state => state.categories);
@@ -18,7 +18,7 @@ const Categoryfilter = () => {
         e.preventDefault();
 
         dispatch(getProductsByCategory(parseInt(e.target.value)));
-        dispatch(getCategoryBrands(parseInt(e.target.value)));
+        dispatch(getCategoryBrandsFront(parseInt(e.target.value)));
     }
     return (
 

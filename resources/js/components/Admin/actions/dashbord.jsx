@@ -1,6 +1,5 @@
 import { getDashbordDetailsService, getDashbordNewOrdersService, getAllOrdersService, getBestSelletService, get_monthly_sales_servise } from "../../services/dashbordService";
-import { errorNoti } from "../../utility/messageNotifcation";
-
+import { toastr } from "react-redux-toastr";
 
 export const getAllOrders = () => {
 
@@ -25,7 +24,7 @@ export const getDasboardDetails = () => {
 
         } catch (error) {
 
-            errorNoti(error.response.data.msg);
+            toastr.error(error.response.data.msg);
         }
     }
 }

@@ -24,6 +24,8 @@ import { loadingBarReducer } from "react-redux-loading-bar";
 import { monthlySalesReducer } from "./monthlySales";
 import { redirectReducer } from "./redicrectReducer";
 import { notfoundReducers } from "./notFound";
+import { profileImageReducers } from "../../Front/reducers/profileImageReducers";
+import { reducer as  toastrReducer } from "react-redux-toastr";
 
 export const reducers = combineReducers({
     product: productReducer,
@@ -50,5 +52,7 @@ export const reducers = combineReducers({
     profileData: profileReducer,
     loadingBar: loadingBarReducer,
     redirect: redirectReducer,
-    notFound:notfoundReducers
+    notFound: notfoundReducers,
+    profileImage: profileImageReducers,
+    toastr: toastrReducer
 });

@@ -1,10 +1,14 @@
 
-import { successNoti, warrningNoti } from "../../utility/messageNotifcation";
-import { isNull } from "util";
+import _ from "lodash";
+
+// import { successNotify } from "../../utility/messageNotifcation";
+import { toastr } from "react-redux-toastr";
+
+
 export const getItems = () => {
     return (dispatch) => {
         let card = localStorage.getItem("card");
-        dispatch({ type: "GET_ITEMS", payload: !isNull(card) ? JSON.parse(card) : [] });
+        dispatch({ type: "GET_ITEMS", payload: !_.isNull(card) ? JSON.parse(card) : [] });
     }
 }
 
@@ -12,6 +16,7 @@ export const addItem = item => {
 
     return (dispatch) => {
 
+        // console.log(localStorage.getItem('card'),'addItem');
         if (localStorage.getItem('card')) {
             let cardItems = JSON.parse(localStorage.getItem("card"));
             let product = cardItems.find(pro => pro.product.id == item.product.id);
@@ -19,7 +24,9 @@ export const addItem = item => {
             if (product) {
                 let sum = parseInt(item.quantity) + parseInt(product.quantity);
                 if (sum > parseInt(product.product.quantity)) {
-                    warrningNoti("این تعداد از محصول وجود ندارد");
+                    toastr.warning('', 'این تعداد از محصول وجود ندارد')
+                    // dispatch({ type: "NOTIFICATION", payload: { message: "این تعداد از محصول وجود ندارد", type: "warning" } })
+                    // dispatch({ type: "NOTIFICATION", payload: "sssss" })
                     return;
                 }
                 product.quantity = sum;
@@ -34,7 +41,13 @@ export const addItem = item => {
             localStorage.setItem("card", JSON.stringify([item]));
         }
         dispatch({ type: "ADD_ITEM", payload: JSON.parse(localStorage.getItem('card')) });
-        successNoti('یک مورد به سبد خرید شما اضافه شد');
+        // dispatch({ type: "NOTIFICATION", payload: "sssssaaa"})
+        // dispatch({ type: "NOTIFICATION", payload: { message: "یک مورد به سبد خرید شما اضافه شد", type: "success" } })
+        toastr.success('', 'یک مورد به سبد خرید شما اضافه شد')
+        // toast.success('یک مورد به سبد خرید شما اضافه شد', {
+        //     containerId: "item"
+        // });
+        // successNoti('یک مورد به سبد خرید شما اضافه شد');
 
     }
 }
@@ -70,11 +83,17 @@ export const decreaseCountItem = index => {
 }
 
 export const removeItem = index => {
+
     return (dispatch) => {
         let cardItems = JSON.parse(localStorage.getItem("card"));
         let newCardItems = cardItems.filter(item => item.product.id !== index);
         localStorage.setItem('card', JSON.stringify(newCardItems));
         dispatch({ type: "GET_ITEMS", payload: JSON.parse(localStorage.getItem('card')) });
-        warrningNoti('یک مورد از سبد خرید شما کم شد');
+        toastr.warning('', 'یک مورد از سبد خرید شما کم شد')
+        // toast.warning('یک مورد از سبد خرید شما کم شد', {
+        //     containerId: "card"
+        // });
+
+        // warrningNoti('یک مورد از سبد خرید شما کم شد');
     }
 }
